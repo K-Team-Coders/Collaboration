@@ -1,14 +1,25 @@
 <template>
   <div>
     <TheHeader />
-    <div class="flex">
-      <Panel label="Всего постаматов" icon="box" views="222" />
-      <Panel label="Всего отзывов" icon="chat" views="10000+" />
-      <Panel label="Всего партнеров" icon="parther" views="25" />
+    <div class="flex justify-center mt-3 gap-4">
+      <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
+      <Panel label="Всего отзывов" icon="chat" :views="allpostamats.length" />
+      <Panel label="Всего партнеров" icon="parther" views="3" />
     </div>
-    <DownloadButton label="Импорт в .xls" icon="document"/>
-    <div class="flex justify-center p-10">
-      <Map :postamat_list="allpostamats"/>
+
+    <!-- <Table2 /> //Это мой, он красивее вроде :0 как -->
+    <div class="flex justify-between items-start">
+      <div class="w-3/5 pl-3 mt-3">
+        <Map :postamat_list="allpostamats" />
+      </div>
+      <div class=" w-2/5 mt-2 mr-4">
+        <div class="flex">
+          <Table />
+        </div>
+        <div class="flex justify-end mr-2">
+          <DownloadButton label="Импорт в .xls" icon="document" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +30,8 @@ import TheFooter from "@/components/TheFooter.vue";
 import Panel from "@/components/Panel.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
+import Table from "@/components/Table.vue";
+import Table2 from "@/components/Table2.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 export default {
   components: {
@@ -26,34 +39,29 @@ export default {
     TheHeader,
     Panel,
     Map,
-    DownloadButton
+    DownloadButton,
+    Table2,
+    Table,
   },
-  data () {
-    return{
-      id: 2,
-        usertext: 'Все классно',
-        grade: 5,
-        adress: '',
-        reviewdate: '2023-05-20T11:07:15.590Z',
-        clusername: 1,
-        article: 'Пиво',
-        seller: 'БТК-Групп',
-        latitude: 0,
-        longtitude: 0,
-    }
+  data() {
+    return {};
   },
   computed: {
     ...mapGetters(["allpostamats"]),
+    postamat_count() {
+      let adress_list = [];
+      this.allpostamats.forEach((element) => adress_list.push(element.adress));
+      console.log(adress_list);
+      let unique_postamat_list = Array.from(new Set(adress_list));
+      console.log(unique_postamat_list.length);
+      return unique_postamat_list.length;
+    },
   },
   methods: {
-    ...mapActions([
-      "GET_ALLPOSTAMATS",
-    ])
-
+    ...mapActions(["GET_ALLPOSTAMATS"]),
   },
-  async created(){
-    this.GET_ALLPOSTAMATS()
-
-  }
+  async created() {
+    this.GET_ALLPOSTAMATS();
+  },
 };
 </script>

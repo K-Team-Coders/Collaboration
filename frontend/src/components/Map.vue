@@ -1,7 +1,7 @@
 <template>
   <yandex-map :coords="coords" :settings="settings" :zoom="5" >
     <ymap-marker v-for="item in postamat_list" :key="item.id"
-      :coords="[item.longitude, item.latitude]" :markerId="item.id" :cluster-name="1" :balloon="{ header: item.adress }"
+      :coords="[item.longitude, item.latitude]" :markerId="item.id" :cluster-name="1"
     />
   </yandex-map>
 </template>
@@ -10,7 +10,7 @@
 import { yandexMap, ymapMarker } from "vue-yandex-maps";
 
 const settings = {
-  apiKey: "06856716-badb-42a6-9815-4c8e630af04b",
+  apiKey: "afad2baa-cde2-44e1-8d21-0e93b892a275",
   lang: "ru_RU",
   coordorder: "latlong",
   enterprise: false,
@@ -19,12 +19,13 @@ const settings = {
 
 export default {
   components: { yandexMap, ymapMarker },
-  
+  computed: {
+    
+  },
   data() {
     return {
       coords: [55.753215, 36.622504],
       settings: settings,
-
     }},
   props: {
     postamat_list: Array,
