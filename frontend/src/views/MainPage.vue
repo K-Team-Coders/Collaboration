@@ -6,9 +6,10 @@
       <Panel label="Всего отзывов" icon="chat" views="10000+" />
       <Panel label="Всего партнеров" icon="parther" views="25" />
     </div>
-    <DownloadButton label="Импорт в .xls" icon="document"/>
+    <DownloadButton label="Импорт в .xls" icon="document" />
+    <Table adress="Пошел в жопу" review="222" rating="222" problem="222"/>
     <div class="flex justify-center p-10">
-      <Map :postamat_list="allpostamats"/>
+      <Map :postamat_list="allpostamats" />
     </div>
   </div>
 </template>
@@ -19,6 +20,7 @@ import TheFooter from "@/components/TheFooter.vue";
 import Panel from "@/components/Panel.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
+import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 export default {
   components: {
@@ -26,34 +28,31 @@ export default {
     TheHeader,
     Panel,
     Map,
-    DownloadButton
+    DownloadButton,
+    Table,
   },
-  data () {
-    return{
+  data() {
+    return {
       id: 2,
-        usertext: 'Все классно',
-        grade: 5,
-        adress: '',
-        reviewdate: '2023-05-20T11:07:15.590Z',
-        clusername: 1,
-        article: 'Пиво',
-        seller: 'БТК-Групп',
-        latitude: 0,
-        longtitude: 0,
-    }
+      usertext: "Все классно",
+      grade: 5,
+      adress: "",
+      reviewdate: "2023-05-20T11:07:15.590Z",
+      clusername: 1,
+      article: "Пиво",
+      seller: "БТК-Групп",
+      latitude: 0,
+      longtitude: 0,
+    };
   },
   computed: {
     ...mapGetters(["allpostamats"]),
   },
   methods: {
-    ...mapActions([
-      "GET_ALLPOSTAMATS",
-    ])
-
+    ...mapActions(["GET_ALLPOSTAMATS"]),
   },
-  async created(){
-    this.GET_ALLPOSTAMATS()
-
-  }
+  async created() {
+    this.GET_ALLPOSTAMATS();
+  },
 };
 </script>
