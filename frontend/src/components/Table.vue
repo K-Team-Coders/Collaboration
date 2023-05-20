@@ -1,10 +1,11 @@
 <template>
-  <div class="p-2 w-[700px] overflow-x-auto">
+  <div class="p-2 w-[700px] overflow-x-auto ">
     <Vue3EasyDataTable
       table-class-name="customize-table"
       :headers="headers"
       :items="items"
     />
+   
   </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
       ],
       items: [
         {
-          adress: "пр.корелева 62",
+          adress: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti libero, voluptas ut laboriosam eveniet ex? In nostrum cum fugit unde illo ratione dolorum incidunt voluptas velit atque, ipsum repellat illum!",
           review: "1000",
           rating: 9,
           problem: "Рок играет всю ночь",
@@ -59,7 +60,7 @@ export default {
   --easy-table-border: 2px solid #ff1935;
   --easy-table-row-border: 1px solid #000000;
 
-  --easy-table-header-font-size: 16px;
+  --easy-table-header-font-size: 19px;
   --easy-table-header-height: 70px;
   --easy-table-header-font-color: #ffffff;
   --easy-table-header-background-color: #ff1935;
@@ -72,7 +73,7 @@ export default {
   --easy-table-body-row-font-color: #000000;
   --easy-table-body-row-background-color: #ffffff;
   --easy-table-body-row-height: 50px;
-  --easy-table-body-row-font-size: 16px;
+  --easy-table-body-row-font-size: 13px;
 
   --easy-table-body-row-hover-font-color: #000000;
   --easy-table-body-row-hover-background-color: #f4d8d8;
