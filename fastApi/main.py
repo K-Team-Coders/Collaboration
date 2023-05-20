@@ -8,19 +8,25 @@ from fastapi.middleware.cors import CORSMiddleware
 
 conn = 0
 cur = 0
-dockerized = False
+
+
+load_dotenv('../DB.ENV', override=True)
+SOURCE = os.environ.get('SOURCE')
 
 try:     
-    load_dotenv('../DB.ENV')
-    
-    IP=os.environ.get("DOCKER_IP")
+    IP=os.environ.get("HOST_IP")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
     USER=os.environ.get("POSTGRES_USER")
     PASSWORD=os.environ.get("POSTGRES_PASSWORD")
 
-    logger.success(('Docker DB connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
-
+    if SOURCE == 'Local':
+        logger.debug(('Local connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
+    if SOURCE == 'Docker':
+        logger.success(('Docker DB connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
+    if SOURCE == 'Host':
+        logger.success(('Host connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
+    
     conn = psycopg2.connect(
         dbname=DBNAME, 
         host=IP, 
@@ -30,37 +36,11 @@ try:
 
     cur = conn.cursor()
 
-    logger.success('Docker DB connected!')
-    dockerized = True
-
-except Exception as e:
-    logger.error(f'Docker DB connect failed \n {e}!')
-
-if not dockerized:
-    try:
-        load_dotenv('../DB.ENV')
-
-        IP=os.environ.get("HOST_IP")
-        PORT=os.environ.get("PORT")
-        DBNAME=os.environ.get("POSTGRES_DB")
-        USER=os.environ.get("POSTGRES_USER")
-        PASSWORD=os.environ.get("POSTGRES_PASSWORD")
-
-        logger.debug(('Local connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
-        
-        conn = psycopg2.connect(
-            dbname=DBNAME, 
-            host=IP, 
-            user=USER, 
-            password=PASSWORD, 
-            port=PORT)
-
-        cur = conn.cursor()
-
-        logger.success('Local connection established!')
+    logger.success(f'{SOURCE} connected!')
     
-    except Exception as e:
-        logger.error(f'Local connection failed! \n {e}')
+except Exception as e:
+    logger.error(f'{SOURCE} connect failed \n {e}!')
+
 
 app = FastAPI()
 
