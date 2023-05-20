@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-idealRed w-[350px] h-[140px] ml-2 shadow-3xl rounded-lg">
+  <div class="bg-idealRed w-[217px] h-[140px] ml-2 shadow-3xl rounded-lg">
     <div class="bg-[#E5102A] h-[37px] text-center rounded-t-lg">
       <p class="text-white text-lg font-semibold tracking-wider pt-1">
         {{ label }}

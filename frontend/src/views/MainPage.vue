@@ -1,10 +1,31 @@
 <template>
   <div>
     <TheHeader />
-    <div class="flex justify-center mt-3 gap-4">
-      <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
-      <Panel label="Всего отзывов" icon="chat" :views="allpostamats.length" />
-      <Panel label="Всего партнеров" icon="parther" views="3" />
+    <div class="flex ml-3">
+      <div class="">
+        <div class="flex justify-start mt-3 gap-2">
+          <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
+          <Panel
+            label="Всего отзывов"
+            icon="chat"
+            :views="allpostamats.length"
+          />
+          <Panel label="Всего партнеров" icon="parther" views="3" />
+        </div>
+        <div class="w-full mt-1 mr-4">
+          <div class="flex">
+            <Table />
+          </div>
+          <div class="flex justify-start mr-2">
+            <DownloadButton label="Импорт в .xls" icon="document" />
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <div class="pl-2 mt-3">
+          <Map :postamat_list="allpostamats" />
+        </div>
+      </div>
     </div>
 
     <!-- <Table2 /> //Это мой, он красивее вроде :0 как -->
@@ -21,6 +42,8 @@
           <VueTailwindDatepicker :formatter="formatter" v-model="dateValue" />
         </div>
       </div>
+    <div>
+      <Filter />
     </div>
   </div>
 </template>
@@ -29,10 +52,8 @@
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
 import Panel from "@/components/Panel.vue";
-import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
-import Table2 from "@/components/Table2.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 import { ref } from 'vue';
 import VueTailwindDatepicker from 'vue-tailwind-datepicker';
@@ -49,8 +70,8 @@ export default {
     VueTailwindDatepicker,
     Map,
     DownloadButton,
-    Table2,
     Table,
+    Filter,
   },
   data() {
     return {};
