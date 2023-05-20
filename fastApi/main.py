@@ -13,7 +13,7 @@ dockerized = False
 try:     
     load_dotenv('../DB.ENV')
     
-    IP=os.environ.get("HOST_IP")
+    IP=os.environ.get("DOCKER_IP")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
     USER=os.environ.get("POSTGRES_USER")
@@ -57,7 +57,7 @@ if not dockerized:
 
         cur = conn.cursor()
 
-        logger.succes('Local connection established!')
+        logger.success('Local connection established!')
     
     except Exception as e:
         logger.error(f'Local connection failed! \n {e}')
