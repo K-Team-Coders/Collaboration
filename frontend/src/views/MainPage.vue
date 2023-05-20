@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheHeader />
-    <div class="flex">
+    <div class="flex ml-3">
       <div class="">
         <div class="flex justify-start mt-3 gap-2">
           <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
@@ -21,11 +21,14 @@
           </div>
         </div>
       </div>
-      <div class="relative w-1/2 justify-end">
-        <div class="pl-3 mt-3">
+      <div class="w-1/2">
+        <div class="pl-2 mt-3">
           <Map :postamat_list="allpostamats" />
         </div>
       </div>
+    </div>
+    <div>
+      <Filter />
     </div>
   </div>
 </template>
@@ -34,10 +37,12 @@
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
 import Panel from "@/components/Panel.vue";
-import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
+import Filter from "@/components/Filter.vue";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   components: {
     TheFooter,
@@ -46,6 +51,7 @@ export default {
     Map,
     DownloadButton,
     Table,
+    Filter,
   },
   data() {
     return {};
