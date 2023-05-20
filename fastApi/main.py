@@ -11,7 +11,9 @@ cur = 0
 dockerized = False
 
 try:     
-    IP=os.environ.get("IP")
+    load_dotenv('../DB.ENV')
+    
+    IP=os.environ.get("HOST_IP")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
     USER=os.environ.get("POSTGRES_USER")
@@ -38,7 +40,7 @@ if not dockerized:
     try:
         load_dotenv('../DB.ENV')
 
-        IP=os.environ.get("IP")
+        IP=os.environ.get("HOST_IP")
         PORT=os.environ.get("PORT")
         DBNAME=os.environ.get("POSTGRES_DB")
         USER=os.environ.get("POSTGRES_USER")

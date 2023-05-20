@@ -32,9 +32,9 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=some
-      - POSTGRES_PASSWORD=somepassword
-      - POSTGRES_DB=warmonger
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_DB=post
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
