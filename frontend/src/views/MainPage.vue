@@ -2,9 +2,9 @@
   <div>
     <TheHeader />
     <div class="flex">
-      <Panel label="Всего постаматов" icon="box" views="222" />
-      <Panel label="Всего отзывов" icon="chat" views="10000+" />
-      <Panel label="Всего партнеров" icon="parther" views="25" />
+      <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
+      <Panel label="Всего отзывов" icon="chat" :views="allpostamats.length" />
+      <Panel label="Всего партнеров" icon="parther" views="3" />
     </div>
     <DownloadButton label="Импорт в .xls" icon="document" />
     <Table adress="Пошел в жопу" review="222" rating="222" problem="222"/>
@@ -33,20 +33,20 @@ export default {
   },
   data() {
     return {
-      id: 2,
-      usertext: "Все классно",
-      grade: 5,
-      adress: "",
-      reviewdate: "2023-05-20T11:07:15.590Z",
-      clusername: 1,
-      article: "Пиво",
-      seller: "БТК-Групп",
-      latitude: 0,
-      longtitude: 0,
+      
     };
   },
   computed: {
     ...mapGetters(["allpostamats"]),
+    postamat_count(){
+      let adress_list = [];
+      this.allpostamats.forEach(element => adress_list.push(element.adress));
+      console.log(adress_list);
+      let unique_postamat_list = Array.from(new Set(adress_list));
+      console.log(unique_postamat_list.length);
+      return unique_postamat_list.length
+    }
+    
   },
   methods: {
     ...mapActions(["GET_ALLPOSTAMATS"]),

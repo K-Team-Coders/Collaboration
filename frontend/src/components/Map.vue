@@ -1,7 +1,7 @@
 <template>
   <yandex-map :coords="coords" :settings="settings" :zoom="5" >
     <ymap-marker v-for="item in postamat_list" :key="item.id"
-      :coords="[item.longitude, item.latitude]" :markerId="item.id" :cluster-name="1" :balloon-template="balloonTemplate"
+      :coords="[item.longitude, item.latitude]" :markerId="item.id" :cluster-name="1"
     />
   </yandex-map>
 </template>
@@ -20,20 +20,12 @@ const settings = {
 export default {
   components: { yandexMap, ymapMarker },
   computed: {
-    balloonTemplate(item) {
-      return `
-        <h1 class="red">${item.adress}</h1>
-        <p>I am here: ${item.usertext}</p>
-        
-        
-      `
-    }
+    
   },
   data() {
     return {
       coords: [55.753215, 36.622504],
       settings: settings,
-
     }},
   props: {
     postamat_list: Array,
