@@ -17,6 +17,7 @@ export default {
   },
   data() {
     return {
+
       headers: [
         { text: "Адрес постамата", value: "adress", sortable: true },
         { text: "Количество отзывов", value: "review", sortable: true },
@@ -51,6 +52,35 @@ export default {
       ],
     };
   },
+  computed:{
+    postamat_unique_list() {
+      let adress_list = [];
+      this.postamats_list.forEach((element) => adress_list.push(element.adress));
+      console.log(adress_list);
+      let unique_postamat_list = Array.from(new Set(adress_list));
+      console.log(unique_postamat_list.length);
+      return unique_postamat_list;
+    },
+    postamat_table_info_count(){
+      table_info_count = [{
+        adress: '',
+        review: 0,
+        rating: 0,
+        problem: 1,
+      }];
+      this.postamat_unique_list.forEach((element) => {
+        this.postamat_list.forEach((element2) => {
+          if (element = element2.adress) {
+            
+          }
+
+        })
+})
+    }
+  },
+  props:{
+    postamats_list: Array
+  }
 };
 </script>
 

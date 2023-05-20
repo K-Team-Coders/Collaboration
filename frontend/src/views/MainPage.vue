@@ -18,6 +18,7 @@
         </div>
         <div class="flex justify-end mr-2">
           <DownloadButton label="Импорт в .xls" icon="document" />
+          <VueTailwindDatepicker :formatter="formatter" v-model="dateValue" />
         </div>
       </div>
     </div>
@@ -33,11 +34,19 @@ import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import Table2 from "@/components/Table2.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
+import { ref } from 'vue';
+import VueTailwindDatepicker from 'vue-tailwind-datepicker';
+const dateValue = ref([])
+  const formatter = ref({
+    date: 'DD MMM YYYY',
+    month: 'MMM'
+  })
 export default {
   components: {
     TheFooter,
     TheHeader,
     Panel,
+    VueTailwindDatepicker,
     Map,
     DownloadButton,
     Table2,
