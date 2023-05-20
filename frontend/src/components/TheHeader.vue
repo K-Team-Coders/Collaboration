@@ -1,5 +1,5 @@
 <template>
-  <header class="flex w-full justify-between bg-white bg-opacity-95">
+  <header class="flex w-full justify-between bg-white bg-opacity-95 shadow-xl pb-[0.8rem]">
     <div class="w-1/4">
       <div class="flex w-64 bg-white mt-2 ml-2">
         <LogoMain />
