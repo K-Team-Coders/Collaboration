@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 from loguru import logger
 import psycopg2
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 conn = 0
 cur = 0
-
 
 load_dotenv('../DB.ENV', override=True)
 SOURCE = os.environ.get('SOURCE')
@@ -37,7 +37,7 @@ try:
     cur = conn.cursor()
 
     logger.success(f'{SOURCE} connected!')
-    
+
 except Exception as e:
     logger.error(f'{SOURCE} connect failed \n {e}!')
 
@@ -53,6 +53,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def dronescnas():
+    cur.execute(f"SELECT * FROM test")
+    data = cur.fetchall()
+    logger.debug(data)
+
+    return JSONResponse(status_code=200, content={'hello': 'kisel'})
 
 
 @app.get("/getDronesCnas/")
