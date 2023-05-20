@@ -156,13 +156,13 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     latitude, longitude = String2Coords(item.adress)
     clusternumber = String2Cluster(item.usertext)
     article = SomeArticleFromYourSources()
+
     try:
-        reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' '))
-    except Exception:
-        reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' ') + '0')
+        reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' ').split('.')[0])
+    except Exception as e:
+        logger.error(f'Datetime error! \n {e}')
 
-    logger.info(reviewdate)
-
+    # Если данные верны - оправляем на БД
     if latitude != 0.0:
         cur.execute("""
         INSERT INTO reviews 
