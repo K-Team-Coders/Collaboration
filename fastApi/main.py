@@ -5,7 +5,7 @@ from random import randrange
 import psycopg2
 from loguru import logger
 from dotenv import load_dotenv
-from geopy.geocoders import Nominatim
+from geopy.geocoders import Nominatim, Yandex
 
 from typing import Union
 from pydantic import BaseModel
@@ -13,26 +13,33 @@ from fastapi import FastAPI, Response
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
+# Внесение конфига для подключения к БД (не важно где она)
 load_dotenv('../DB.ENV', override=True)
 SOURCE = os.environ.get('SOURCE')
-GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
 
+# Геокодер для отобраджения на карте полученных отзывов
+try:
+    logger.debug('Using API-Yandex GEOCODER')
+    GEOCODER = Yandex(api_key="06856716-badb-42a6-9815-4c8e630af04b", user_agent="POSTAMAT PROJECT")
+except Exception as e:
+    logger.error(e)
+    logger.error('Using default GEOCODER -- OpenStreetMap')
+    GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+
+# Инициализация переменных
 conn = 0
 cur = 0
 
-try:     
+# Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
+try:  
+    # Получение конфига 
     IP=os.environ.get("HOST_IP")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
     USER=os.environ.get("POSTGRES_USER")
     PASSWORD=os.environ.get("POSTGRES_PASSWORD")
 
-    if SOURCE == 'Local':
-        logger.debug(('Local connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
-    if SOURCE == 'Docker':
-        logger.success(('Docker DB connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
-    if SOURCE == 'Host':
-        logger.success(('Host connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
+    logger.debug((f'{SOURCE} connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
     
     conn = psycopg2.connect(
         dbname=DBNAME, 
@@ -56,8 +63,10 @@ def String2Coords(adress):
     except:
         logger.error(f'Wrong adress! \n {adress}')
         return 0.0, 0.0
-
+    
+# Функция - анализ кластера 
 def String2Cluster(usertext):
+    # В разработке
     return randrange(0, 7, 1)
 
 # Заглушка чистой воды, если пользователь обращается не по приложению обратной связи
@@ -91,7 +100,7 @@ def dronescnas():
 def receive():
     cur.execute(f"SELECT * FROM reviews")
     data = cur.fetchall()
-    result = {}
+    result = []
     for index, subdata in enumerate(data):
         usertext = subdata[0]
         mark = subdata[1]
@@ -103,8 +112,8 @@ def receive():
         latitude = subdata[7]
         longitude = subdata[8]
         
-        result.update({
-            index :{
+        result.append({
+                "id": index,
                 "usertext": usertext,
                 "mark": mark,
                 "adress": adress,
@@ -114,8 +123,7 @@ def receive():
                 "seller": seller,
                 "latitude": latitude,
                 "longitude": longitude
-            }
-        })
+            })
 
     return JSONResponse(status_code=200, content=result)
 
