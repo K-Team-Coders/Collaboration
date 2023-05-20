@@ -46,6 +46,7 @@
       <Filter />
     </div>
   </div>
+  </div>
 </template>
 
 <script>
