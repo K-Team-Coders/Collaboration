@@ -13,11 +13,6 @@
         />
         <path d="M100 20.1765H70.7603V49H100V20.1765Z" fill="#FF1935" />
       </g>
-      <defs>
-        <clipPath id="clip0_56_4">
-          <rect width="100" height="49" fill="white" />
-        </clipPath>
-      </defs>
     </svg>
   </a>
 </template>
