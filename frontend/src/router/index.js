@@ -5,14 +5,9 @@ const routes = [
     path: '/',
     name: 'home',
     
-    component: () => import(/* webpackChunkName: "about" */ '../views/MainPage.vue')
+    component: () => import('../views/MainPage.vue')
   },
-  {
-    path: '/drone_table',
-    name: 'drone_table',
-    
-    component: () => import(/* webpackChunkName: "about" */ '../views/TablePage.vue')
-  },
+
 ]
 
 
