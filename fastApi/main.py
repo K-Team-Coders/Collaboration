@@ -1,17 +1,24 @@
 import os
-from dotenv import load_dotenv
+from datetime import datetime
+from random import randrange
 
-from loguru import logger
 import psycopg2
-from fastapi import FastAPI
+from loguru import logger
+from dotenv import load_dotenv
+from geopy.geocoders import Nominatim
+
+from typing import Union
+from pydantic import BaseModel
+from fastapi import FastAPI, Response
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-conn = 0
-cur = 0
-
 load_dotenv('../DB.ENV', override=True)
 SOURCE = os.environ.get('SOURCE')
+GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+
+conn = 0
+cur = 0
 
 try:     
     IP=os.environ.get("HOST_IP")
@@ -41,7 +48,23 @@ try:
 except Exception as e:
     logger.error(f'{SOURCE} connect failed \n {e}!')
 
+# Функции-обертки
+def String2Coords(adress):
+    try:
+        location = GEOCODER.geocode(adress)
+        return location.latitude, location.longitude
+    except:
+        logger.error(f'Wrong adress! \n {adress}')
+        return 0.0, 0.0
 
+def String2Cluster(usertext):
+    return randrange(0, 7, 1)
+
+# Заглушка чистой воды, если пользователь обращается не по приложению обратной связи
+def SomeArticleFromYourSources():
+    return randrange(0, 9999999, 1)
+
+# Бэк
 app = FastAPI()
 
 origins = ["*"]
@@ -54,6 +77,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Тест на подключение
 @app.get("/")
 def dronescnas():
     cur.execute(f"SELECT * FROM test")
@@ -62,42 +86,83 @@ def dronescnas():
 
     return JSONResponse(status_code=200, content={'hello': 'kisel'})
 
-
-@app.get("/getDronesCnas/")
-def dronescnas():
-    cur.execute(f"SELECT * FROM dronescnas")
+# Сбор инфы по карте - адреса, отзывы, их количество и т.д
+@app.get("/getAdminPageData/")
+def receive():
+    cur.execute(f"SELECT * FROM reviews")
     data = cur.fetchall()
-    result = []
+    result = {}
     for index, subdata in enumerate(data):
-        name = subdata[0]
-        country = subdata[1]
-        range_ = subdata[2] * 1000
-        params = subdata[3]
+        usertext = subdata[0]
+        mark = subdata[1]
+        adress = subdata[2]
+        reviewdate = subdata[3]
+        clusternumber = subdata[4]
+        article = subdata[5]
+        seller = subdata[6]
+        latitude = subdata[7]
+        longitude = subdata[8]
         
-        result_subdict = {
-            'id': index,
-            'name': name,
-            'country': country,
-            'range_': range_
-        }
-        result_subdict.update(params)
+        result.update({
+            index :{
+                "usertext": usertext,
+                "mark": mark,
+                "adress": adress,
+                "reviewdate": str(reviewdate),
+                "clusternumber": clusternumber,
+                "article": article,
+                "seller": seller,
+                "latitude": latitude,
+                "longitude": longitude
+            }
+        })
 
-        result.append(result_subdict)
-
-    return result
-
-@app.get('/getSpidersData/')
-def spider():
-    cur.execute("SELECT * FROM spiders")
-    data = cur.fetchall()
-    jsoned = []
-    for index, subdata in enumerate(data):
-        jsoned.append({
-                'spider': subdata[0],
-                'url': subdata[1],
-                "data": subdata[2] 
-            })
-        
-    return jsoned
+    return JSONResponse(status_code=200, content=result)
 
 
+class ReviewFromAnySource(BaseModel):
+    usertext: str
+    mark: float
+    adress: str
+    reviewdate: str
+    clusternumber: Union[int, None] = None
+    article: Union[str, None] = None
+    seller: Union[str, None] = None
+    latitude: Union[float, None] = None
+    longitude: Union[float, None] = None
+
+@app.post("/addReview/")
+def intellegenceReviewProceduring(item: ReviewFromAnySource):
+    # Входной контроль
+    logger.debug('User text -- ' + item.usertext)
+    logger.debug('Mark -- ' + str(item.mark))
+    logger.debug('Adress -- ' + str(item.adress))
+    logger.debug('Review date -- ' + item.reviewdate)
+    logger.debug('Cluster number (Optional) -- ' + str(item.clusternumber))
+    logger.debug('Article (Optianal) -- ' + str(item.article))
+    logger.debug('Seller (Optional) -- ' + str(item.seller))
+    logger.debug('Longitude (Optional) -- ' + str(item.longitude))
+    logger.debug('Latitude (Optional) -- ' + str(item.latitude))
+    
+    # Логика обработки адресов, кластеров +чего-нибудь ещё
+    latitude, longitude = String2Coords(item.adress)
+    clusternumber = String2Cluster(item.usertext)
+    article = SomeArticleFromYourSources()
+    try:
+        reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' '))
+    except Exception:
+        reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' ') + '0')
+
+    logger.info(reviewdate)
+
+    if latitude != 0.0:
+        cur.execute("""
+        INSERT INTO reviews 
+            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude) 
+        VALUES 
+            (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+        (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude))    
+        conn.commit()
+        return Response(status_code=201)
+    else:
+        return Response(status_code=422)
