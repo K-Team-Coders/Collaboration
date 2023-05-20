@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'TT_Firs_Neue':['TTFirsNeue']
+        'TT_Firs_Neue':['TTFirsNeue-Regular']
       },
       colors:{
         'idealWhite':'#f5f5f5',
@@ -15,8 +15,10 @@ module.exports = {
         'idealDarkGray':'#2F3342',
         'idealSilver':'#E2E7EE',
         'idealLight Gray':'#BFCADA',
+      },
+      boxShadow: {
+        '3xl': '0px 4px 7px 4px rgba(0, 0, 0, 0.25)',
       }
-
     },
   },
   plugins: [],
