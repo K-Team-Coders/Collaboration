@@ -16,15 +16,17 @@ from fastapi.middleware.cors import CORSMiddleware
 # Внесение конфига для подключения к БД (не важно где она)
 load_dotenv('../DB.ENV', override=True)
 SOURCE = os.environ.get('SOURCE')
+GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
 
-# Геокодер для отобраджения на карте полученных отзывов
-try:
-    logger.debug('Using API-Yandex GEOCODER')
-    GEOCODER = Yandex(api_key="06856716-badb-42a6-9815-4c8e630af04b", user_agent="POSTAMAT PROJECT")
-except Exception as e:
-    logger.error(e)
-    logger.error('Using default GEOCODER -- OpenStreetMap')
-    GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+# # Геокодер для отобраджения на карте полученных отзывов
+# try:
+#     e = 1 / 0
+#     logger.debug('Using API-Yandex GEOCODER')
+#     # GEOCODER = Yandex(api_key="06856716-badb-42a6-9815-4c8e630af04b", user_agent="POSTAMAT PROJECT")
+# except Exception as e:
+#     logger.error(e)
+#     logger.error('Using default GEOCODER -- OpenStreetMap')
+#     GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
 
 # Инициализация переменных
 conn = 0
@@ -58,10 +60,11 @@ except Exception as e:
 # Функции-обертки
 def String2Coords(adress):
     try:
-        location = GEOCODER.geocode(adress)
+        location = GEOCODER.geocode(adress, language='ru')
         return location.latitude, location.longitude
-    except:
+    except Exception as e:
         logger.error(f'Wrong adress! \n {adress}')
+        logger.error(e)
         return 0.0, 0.0
     
 # Функция - анализ кластера 
