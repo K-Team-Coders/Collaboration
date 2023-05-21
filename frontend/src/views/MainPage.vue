@@ -6,6 +6,9 @@
     <div class="flex flex-col xl:flex-row">
       <div class="xl:mt-4 xl:ml-4">
         <Filter />
+        <div class="mt-2.5">
+          <Button label="Применить" />
+        </div>
       </div>
       <div class="w-full">
         <div class="ml-4">
@@ -46,17 +49,17 @@
 
 <script>
 import TheHeader from "@/components/TheHeader.vue";
-import TheFooter from "@/components/TheFooter.vue";
 import Panel from "@/components/Panel.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 import Filter from "@/components/Filter.vue";
+import Button from "@/components/Button.vue";
 export default {
   components: {
-    TheFooter,
     TheHeader,
+    Button,
     Panel,
     Filter,
     Map,
