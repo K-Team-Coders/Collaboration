@@ -1,5 +1,5 @@
 <template>
-  <a href="" class="w-52 ml-2">
+  <a href="" class="">
     <svg
       viewBox="0 0 100 49"
       fill="none"

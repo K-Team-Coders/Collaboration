@@ -1,29 +1,39 @@
 <template>
   <div>
-    <TheHeader />
-    <div class="flex">
-      <div class="">
-        <div class="flex justify-start mt-3 gap-2">
-          <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
-          <Panel
-            label="Всего отзывов"
-            icon="chat"
-            :views="allpostamats.length"
-          />
-          <Panel label="Всего партнеров" icon="parther" views="3" />
-        </div>
-        <div class="w-full mt-1 mr-4">
-          <div class="flex">
-            <Table :postamats_list="allpostamats"> </Table>
+    <div class="ml-1">
+      <TheHeader />
+    </div>
+    <div class="flex flex-col xl:flex-row">
+      <div class="w-full">
+        <div class="ml-4">
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 mt-3"
+          >
+            <Panel
+              label="Всего постаматов"
+              icon="box"
+              :views="postamat_count"
+            />
+            <Panel
+              label="Всего отзывов"
+              icon="chat"
+              :views="allpostamats.length"
+            />
+            <Panel label="Всего партнеров" icon="parther" views="3" />
           </div>
-          <div class="flex justify-start mr-2">
-            <DownloadButton label="Импорт в .xls" icon="document" />
+        </div>
+        <div class="w-auto p-[15px]">
+          <div class="flex border-idealRed border-5 rounded-lg">
+            <Map :postamat_list="allpostamats"> </Map>
           </div>
         </div>
       </div>
-      <div class="w-1/2">
-        <div class="pl-3 mt-3">
-          <Map :postamat_list="allpostamats"> </Map>
+      <div class="w-auto">
+        <div class="xl:p-1 p-2">
+          <Table :postamats_list="allpostamats"> </Table>
+        </div>
+        <div class="flex justify-center w-auto mt-2 mb-4">
+          <DownloadButton label="Импорт в .xls" icon="document" />
         </div>
       </div>
     </div>

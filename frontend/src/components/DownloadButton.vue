@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[220px] items-center bg-idealRed mt-1 ml-2 shadow-3xl rounded-lg  hover:bg-[#E5102A]"
+    class="w-auto items-center bg-idealRed mt-1 ml-2 shadow-3xl rounded-lg  hover:bg-[#E5102A]"
   >
     <div class="w-full h-full">
       <div class="flex w-full p-2 items-center">

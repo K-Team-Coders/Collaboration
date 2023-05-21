@@ -1,9 +1,15 @@
 <template>
-  <header class="flex w-full justify-between bg-white bg-opacity-95 shadow-xl pb-[0.8rem]">
-    <div class="w-1/4">
-      <div class="flex w-64 bg-white mt-2 ml-2">
+  <header
+    class="flex justify-center xl:justify-start bg-white bg-opacity-95 shadow-xl pb-[0.5rem]"
+  >
+    <div class="flex flex-col mt-2 xl:flex-row xl:w-1/4 2xl:items-end">
+      <div class="xl:w-20 xl:mt-2 xl:ml-2">
         <LogoMain />
-        <p class="text-2xl ml-4 mt-[0.4rem] font-medium leading-5">
+      </div>
+      <div class="flex items-end">
+        <p
+          class="font-semibold tracking-widest xl:text-2xl xl:ml-3 xl:tracking-widest xl:font-normal xl:leading-5"
+        >
           Московский постамат
         </p>
       </div>
@@ -17,6 +23,6 @@ export default {
   components: {
     LogoMain,
   },
-  props:[]
+  props: [],
 };
 </script>
