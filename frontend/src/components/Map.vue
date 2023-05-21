@@ -1,5 +1,6 @@
 <template>
-  <yandex-map :coords="coords" :settings="settings" :zoom="5">
+  <yandex-map :coords="coords"  :use-object-manager="true"
+      :object-manager-clusterize="true" :settings="settings" :zoom="5">
     <ymap-marker
       v-for="item in postamat_list"
       :key="item.id"
@@ -7,7 +8,7 @@
       :markerId="item.id"
       :cluster-name="1"
       :balloon-template="balloonTemplate(item)"
-      useObjectManager
+     
     />
   </yandex-map>
 </template>
