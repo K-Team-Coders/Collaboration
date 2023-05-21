@@ -42,6 +42,7 @@
         <div class="flex justify-center w-auto mt-2 mb-4">
           <DownloadButton label="Импорт в .xls" icon="document" />
         </div>
+        <RadarChart></RadarChart>
       </div>
     </div>
   </div>
@@ -50,6 +51,7 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import Panel from "@/components/Panel.vue";
+import RadarChart from "@/components/charts/RadarChartApex.vue"
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
@@ -58,6 +60,7 @@ import Filter from "@/components/Filter.vue";
 import Button from "@/components/Button.vue";
 export default {
   components: {
+    RadarChart,
     TheHeader,
     Button,
     Panel,
