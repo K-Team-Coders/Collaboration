@@ -21,6 +21,7 @@
     "v-network-graph": "^0.6.9",
     "vue": "^3.2.13",
     "vue-chartjs": "^4.1.2",
+    "vue-datepicker-ui": "^3.1.1",
     "vue-router": "^4.0.3",
     "vue-sidebar-menu-akahon": "^0.1.4",
     "vue-tailwind-datepicker": "^1.4.4",
