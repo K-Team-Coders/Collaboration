@@ -12,6 +12,7 @@
           />
           <Panel label="Всего партнеров" icon="parther" views="3" />
         </div>
+        <Filter></Filter>
         <div class="w-full mt-1 mr-4">
           <div class="flex">
             <Table :postamats_list="allpostamats"> </Table>
@@ -38,11 +39,13 @@ import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
+import  Filter  from "@/components/Filter.vue";
 export default {
   components: {
     TheFooter,
     TheHeader,
     Panel,
+    Filter,
     // VueTailwindDatepicker,
     Map,
     DownloadButton,
