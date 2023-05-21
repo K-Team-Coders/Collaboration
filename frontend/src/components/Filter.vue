@@ -1,7 +1,7 @@
 <template>
 <div>
     <h2>Фильтры</h2>
-    <Datepicker range  show-clear-button v-model="filter.selectedDate" lang="ru"/>
+    <Datepicker range placeholder="Выберите период" show-clear-button v-model="filter.selectedDate" lang="ru"/>
     <span>Выбранная дата: {{ filter.selectedDate }}</span>
     <h3>Проблема</h3>
   <div id="v-model-multiple-checkboxes">

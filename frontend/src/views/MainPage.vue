@@ -28,6 +28,7 @@
           </div>
         </div>
       </div>
+    <Filter> </Filter>
       <div class="w-auto">
         <div class="xl:p-1 p-2">
           <Table :postamats_list="allpostamats"> </Table>
