@@ -48,14 +48,13 @@ import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
-import  Filter  from "@/components/Filter.vue";
+import Filter from "@/components/Filter.vue";
 export default {
   components: {
     TheFooter,
     TheHeader,
     Panel,
     Filter,
-    // VueTailwindDatepicker,
     Map,
     DownloadButton,
     Table,
