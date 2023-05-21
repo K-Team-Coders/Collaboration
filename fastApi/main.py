@@ -1,6 +1,9 @@
 import os
-from datetime import datetime
+import re
+import pickle
+from pathlib import Path
 from random import randrange
+from datetime import datetime
 
 import psycopg2
 from loguru import logger
@@ -13,20 +16,35 @@ from fastapi import FastAPI, Response
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
+import gensim
+from clasterisation.miniBatch import MiniBatch
+
+# Загрузка предобученных моделей обработки текста.
+path = Path().cwd().joinpath('clasterisation')
+minibatchkmeans = 0
+word2vec = gensim.models.Word2Vec.load(str(path.joinpath('word2vec.model')))
+with open(str(path.joinpath('model.pkl')), 'rb') as f:
+    minibatchkmeans = pickle.load(f)
+logger.success('Model loading succesful!')
+
 # Внесение конфига для подключения к БД (не важно где она)
 load_dotenv('../DB.ENV', override=True)
 SOURCE = os.environ.get('SOURCE')
-GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+GEOCODER = os.environ.get('GEOCODER')
 
-# # Геокодер для отобраджения на карте полученных отзывов
-# try:
-#     e = 1 / 0
-#     logger.debug('Using API-Yandex GEOCODER')
-#     # GEOCODER = Yandex(api_key="06856716-badb-42a6-9815-4c8e630af04b", user_agent="POSTAMAT PROJECT")
-# except Exception as e:
-#     logger.error(e)
-#     logger.error('Using default GEOCODER -- OpenStreetMap')
-#     GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+# Геокодер для отобраджения на карте полученных отзывов
+if GEOCODER == 'YANDEX':
+    try:
+        GEOCODER = Yandex(api_key=os.environ.get('YANDEX_API'), user_agent="POSTAMAT PROJECT")
+        logger.success('Using API-Yandex GEOCODER')
+    except Exception as e:
+        logger.error(e)
+elif GEOCODER == 'DEFAULT':
+    try:
+        GEOCODER = Nominatim(user_agent="POSTAMAT PROJECT")
+        logger.success('Using default OpenStreetMap GEOCODER ')
+    except Exception as e:
+        logger.error(e)
 
 # Инициализация переменных
 conn = 0
@@ -41,7 +59,7 @@ try:
     USER=os.environ.get("POSTGRES_USER")
     PASSWORD=os.environ.get("POSTGRES_PASSWORD")
 
-    logger.debug((f'{SOURCE} connection started \n', IP, PORT, DBNAME, USER, PASSWORD, ' - env variables!'))
+    logger.debug(f'{SOURCE} connection started, {IP}, {PORT}, {DBNAME}, {USER}, {PASSWORD},  - env variables!')
     
     conn = psycopg2.connect(
         dbname=DBNAME, 
@@ -59,18 +77,26 @@ except Exception as e:
 
 # Функции-обертки
 def String2Coords(adress):
+    adress = re.sub(' к. [0-9999],', '', adress)
+    adress = adress.replace('б-р. ', 'бульвар ')
+    adress = adress.replace('ш. ', 'шоссе ')
     try:
         location = GEOCODER.geocode(adress, language='ru')
-        return location.latitude, location.longitude
+        data = location.latitude, location.longitude
+        return True, location.latitude, location.longitude
     except Exception as e:
         logger.error(f'Wrong adress! \n {adress}')
         logger.error(e)
-        return 0.0, 0.0
+        return False, 0.0, 0.0
     
+# Функция - предсказание 
+def String2Classs(usertext):
+    pass
+
 # Функция - анализ кластера 
-def String2Cluster(usertext):
-    # В разработке
-    return randrange(0, 7, 1)
+def String2Cluster(usertext, word2vec, minibatch):
+    result = MiniBatch(usertext, word2vec, minibatch)
+    return result
 
 # Заглушка чистой воды, если пользователь обращается не по приложению обратной связи
 def SomeArticleFromYourSources():
@@ -144,20 +170,12 @@ class ReviewFromAnySource(BaseModel):
 
 @app.post("/addReview/")
 def intellegenceReviewProceduring(item: ReviewFromAnySource):
-    # Входной контроль
-    logger.debug('User text -- ' + item.usertext)
-    logger.debug('Mark -- ' + str(item.mark))
-    logger.debug('Adress -- ' + str(item.adress))
-    logger.debug('Review date -- ' + item.reviewdate)
-    logger.debug('Cluster number (Optional) -- ' + str(item.clusternumber))
-    logger.debug('Article (Optianal) -- ' + str(item.article))
-    logger.debug('Seller (Optional) -- ' + str(item.seller))
-    logger.debug('Longitude (Optional) -- ' + str(item.longitude))
-    logger.debug('Latitude (Optional) -- ' + str(item.latitude))
-    
     # Логика обработки адресов, кластеров +чего-нибудь ещё
-    latitude, longitude = String2Coords(item.adress)
-    clusternumber = String2Cluster(item.usertext)
+    coordsChecker = False
+    coordsChecker, latitude, longitude = String2Coords(item.adress)
+    
+    if item.usertext:
+        clusternumber = int(String2Cluster(item.usertext, word2vec, minibatchkmeans)[0])
     article = SomeArticleFromYourSources()
 
     try:
@@ -166,7 +184,18 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
         logger.error(f'Datetime error! \n {e}')
 
     # Если данные верны - оправляем на БД
-    if latitude != 0.0:
+    if coordsChecker and item.usertext and clusternumber != 999:
+        # Контроль
+        logger.success('User text -- ' + item.usertext)
+        logger.success('Mark -- ' + str(item.mark))
+        logger.success('Adress -- ' + str(item.adress))
+        logger.success('Review date -- ' + str(reviewdate))
+        logger.success('Cluster number (Optional) -- ' + str(clusternumber))
+        logger.success('Article (Optianal) -- ' + str(article))
+        logger.success('Seller (Optional) -- ' + str(item.seller))
+        logger.success('Longitude (Optional) -- ' + str(longitude))
+        logger.success('Latitude (Optional) -- ' + str(latitude))
+
         cur.execute("""
         INSERT INTO reviews 
             (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude) 
