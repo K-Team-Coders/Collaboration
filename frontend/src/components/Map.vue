@@ -7,6 +7,7 @@
       :markerId="item.id"
       :cluster-name="1"
       :balloon-template="balloonTemplate(item)"
+      useObjectManager
     />
   </yandex-map>
 </template>
@@ -15,7 +16,7 @@
 import { yandexMap, ymapMarker } from "vue-yandex-maps";
 
 const settings = {
-  apiKey: "afad2baa-cde2-44e1-8d21-0e93b892a275",
+  apiKey: "06856716-badb-42a6-9815-4c8e630af04b",
   lang: "ru_RU",
   coordorder: "latlong",
   enterprise: false,

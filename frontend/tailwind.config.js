@@ -17,7 +17,7 @@ module.exports = {
         'idealLight Gray':'#BFCADA',
       },
       boxShadow: {
-        '3xl': '0px 4px 7px 4px rgba(0, 0, 0, 0.25)',
+        '3xl': '0px 4px 7px 4px rgba(0, 0, 0, 0.50)',
       }
     },
   },

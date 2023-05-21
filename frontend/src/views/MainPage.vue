@@ -14,7 +14,7 @@
         </div>
         <div class="w-full mt-1 mr-4">
           <div class="flex">
-            <Table />
+            <Table :postamats_list="allpostamats"> </Table>
           </div>
           <div class="flex justify-start mr-2">
             <DownloadButton label="Импорт в .xls" icon="document" />
@@ -23,11 +23,10 @@
       </div>
       <div class="w-1/2">
         <div class="pl-3 mt-3">
-          <Map :postamat_list="allpostamats" />
+          <Map :postamat_list="allpostamats"> </Map>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -57,9 +56,7 @@ export default {
     postamat_count() {
       let adress_list = [];
       this.allpostamats.forEach((element) => adress_list.push(element.adress));
-      console.log(adress_list);
       let unique_postamat_list = Array.from(new Set(adress_list));
-      console.log(unique_postamat_list.length);
       return unique_postamat_list.length;
     },
   },

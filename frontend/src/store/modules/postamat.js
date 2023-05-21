@@ -18,6 +18,7 @@ export default {
     GET_ALLPOSTAMATS: async (context, payload) => {
       let postamats_list = await axios.get('http://26.200.185.61:8080/getAdminPageData/');
       context.commit("SET_ALLPOSTAMATS", postamats_list.data);
+      console.log(postamats_list.data)
       
     },
 }}
