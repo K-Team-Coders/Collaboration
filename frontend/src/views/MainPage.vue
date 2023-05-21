@@ -4,6 +4,9 @@
       <TheHeader />
     </div>
     <div class="flex flex-col xl:flex-row">
+      <div class="xl:mt-4 xl:ml-4">
+        <Filter />
+      </div>
       <div class="w-full">
         <div class="ml-4">
           <div
@@ -28,7 +31,7 @@
           </div>
         </div>
       </div>
-    <Filter> </Filter>
+
       <div class="w-auto">
         <div class="xl:p-1 p-2">
           <Table :postamats_list="allpostamats"> </Table>
