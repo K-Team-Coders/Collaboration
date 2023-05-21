@@ -7,6 +7,12 @@ const routes = [
     
     component: () => import('../views/MainPage.vue')
   },
+  {
+    path: '/datamarking',
+    name: 'datamarking',
+    
+    component: () => import('../components/DataMark.vue')
+  },
 
 ]
 
