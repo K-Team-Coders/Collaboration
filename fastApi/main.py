@@ -115,15 +115,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Тест на подключение
-@app.get("/")
-def dronescnas():
-    cur.execute(f"SELECT * FROM test")
-    data = cur.fetchall()
-    logger.debug(data)
-
-    return JSONResponse(status_code=200, content={'hello': 'kisel'})
-
 # Сбор инфы по карте - адреса, отзывы, их количество и т.д
 @app.get("/getAdminPageData/")
 def receive():
@@ -155,7 +146,6 @@ def receive():
             })
 
     return JSONResponse(status_code=200, content=result)
-
 
 class ReviewFromAnySource(BaseModel):
     usertext: str
@@ -206,3 +196,58 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
         return Response(status_code=201)
     else:
         return Response(status_code=422)
+    
+@app.get("/getFormDatasetElement/")
+def datasetFormer():
+    # Подсчитываем сколько строк в таблице
+    cur.execute("""SELECT COUNT(*) FROM rawdataset;""")
+    result = cur.fetchall()
+    for index, data in enumerate(result):
+        result = data[0]
+
+    # Выбираем случайную строку
+    randomRow = randrange(1, result, 1)
+    cur.execute(f"""SELECT * FROM rawdataset WHERE id = {randomRow};""")
+    row = cur.fetchall()
+    for index, subdata in enumerate(row):
+        usertext = subdata[0]
+        mark = subdata[1]
+        adress = subdata[2]
+        reviewdate = subdata[3]
+        clusternumber = subdata[4]
+        article = subdata[5]
+        seller = subdata[6]
+        latitude = subdata[7]
+        longitude = subdata[8]
+        id_ = subdata[9]
+    # Удаляем строчку с такими данными
+
+    # cur.execute(f"""DELETE FROM rawdataset WHERE id = {id_}""")
+    # conn.commit()
+
+    jsoned = {
+        "usertext": usertext, 
+        "mark": mark,
+        "adress" :adress, 
+        "reviewdate": str(reviewdate),
+        "clusternumber": clusternumber, 
+        "article": article, 
+        "seller": seller, 
+        "latitude": latitude, 
+        "longitude": longitude,
+        "id": id_
+    }
+
+    return JSONResponse(content=jsoned, status_code=200)
+
+@app.post("/addFormDatasetElement/")
+def datasetFormer(item: ReviewFromAnySource):
+    # Подсчитываем сколько строк в таблице
+    cur.execute("""SELECT COUNT(*) FROM rawdataset;""")
+    result = cur.fetchall()
+    for index, data in enumerate(result):
+        result = data[0]
+
+    # Выбираем случайную строку
+    randomRow = randrange(1, result, 1)
+    cur.execute("""SELECT * FROM rawdataset WHERE id = 5;""")
