@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="w-auto p-[15px]">
-          <div class="flex border-idealRed border-5 rounded-lg">
+          <div class="flex shadow-3xl  border-idealRed border-5 rounded-lg">
             <Map :postamat_list="allpostamats"> </Map>
           </div>
         </div>
