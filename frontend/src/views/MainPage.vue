@@ -1,26 +1,33 @@
 <template>
   <div>
     <TheHeader />
-    <div class="flex justify-center mt-3 gap-4">
-      <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
-      <Panel label="Всего отзывов" icon="chat" :views="allpostamats.length" />
-      <Panel label="Всего партнеров" icon="parther" views="3" />
-    </div>
-
-    <!-- <Table2 /> //Это мой, он красивее вроде :0 как -->
-    <div class="flex justify-between items-start">
-      <div class="w-3/5 pl-3 mt-3">
-        <Map :postamat_list="allpostamats" />
-      </div>
-      <div class=" w-2/5 mt-2 mr-4">
-        <div class="flex">
-          <Table />
+    <div class="flex">
+      <div class="">
+        <div class="flex justify-start mt-3 gap-2">
+          <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
+          <Panel
+            label="Всего отзывов"
+            icon="chat"
+            :views="allpostamats.length"
+          />
+          <Panel label="Всего партнеров" icon="parther" views="3" />
         </div>
-        <div class="flex justify-end mr-2">
-          <DownloadButton label="Импорт в .xls" icon="document" />
+        <div class="w-full mt-1 mr-4">
+          <div class="flex">
+            <Table />
+          </div>
+          <div class="flex justify-start mr-2">
+            <DownloadButton label="Импорт в .xls" icon="document" />
+          </div>
+        </div>
+      </div>
+      <div class="w-1/2">
+        <div class="pl-3 mt-3">
+          <Map :postamat_list="allpostamats" />
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -31,16 +38,15 @@ import Panel from "@/components/Panel.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
-import Table2 from "@/components/Table2.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 export default {
   components: {
     TheFooter,
     TheHeader,
     Panel,
+    // VueTailwindDatepicker,
     Map,
     DownloadButton,
-    Table2,
     Table,
   },
   data() {
