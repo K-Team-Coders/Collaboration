@@ -8,7 +8,8 @@
       v-model="filter.selectedDate"
       lang="ru"
     />
-    <p class="text-lg font-bold tracking-wide p-2">Проблема</p>
+    <p class="text-lg font-semibold mt-2 mb-1">Фильтры</p>
+    <p class="text-lg font-bold tracking-wide ml-2 mb-1">Проблема</p>
     <div id="v-model-multiple-checkboxes" class="">
       <div class="ml-2">
         <input
