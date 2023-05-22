@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="w-full h-full">
-            <div class="flex w-full p-2 items-center">
-                <p class="w-3/4 text-black text-xl font-semibold text-center">
+            <div class="flex flex-col  w-full justify-center items-center">
+                <p class="font-bold text-3xl p-4">
                     Отзыв: {{ get_review.usertext }}
                 </p>
-                <p class="w-3/4 text-black text-xl font-semibold text-center">
+                <p class="font-bold text-3xl p-4">
                     Рейтинг: {{ get_review.mark }}
                 </p>
                 <div class="flex justify-end mr-2 ">
@@ -90,13 +90,13 @@ export default {
 
 <style>
 .demo {
-    font-family: sans-serif;
-    border: 1px solid #eee;
-    border-radius: 2px;
-    padding: 20px 30px;
-    margin-top: 1em;
-    margin-bottom: 40px;
-    user-select: none;
-    overflow-x: auto;
+  font-family: sans-serif;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  padding: 20px 30px;
+  margin-top: 1em;
+  margin-bottom: 40px;
+  user-select: none;
+  overflow-x: auto;
 }
 </style>
