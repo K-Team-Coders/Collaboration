@@ -102,6 +102,8 @@ def String2Cluster(usertext, word2vec, minibatch):
 def SomeArticleFromYourSources():
     return randrange(0, 9999999, 1)
 
+
+
 # Бэк
 app = FastAPI()
 
@@ -115,9 +117,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Классы для работы с POST-запросами
+# Получение отзыва с универсальныго источника (generic для всех остальных)
+class ReviewFromAnySource(BaseModel):
+    usertext: str
+    mark: float
+    reviewdate: str
+    adress: Union[str, None] = None
+    clusternumber: Union[int, None] = None
+    article: Union[str, None] = None
+    seller: Union[str, None] = None
+    latitude: Union[float, None] = None
+    longitude: Union[float, None] = None
+
+# Получение отзыва с телеграм-бота в котором пользователь укажет проблему и свои ПнД
+class ReviewFromTelegramBot(ReviewFromAnySource):
+    username: str
+    chatid: str
+    classnumber: int
+
+# Фича с разметкой данных для улучшения работы Bert
+class ReviewFromDatasetFormer(ReviewFromAnySource):
+    classnumber: int
+    id_: int
+
 # Сбор инфы по карте - адреса, отзывы, их количество и т.д
 @app.get("/getAdminPageData/")
-def receive():
+def adminPage():
     cur.execute(f"SELECT * FROM reviews")
     data = cur.fetchall()
     result = []
@@ -147,17 +173,7 @@ def receive():
 
     return JSONResponse(status_code=200, content=result)
 
-class ReviewFromAnySource(BaseModel):
-    usertext: str
-    mark: float
-    adress: str
-    reviewdate: str
-    clusternumber: Union[int, None] = None
-    article: Union[str, None] = None
-    seller: Union[str, None] = None
-    latitude: Union[float, None] = None
-    longitude: Union[float, None] = None
-
+# API для добавления универсального отзыва с обработкой ГЕОЛОКАЦИИ + КЛАСТЕРИЗАЦИИ + ВАШ ИСТОЧНИК НОМЕРА ЗАКАЗА
 @app.post("/addReview/")
 def intellegenceReviewProceduring(item: ReviewFromAnySource):
     # Логика обработки адресов, кластеров +чего-нибудь ещё
@@ -196,9 +212,48 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
         return Response(status_code=201)
     else:
         return Response(status_code=422)
-    
+
+# API для добавления отзыва из Телеграм-бота
+@app.post("/addTelegramReview/")
+def intellegenceTelegramReviewProceduring(item: ReviewFromTelegramBot):
+
+    # Логика обработки адресов, кластеров +чего-нибудь ещё   
+    article = SomeArticleFromYourSources()
+
+    try:
+        reviewdate = datetime.fromtimestamp(item.reviewdate)
+    except Exception as e:
+        logger.error(f'Datetime error! \n {e}')
+
+    # Если данные верны - оправляем на БД
+    if item.usertext:
+        # Контроль
+        logger.success('User text -- ' + item.usertext)
+        logger.success('Mark -- ' + str(item.mark))
+        logger.success('Adress -- ' + str(item.adress))
+        logger.success('Review date -- ' + str(reviewdate))
+        logger.success('Telegram User Name -- ' + str(item.username))
+        logger.success('Telegram User Chat ID (for bot) -- ' + str(item.chatid))
+        logger.success('Telegram Class number -- ' + str(item.classnumber))
+        logger.success('Article (Optional) -- ' + str(article))
+        logger.success('Seller (Optional) -- ' + str(item.seller))
+
+        # В РАЗРАБОТКУ
+        # cur.execute("""
+        # INSERT INTO reviews 
+        #     (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude) 
+        # VALUES 
+        #     (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+        # (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude))    
+        # conn.commit()
+
+        return Response(status_code=201)
+    else:
+        return Response(status_code=422)
+
+# API для датасета (получение случайной строчки из БД)
 @app.get("/getFormDatasetElement/")
-def datasetFormer():
+def getDatasetFormerElement():
     # Подсчитываем сколько строк в таблице
     cur.execute("""SELECT COUNT(*) FROM rawdataset;""")
     result = cur.fetchall()
@@ -220,11 +275,17 @@ def datasetFormer():
         latitude = subdata[7]
         longitude = subdata[8]
         id_ = subdata[9]
-    # Удаляем строчку с такими данными
 
-    # cur.execute(f"""DELETE FROM rawdataset WHERE id = {id_}""")
-    # conn.commit()
+    # Для статистики
+    results = []
+    for classIndex in range(0,5,1):
+        cur.execute(f"""SELECT COUNT(*) FROM xdataset WHERE classnumber = {classIndex};""")
+        result = cur.fetchall()
+        subresult = result[0][0]
+        results.append(subresult)
 
+    logger.debug("Dataset balance -- " + str(results))
+    
     jsoned = {
         "usertext": usertext, 
         "mark": mark,
@@ -235,19 +296,41 @@ def datasetFormer():
         "seller": seller, 
         "latitude": latitude, 
         "longitude": longitude,
-        "id": id_
+        "id_": id_,
+        "stats": results
     }
 
     return JSONResponse(content=jsoned, status_code=200)
 
+# API для датасета (добавление в таблицу с выборкой + удаление из сырых данных)
 @app.post("/addFormDatasetElement/")
-def datasetFormer(item: ReviewFromAnySource):
-    # Подсчитываем сколько строк в таблице
-    cur.execute("""SELECT COUNT(*) FROM rawdataset;""")
-    result = cur.fetchall()
-    for index, data in enumerate(result):
-        result = data[0]
+def addDatasetFormerElement(item: ReviewFromDatasetFormer):
+    
+    # Если данные верны - оправляем на БД
+    if item.usertext:
+        # Контроль
+        logger.success('User text -- ' + item.usertext)
+        logger.success('ID -- ' + str(item.id_))
+        logger.success('Mark -- ' + str(item.mark))
+        logger.success('Adress -- ' + str(item.adress))
+        logger.success('Review date -- ' + str(item.reviewdate))
+        logger.success('Cluster number (Optional) -- ' + str(item.clusternumber))
+        logger.success('Article (Optianal) -- ' + str(item.article))
+        logger.success('Seller (Optional) -- ' + str(item.seller))
+        logger.success('Longitude (Optional) -- ' + str(item.longitude))
+        logger.success('Latitude (Optional) -- ' + str(item.latitude))    
+        logger.success('Marked class -- ' + str(item.classnumber))    
+            
+    # Удаляем строчку с такими данными
+    cur.execute(f"""DELETE FROM rawdataset WHERE id = {item.id_};""")
+    conn.commit()
 
-    # Выбираем случайную строку
-    randomRow = randrange(1, result, 1)
-    cur.execute("""SELECT * FROM rawdataset WHERE id = 5;""")
+    cur.execute("""
+        INSERT INTO xdataset 
+            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
+        VALUES 
+            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+        (item.usertext, str(item.mark), item.adress, item.reviewdate, item.clusternumber, item.article, item.seller, item.longitude, item.latitude, item.classnumber))    
+    conn.commit()
+
+    return Response(status_code=201)
