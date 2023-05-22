@@ -1,19 +1,24 @@
 <template>
   <div>
-    <div class="w-full h-full">
-      <div class="flex w-full p-2 items-center">
-        <p class="w-3/4 text-black text-xl font-semibold text-center">
-          Отзыв: {{ get_review }}
+    <div class="flex w-full h-full">
+      <div class="flex flex-col  w-full justify-center items-center">
+        <p class="font-bold text-3xl p-4">Отзыв</p>
+        <p class="text-black text-2xl w-3/5 font-base text-center">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio id ea
+          nobis maxime. Minima alias ratione tenetur perferendis nihil sapiente
+          voluptates eos dolorem, aut nobis aperiam natus nam quaerat optio?
+          {{ get_review }}
         </p>
-        <div class="flex justify-end mr-2"></div>
       </div>
     </div>
     <div class="demo">
-      <Button label="1 - все ок" />
-      <Button label="2 - проблема с товаром" />
-      <Button label="3 - проблема с доставкой" />
-      <Button label="4 - проблема с постаматом" />
-      <Button label="5 - проблема со сроками" />
+      <div class="flex gap-2 justify-center">
+        <Button label="1 - все ок" />
+        <Button label="2 - проблема с товаром" />
+        <Button label="3 - проблема с доставкой" />
+        <Button label="4 - проблема с постаматом" />
+        <Button label="5 - проблема со сроками" />
+      </div>
     </div>
   </div>
 </template>
