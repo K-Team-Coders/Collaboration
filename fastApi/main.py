@@ -1,6 +1,8 @@
 import os
 import re
 import pickle
+import numpy as np
+import collections
 from pathlib import Path
 from random import randrange
 from datetime import datetime
@@ -49,7 +51,7 @@ elif GEOCODER == 'DEFAULT':
 # Инициализация переменных
 conn = 0
 cur = 0
-
+old_stats = 0
 # Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
 try:  
     # Получение конфига 
@@ -102,6 +104,19 @@ def String2Cluster(usertext, word2vec, minibatch):
 def SomeArticleFromYourSources():
     return randrange(0, 9999999, 1)
 
+def getAdressStats(result):
+    stats = []
+    adresses = collections.Counter([x['adress'] for x in result])
+    unique_adresses = list(set(adresses.elements()))
+    for adress in unique_adresses:
+        substats = {
+            'adress': adress,
+            'stars': np.mean([float(subresult['mark']) for subresult in result if subresult['adress'] == adress]),
+            'textnumbers': len([subresult['usertext'] for subresult in result if subresult['adress'] == adress]),
+            # 'problem': collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress])[0]
+        }
+        stats.append(substats)
+    return stats
 
 
 # Бэк
@@ -144,7 +159,7 @@ class ReviewFromDatasetFormer(ReviewFromAnySource):
 # Сбор инфы по карте - адреса, отзывы, их количество и т.д
 @app.get("/getAdminPageData/")
 def adminPage():
-    cur.execute(f"SELECT * FROM reviews")
+    cur.execute(f"SELECT * FROM xdataset")
     data = cur.fetchall()
     result = []
     for index, subdata in enumerate(data):
@@ -157,7 +172,8 @@ def adminPage():
         seller = subdata[6]
         latitude = subdata[7]
         longitude = subdata[8]
-        
+        classnumber = subdata[9]
+
         result.append({
                 "id": index,
                 "usertext": usertext,
@@ -168,10 +184,18 @@ def adminPage():
                 "article": article,
                 "seller": seller,
                 "latitude": latitude,
-                "longitude": longitude
+                "longitude": longitude,
+                "classnumber": classnumber
             })
+    
+    adressStats = getAdressStats(result)
 
-    return JSONResponse(status_code=200, content=result)
+    total_data = {
+        "data": result,
+        'adressStats': adressStats
+    }
+
+    return JSONResponse(status_code=200, content=total_data)
 
 # API для добавления универсального отзыва с обработкой ГЕОЛОКАЦИИ + КЛАСТЕРИЗАЦИИ + ВАШ ИСТОЧНИК НОМЕРА ЗАКАЗА
 @app.post("/addReview/")
@@ -261,28 +285,60 @@ def getDatasetFormerElement():
         result = data[0]
 
     # Выбираем случайную строку
-    randomRow = randrange(1, result, 1)
-    cur.execute(f"""SELECT * FROM rawdataset WHERE id = {randomRow};""")
-    row = cur.fetchall()
-    for index, subdata in enumerate(row):
-        usertext = subdata[0]
-        mark = subdata[1]
-        adress = subdata[2]
-        reviewdate = subdata[3]
-        clusternumber = subdata[4]
-        article = subdata[5]
-        seller = subdata[6]
-        latitude = subdata[7]
-        longitude = subdata[8]
-        id_ = subdata[9]
+    try:
+        randomRow = randrange(1, result, 1)
+        cur.execute(f"""SELECT * FROM rawdataset WHERE id = {randomRow};""")
+        row = cur.fetchall()
+        for index, subdata in enumerate(row):
+            usertext = subdata[0]
+            mark = subdata[1]
+            adress = subdata[2]
+            reviewdate = subdata[3]
+            clusternumber = subdata[4]
+            article = subdata[5]
+            seller = subdata[6]
+            latitude = subdata[7]
+            longitude = subdata[8]
+            id_ = subdata[9]
 
-    # Для статистики
-    results = []
-    for classIndex in range(0,5,1):
-        cur.execute(f"""SELECT COUNT(*) FROM xdataset WHERE classnumber = {classIndex};""")
-        result = cur.fetchall()
-        subresult = result[0][0]
-        results.append(subresult)
+    except UnboundLocalError as e:
+        logger.error(e)
+        randomRow = randrange(1, result, 1)
+        cur.execute(f"""SELECT * FROM rawdataset WHERE id = {randomRow};""")
+        row = cur.fetchall()
+        for index, subdata in enumerate(row):
+            usertext = subdata[0]
+            mark = subdata[1]
+            adress = subdata[2]
+            reviewdate = subdata[3]
+            clusternumber = subdata[4]
+            article = subdata[5]
+            seller = subdata[6]
+            latitude = subdata[7]
+            longitude = subdata[8]
+            id_ = subdata[9]
+
+    try:
+        # Удаляем строчку с такими данными
+        cur.execute(f"""DELETE FROM rawdataset WHERE id = {id_};""")
+        conn.commit()
+    except Exception as e:
+        logger.error(e)
+        conn.rollback()
+
+    # Для статистики и отслеживания сколько экземпляров для классов есть.
+    # Поможет когда будете создавать свой датасет на своих отзывах
+    try:
+        results = []
+        for classIndex in range(0,5,1):
+            cur.execute(f"""SELECT COUNT(*) FROM xdataset WHERE classnumber = {classIndex};""")
+            result = cur.fetchall()
+            subresult = result[0][0]
+            results.append(subresult)
+        old_stats = results
+    except psycopg2.ProgrammingError as e:
+        logger.error(e)
+        results = old_stats
 
     logger.debug("Dataset balance -- " + str(results))
     
@@ -320,17 +376,17 @@ def addDatasetFormerElement(item: ReviewFromDatasetFormer):
         logger.success('Longitude (Optional) -- ' + str(item.longitude))
         logger.success('Latitude (Optional) -- ' + str(item.latitude))    
         logger.success('Marked class -- ' + str(item.classnumber))    
-            
-    # Удаляем строчку с такими данными
-    cur.execute(f"""DELETE FROM rawdataset WHERE id = {item.id_};""")
-    conn.commit()
 
-    cur.execute("""
-        INSERT INTO xdataset 
-            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
-        VALUES 
-            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
-        (item.usertext, str(item.mark), item.adress, item.reviewdate, item.clusternumber, item.article, item.seller, item.longitude, item.latitude, item.classnumber))    
-    conn.commit()
-
+    try:
+        cur.execute("""
+            INSERT INTO xdataset 
+                (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
+            VALUES 
+                (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+            (item.usertext, str(item.mark), item.adress, item.reviewdate, item.clusternumber, item.article, item.seller, item.longitude, item.latitude, item.classnumber))    
+    except Exception as e:
+        logger.error(e)
+        conn.rollback()
+        return Response(status_code=304)
+    
     return Response(status_code=201)
