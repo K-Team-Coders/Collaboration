@@ -33,23 +33,29 @@
             <Map :postamat_list="allpostamats"> </Map>
           </div>
           <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
-            <RadarChart />
-            <div class="grid grid-cols-3 p-2 ml-2 justify-center gap-2">
+            <RadarChartApex />
+            <div class="grid grid-cols-3 px-3 pb-2 ml-4 justify-center">
               <Panel
                 label="Яндекс.Маркет"
-                classesCard="bg-[#FED42B] border-[#333333] w-[170px] border-3 rounded-xl shadow-cards"
-                classesHat="bg-[#FED42B] rounded-t-lg h-[37px] border-b-2 border-black text-center"
-                classesHatText="text-[#212121] text-xl p-1 font-semibold"
+                classesCard="bg-[#FFFFFF] border-[#333333] w-[170px] border-3 rounded-xl shadow-cards"
+                classesHat="bg-[#FC3C18] rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-white text-xl p-1 font-semibold"
                 icon=""
                 classesBaseIcons="h-0"
                 classesMainDiv="h-[75px] flex justify-center mt-3"
                 classesIcon=""
-                classesMainText="text-6xl text-[#] font-semibold"
+                classesMainText="text-6xl text-black font-semibold"
                 views="100"
               />
               <Panel
                 label="Ozon"
-                style="background: linear-gradient(to bottom right, #005cFF 75%, #F91155 75%);"
+                style="
+                  background: linear-gradient(
+                    to bottom right,
+                    #005cff 75%,
+                    #f91155 75%
+                  );
+                "
                 classesCard="border-[#333333] w-[170px] border-2 shadow-cards rounded-xl"
                 classesHat=" rounded-t-lg h-[37px] border-b-2 border-black text-center"
                 classesHatText="text-white text-3xl -p-1   font-semibold"
@@ -61,15 +67,63 @@
                 views="100"
               />
               <Panel
-                label="Яндекс.Маркет"
-                classesCard="bg-[#FED42B] border-[#333333] w-[170px] border-3 rounded-xl shadow-xl"
-                classesHat="bg-[#FED42B] rounded-t-lg h-[37px] border-b-2 border-black text-center"
-                classesHatText="text-[#212121] text-xl p-1 font-semibold"
+                label="Undefinded"
+                classesCard="bg-[#E5102A] border-[#333333] w-[170px] border-3 rounded-xl shadow-xl"
+                classesHat="rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-[#FFFFFF] text-xl p-1 font-semibold"
                 icon=""
                 classesBaseIcons="h-0"
                 classesMainDiv="h-[75px] flex justify-center mt-3"
                 classesIcon=""
-                classesMainText="text-6xl font-semibold"
+                classesMainText="text-6xl text-white font-semibold"
+                views="100"
+              />
+            </div>
+          </div>
+          <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
+            <BarChart />
+            <div class="grid grid-cols-3 px-3 pb-2 ml-4 justify-center">
+              <Panel
+                label="Яндекс.Маркет"
+                classesCard="bg-[#FFFFFF] border-[#333333] w-[170px] border-3 rounded-xl shadow-cards"
+                classesHat="bg-[#FC3C18] rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-white text-xl p-1 font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl text-black font-semibold"
+                views="100"
+              />
+              <Panel
+                label="Ozon"
+                style="
+                  background: linear-gradient(
+                    to bottom right,
+                    #005cff 75%,
+                    #f91155 75%
+                  );
+                "
+                classesCard="border-[#333333] w-[170px] border-2 shadow-cards rounded-xl"
+                classesHat=" rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-white text-3xl -p-1   font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl font-semibold text-white"
+                views="100"
+              />
+              <Panel
+                label="Undefinded"
+                classesCard="bg-[#E5102A] border-[#333333] w-[170px] border-3 rounded-xl shadow-xl"
+                classesHat="rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-[#FFFFFF] text-xl p-1 font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl text-white font-semibold"
                 views="100"
               />
             </div>
@@ -92,16 +146,18 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import Panel from "@/components/Panel.vue";
-import RadarChart from "@/components/charts/RadarChartApex.vue";
+import RadarChartApex from "@/components/charts/RadarChartApex.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
 import Filter from "@/components/Filter.vue";
 import Button from "@/components/Button.vue";
+import BarChart from "@/components/charts/BarChart.vue";
 export default {
   components: {
-    RadarChart,
+    RadarChartApex,
+    BarChart,
     TheHeader,
     Button,
     Panel,

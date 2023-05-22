@@ -5,6 +5,7 @@
       width="600"
       :options="chartOptions"
       :series="series"
+      type="radar"
     ></apexchart>
   </div>
 </template>
@@ -18,9 +19,6 @@ export default {
   data() {
     return {
       chartOptions: {
-        chart: {
-          type: "radar",
-        },
         title: {
           text: "Проблемы по партнерам",
         },
