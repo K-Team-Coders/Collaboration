@@ -2,7 +2,7 @@
   <div class="w-full mr-3 mt-2 text-xs overflow-x-auto">
     <Vue3EasyDataTable
       table-class-name="customize-table"
-      class="shadow-3xl"
+      class="shadow-cards"
       style="border-radius: 6px"
       :headers="headers"
       :items="items"
@@ -203,7 +203,7 @@ export default {
   --easy-table-body-row-font-size: 13px;
 
   --easy-table-body-row-hover-font-color: #000000;
-  --easy-table-body-row-hover-background-color: #f4d8d8;
+  --easy-table-body-row-hover-background-color: #d7d7d7;
 
   --easy-table-body-item-padding: 10px 15px;
 

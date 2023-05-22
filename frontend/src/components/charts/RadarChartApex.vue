@@ -1,7 +1,8 @@
 <template>
-  <div >
+  <div class="flex">
     <apexchart
-    height="350"
+      height="250"
+      width="600"
       :options="chartOptions"
       :series="series"
     ></apexchart>
@@ -11,35 +12,35 @@
 <script>
 import VueApexCharts from "vue3-apexcharts";
 export default {
-    components: {
+  components: {
     apexchart: VueApexCharts,
   },
   data() {
     return {
       chartOptions: {
         chart: {
-              height: 350,
-              type: 'radar',
-              dropShadow: {
-                enabled: true,
-                blur: 1,
-                left: 1,
-                top: 1
-              }},
-              title: {
-              text: 'Проблемы по партнерам'
-            },
-            stroke: {
-              width: 2
-            },
-            fill: {
-              opacity: 0.1
-            },
-            markers: {
-              size: 0
-            },
+          type: "radar",
+        },
+        title: {
+          text: "Проблемы по партнерам",
+        },
+        stroke: {
+          width: -70,
+        },
+        fill: {
+          opacity: 0.2,
+        },
+        markers: {
+          size: 0,
+        },
         xaxis: {
-          categories: ['Все хорошо', 'Проблема с товаром', 'Проблема с доставкой', 'Проблема с постаматом', 'Проблема со сроками'],
+          categories: [
+            "Все хорошо",
+            "Проблема с товаром",
+            "Проблема с доставкой",
+            "Проблема с постаматом",
+            "Проблема со сроками",
+          ],
         },
       },
       series: [
@@ -58,9 +59,7 @@ export default {
       ],
     };
   },
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

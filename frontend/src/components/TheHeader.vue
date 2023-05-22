@@ -1,7 +1,5 @@
 <template>
-  <header
-    class="flex justify-center xl:justify-start bg-white bg-opacity-95 shadow-xl pb-[0.5rem]"
-  >
+  <header :class="classesHeader">
     <div class="flex flex-col mt-2 xl:flex-row xl:w-1/4 2xl:items-end">
       <div class="xl:w-20 xl:mt-2 xl:ml-2">
         <LogoMain />
@@ -23,6 +21,18 @@ export default {
   components: {
     LogoMain,
   },
-  props: [],
+  data() {
+    return {
+      classesHeader: [
+        "flex",
+        "justify-center",
+        "xl:justify-start",
+        "bg-white",
+        "bg-opacity-95",
+        "shadow-xl",
+        "pb-[0.5rem]",
+      ],
+    };
+  },
 };
 </script>

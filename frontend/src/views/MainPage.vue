@@ -29,20 +29,61 @@
           </div>
         </div>
         <div class="w-auto p-[15px]">
-          <div class="flex shadow-3xl  border-idealRed border-5 rounded-lg">
+          <div class="flex shadow-cards border-idealRed border-5 rounded-lg">
             <Map :postamat_list="allpostamats"> </Map>
+          </div>
+          <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
+            <RadarChart />
+            <div class="grid grid-cols-3 p-2 ml-2 justify-center gap-2">
+              <Panel
+                label="Яндекс.Маркет"
+                classesCard="bg-[#FED42B] border-[#333333] w-[170px] border-3 rounded-xl shadow-cards"
+                classesHat="bg-[#FED42B] rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-[#212121] text-xl p-1 font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl text-[#] font-semibold"
+                views="100"
+              />
+              <Panel
+                label="Ozon"
+                style="background: linear-gradient(to bottom right, #005cFF 75%, #F91155 75%);"
+                classesCard="border-[#333333] w-[170px] border-2 shadow-cards rounded-xl"
+                classesHat=" rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-white text-3xl -p-1   font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl font-semibold text-white"
+                views="100"
+              />
+              <Panel
+                label="Яндекс.Маркет"
+                classesCard="bg-[#FED42B] border-[#333333] w-[170px] border-3 rounded-xl shadow-xl"
+                classesHat="bg-[#FED42B] rounded-t-lg h-[37px] border-b-2 border-black text-center"
+                classesHatText="text-[#212121] text-xl p-1 font-semibold"
+                icon=""
+                classesBaseIcons="h-0"
+                classesMainDiv="h-[75px] flex justify-center mt-3"
+                classesIcon=""
+                classesMainText="text-6xl font-semibold"
+                views="100"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="w-auto">
+      <div class="w-full">
         <div class="xl:p-1 p-2">
           <Table :postamats_list="allpostamats"> </Table>
         </div>
         <div class="flex justify-center w-auto mt-2 mb-4">
           <DownloadButton label="Импорт в .xls" icon="document" />
         </div>
-        <RadarChart></RadarChart>
       </div>
     </div>
   </div>
@@ -51,7 +92,7 @@
 <script>
 import TheHeader from "@/components/TheHeader.vue";
 import Panel from "@/components/Panel.vue";
-import RadarChart from "@/components/charts/RadarChartApex.vue"
+import RadarChart from "@/components/charts/RadarChartApex.vue";
 import { mapActions, mapGetters } from "vuex";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
