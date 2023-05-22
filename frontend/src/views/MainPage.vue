@@ -2,6 +2,7 @@
   <div>
     <div class="ml-1">
       <TheHeader />
+      
     </div>
     <div class="flex flex-col xl:flex-row">
       <div class="xl:mt-4 xl:ml-4">
@@ -145,6 +146,7 @@
 
 <script>
 import TheHeader from "@/components/TheHeader.vue";
+import SideBar from "@/components/SideBar.vue"
 import Panel from "@/components/Panel.vue";
 import RadarChartApex from "@/components/charts/RadarChartApex.vue";
 import { mapActions, mapGetters } from "vuex";
@@ -156,6 +158,7 @@ import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
 export default {
   components: {
+    SideBar,
     RadarChartApex,
     BarChart,
     TheHeader,

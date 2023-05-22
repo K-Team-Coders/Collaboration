@@ -4,7 +4,7 @@
     <ymap-marker
       v-for="item in postamat_list"
       :key="item.id"
-      :coords="[item.longitude, item.latitude]"
+      :coords="[item.latitude, item.longitude]"
       :markerId="item.id"
       :cluster-name="1"
       :balloon-template="balloonTemplate(item)"
@@ -55,11 +55,16 @@ export default {
               >
                 Рейтинг
               </th>
+              <th
+                class="px-1 py-2  hover:bg-[#E5102A]"
+              >
+                Категория
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr
-              class="bg-slate-50 p-1 border-l-2 border-black hover:bg-gray-200"
+              class="bg-slate-50 p-1 border-l border-black hover:bg-gray-200"
             > 
               <td class=" text-xs p-2 border-1 text-gray-900 text-center">
                  ${item.adress}
@@ -69,6 +74,9 @@ export default {
               </td>
               <td class="text-xs p-1 border-1 text-gray-900 text-center">
                  ${item.mark}
+              </td>
+              <td class="text-xs p-1 border-1 text-gray-900 text-center">
+                 ${item.classnumber}
               </td>
             </tr>
           </tbody>
