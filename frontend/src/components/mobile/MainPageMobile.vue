@@ -1,5 +1,7 @@
 <template>
 <body>
+    
+    <PostamatMobileAllGood v-if="button_good == true" ></PostamatMobileAllGood>
     <header class="head">
         <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
     </header>
@@ -10,9 +12,8 @@
             <span>Возникали&nbsp;ли у&nbsp;вас проблемы<br> с&nbsp;получением заказа?</span>
 
             <a >
-                <button  v-if="clicked()" class="button good-button" id="0">Все отлично!</button>
+                <button  @click="button_good = true" class="button good-button" id="0">Все отлично!</button>
             </a>
-            <PostamatMobileAllGood></PostamatMobileAllGood>
             <a >
                 <button  @click="v" class="button" id="1">С постаматом</button>
             </a>
@@ -35,6 +36,8 @@ export default {
   },
 data(){
     return{
+        button_good: false,
+
         mobile_data: {
             id: 0,
             date: 0,
