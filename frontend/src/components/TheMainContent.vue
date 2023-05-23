@@ -19,13 +19,18 @@
         />
       </div>
       <Map :postamat_list="allpostamats.data"> </Map>
+      <div class="flex">
+        <div class="w-full">
+          <ProgressBar />
+        </div>
+      </div>
     </div>
     <div class="px-5 py-3 shadow-innerMax h-full">
       <div class="flex grid-cols-2 gap-1 justify-center">
-        <div class="w-auto">
+        <div class="w-full">
           <RadarChartWithPanels :radardata="allpostamats.marketStats" />
         </div>
-        <div class="flex flex-col gap-1 w-auto">
+        <div class="flex flex-col gap-1 w-full">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
           <BarChartWithPanels :bardata="allpostamats.classStats" />
         </div>
