@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'TT_Firs_Neue':['TTFirsNeue-Regular']
+        'TT_Firs_Neue':['TTFirsNeue-Regular'],
+        'TT_Firs_Neue':['TTFirsNeue-Bold']
+
       },
       colors:{
         'idealWhite':'#f5f5f5',
