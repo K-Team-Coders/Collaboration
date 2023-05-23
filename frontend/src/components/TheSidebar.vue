@@ -8,13 +8,13 @@
         <SidebarNavItem label="Кластерный анализ" icon="microphone" />
         <SidebarNavItem label="Классифик. анализ" icon="box" />
       </div>
-      <Filter />
-      <div class="ml-4 mt-2">
+      <div class="ml-4 mt-3">
         <p class="text-[#E2E7EE] font-bold text-lg">Выберите дату</p>
       </div>
-      <div class="">
+      <div class="mt-2">
         <DatePickerMain />
       </div>
+      <Filter />
       <div class="absolute left-0 bottom-0">
         <Button label="Применить" />
       </div>

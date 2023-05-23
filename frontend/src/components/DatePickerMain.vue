@@ -37,10 +37,10 @@ export default {
 .Datepicker {
   --v-calendar-picker-color: #2f3342;
   --v-calendar-input-bg-color: #ff1935;
-  --v-calendar-select-bg-color: #ff1935;
+  --v-calendar-select-bg-color: #2f3342;
   --v-calendar-border-color: #000000;
   --v-calendar-triangle-color: #000000;
-  --v-calendar-shadow: 0 20px 30px 0 rgba(227, 227, 227, 0.2);
+  --v-calendar-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2);
   --v-calendar-top-shadow: 3px -14px 30px 0px rgba(0, 0, 0, 0.2);
   --v-calendar-text-color: #ffffff;
   --v-calendar-action-color: #ffffff;
@@ -50,12 +50,12 @@ export default {
   --v-calendar-datepicker-icon-size: 1rem;
   --v-calendar-active-bg-color: #ff193400;
   --v-calendar-active-text-color: #ffffff;
-  --v-calendar-range-bg-color: #bfcada;
+  --v-calendar-range-bg-color: #ff1935;
   --v-calendar-view-button-font-weight: 00;
   --v-calendar-view-button-font-size: 1.1rem;
   --v-calendar-range-text-color: #ffffff;
   --v-calendar-range-radius: 100%;
-  --v-calendar-day-hover-bg-color: #bfcada;
+  --v-calendar-day-hover-bg-color: #8c909c;
   --v-calendar-day-width: 45px;
   --v-calendar-day-height: 45px;
   --v-calendar-day-font-size: 0.8rem;

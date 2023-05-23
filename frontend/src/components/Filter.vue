@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-lg font-bold tracking-wide ml-4 mt-4 text-[#E2E7EE]">Проблема</p>
+    <p class="text-lg font-bold tracking-wide ml-4 mt-3 text-[#E2E7EE]">Проблема</p>
     <div id="v-model-multiple-checkboxes" class="ml-4 text-[#E2E7EE] text-[14px]">
       <div class="">
         <input
