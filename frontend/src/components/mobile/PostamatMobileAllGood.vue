@@ -57,10 +57,10 @@
             </div>
         </div>
         <div class="input">
-            <input class="input_comment" type="text" placeholder="Комментарий">
-        <a href="#">
-            <button class="button" id="#">Отправить</button>
-        </a>
+            <textarea class="input_comment" type="text" placeholder="Комментарий"></textarea>
+            <a href="#">
+                <button class="button input_button" id="#">Отправить</button>
+            </a>
         </div>
     </div>
 </template>
@@ -72,68 +72,102 @@ export default {
 </script>
 
 <style>
-@font-face {
-    font-family: "TTFirsNeue-Regular";
-    src: url("../mobile/fonts/TTFirsNeue-Regular.ttf");
-}
+        p {
+            font-family: TTFirsNeue-Regular;
+        }
 
-@font-face {
-    font-family: "../mobile/fonts/TTFirsNeue-Bold.ttf";
-    src: url("");
-}
+        .full-stars {
+            box-sizing: border-box;
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            text-align: start;
+        }
 
-body {
-    margin: 0 auto;
-    font-family: TTFirsNeue-bold;
-    text-align: center;
-}
+        .full-stars .rating-group {
+            display: inline-flex;
+        }
 
-h1 {
-    font-size: 22px;
-}
+        .full-stars input {
+            position: absolute;
+            left: -9999px;
+        }
 
-span {
-    color: #BFCADA;
-    margin-bottom: 20px;
-}
+        .full-stars label {
+            margin: 0;
+            cursor: pointer;
+        }
 
-.head {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
+        .full-stars label svg {
+            margin: 2px;
+            height: 40px;
+            width: 40px;
+            fill: #ff1935;
+            transition: fill 0.3s;
+        }
 
-.main_box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+        .full-stars input:checked~label svg {
+            fill: #FFC5C5;
+        }
 
-.main_box--img {
-    margin-bottom: 20px;
-}
+        .full-stars .rating-group:hover label svg {
+            fill: #ff1935;
+        }
 
-.button {
-    width: 365px;
-    height: 66px;
-    padding: 10px;
-    margin-bottom: 4px;
+        .full-stars .rating-group input:hover~label svg {
+            fill: #FFC5C5;
+        }
 
-    font-family: TTFirsNeue-bold;
-    font-size: 22px;
+        .input {
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            
+        }
 
-    background: #FF1935;
-    color: #f1f1f1;
-    border-radius: 8px;
-    border: none;
-    box-shadow: inset 0px 4px 6px -2px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-}
+        .input_comment {
+            box-sizing: border-box;
+            display: block;
+            min-width: 100%;
+            max-width: 400px;
+            height: calc(10rem + 2px);
+            padding: 0.375rem 0.75rem;
+            margin-bottom: 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #bdbdbd;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
 
+        .input_comment::placeholder {
+            color: #212529;
+            opacity: 0.4;
+        }
 
-.good-button {
-    margin-bottom: 16px;
-    background: #E2E7EE;
-    color: #ff1935;
-}
+        .input_comment:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: #bdbdbd;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+        }
+
+        .input_comment:disabled,
+        .input_comment[readonly] {
+            background-color: #f5f5f5;
+            opacity: 1;
+        }
+
+        .input_button {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+        }
 </style>
