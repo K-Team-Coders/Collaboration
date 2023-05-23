@@ -2,13 +2,13 @@
   <aside :class="classes">
     <div class="">
       <LogoMain />
-      <div class="mt-4">
-        <SidebarNavItem label="Карта" icon="dashboard" />
-        <SidebarNavItem label="Статистика" icon="x" is-active />
-        <SidebarNavItem label="Кластерный анализ" icon="microphone" />
+      <div class="mt-2.5">
+        <SidebarNavItem label="Карта" icon="map" />
+        <SidebarNavItem label="Кластерный анализ" icon="dashboard" is-active />
+        <SidebarNavItem label="Таблица" icon="table" />
         <SidebarNavItem label="Классифик. анализ" icon="box" />
       </div>
-      <div class="ml-4 mt-3">
+      <div class="ml-4">
         <p class="text-[#E2E7EE] font-bold text-lg">Выберите дату</p>
       </div>
       <div class="mt-2">

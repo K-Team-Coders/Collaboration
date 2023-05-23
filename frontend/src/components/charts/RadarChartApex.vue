@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="">
     <apexchart
       height="400"
       width="570"
