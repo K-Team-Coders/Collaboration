@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="w-[363px] p-2">
     <Bar  :chart-data="chartData" />
     <div class="flex items-center justify-center"> 
       <p
