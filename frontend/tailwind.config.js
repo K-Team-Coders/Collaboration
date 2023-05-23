@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./public/index.html",
@@ -8,8 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'TT_Firs_Neue':['TTFirsNeue-Regular'],
-        'TT_Firs_Neue':['TTFirsNeue-Bold']
-
+        'Montserrat':['Montserrat']
       },
       colors:{
         'idealWhite':'#f5f5f5',

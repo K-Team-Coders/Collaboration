@@ -1,17 +1,13 @@
 <template>
-  <div class="w-full mr-3 mt-2 text-xs overflow-x-auto">
+  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards">
     <Vue3EasyDataTable
       table-class-name="customize-table"
-      class="shadow-cards"
       style="border-radius: 6px"
       :headers="headers"
       :items="items"
-      
     />
   </div>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -26,122 +22,47 @@ export default {
       headers: [
         { text: "Адрес постамата", value: "adress", sortable: true },
         { text: "Количество отзывов", value: "review", sortable: true },
-        { text: "Рейтинг", value: "rating", sortable: true },
+        { text: "Средний рейтинг", value: "rating", sortable: true },
         { text: "Категория проблемы", value: "problem", sortable: true },
       ],
       items: [
         {
-          adress: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, libero. Enim fugiat possimus officia dolor quod. In officia dolor pariatur ducimus facere adipisci. Velit tempore, quos eaque aliquam debitis vero?",
+          adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
         {
           adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
         {
           adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
         {
           adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
         {
           adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
         {
           adress: "г.Москва, ул. Королева, д.62",
           review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
+          rating: "4.9",
           problem: "Сломан",
         },
 
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
       ],
     };
   },
@@ -227,5 +148,18 @@ export default {
   --easy-table-scrollbar-corner-color: #2d3a4f;
 
   --easy-table-loading-mask-background-color: #4f2d2d;
+}
+.vue3-easy-data-table__body td.direction-left[data-v-19cc4b1b] {
+  text-align: center;
+}
+.vue3-easy-data-table__header tr[data-v-19cc4b1b] {
+  text-align: center;
+}
+.vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
+  text-align: center;
+  padding-left: 30px;
+}
+.vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
+  display: block;
 }
 </style>

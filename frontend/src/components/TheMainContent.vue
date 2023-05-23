@@ -7,8 +7,9 @@
         <Panel label="Всего партнеров" icon="parther" views="100" />
       </div>
       <Map :postamat_list="allpostamats"> </Map>
+      <ProgressBar />
     </div>
-    <div class="px-5 py-3 shadow-innerMax">
+    <div class="px-5 py-3 shadow-innerMax h-full">
       <div class="grid grid-cols-2 gap-3">
         <RadarChartWithPanels />
         <BarChartWithPanels />
@@ -33,6 +34,7 @@ import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
 import RadarChartWithPanels from "./RadarChartWithPanels.vue";
 import BarChartWithPanels from "./BarChartWithPanels.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   components: {
     BarChart,
@@ -44,6 +46,7 @@ export default {
     DownloadButton,
     RadarChartWithPanels,
     Table,
+    ProgressBar,
   },
   data() {
     return {};
