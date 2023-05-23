@@ -60,6 +60,7 @@ CLASSIFICATOR_CLASSES = {
     '3' : 'Проблема с постаматом',
     '4' : 'Проблема со сроками'
 }
+
 # Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
 try:  
     # Получение конфига 
@@ -143,6 +144,16 @@ def getMarketStats(result):
         }
         substats.update(collections.Counter([Number2Class(x['classnumber']) for x in result]))
         stats.append(substats)
+
+    # ЗАГЛУШКА ПОД ДОПОЛНИТЕЛЬНЫЕ МАРКЕТПЛЕЙСЫ -------------
+    # В ПРОДЕ - УДАЛЯЙ
+    datapatch = collections.Counter([Number2Class(x['classnumber']) for x in result[:len(result) // 2]])
+    substats = {
+        'market': 'Главпиво'
+    }
+    substats.update(datapatch)
+    stats.append(substats)
+    # КОНЕЦ ЗАГЛУШКИ ---------------------------------------
     logger.debug(stats)
     return stats
 
