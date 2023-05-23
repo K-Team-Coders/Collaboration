@@ -11,7 +11,7 @@
     <div class="px-5 py-3 shadow-innerMax h-full">
       <div class="grid grid-cols-2 gap-3">
         <RadarChartWithPanels :radardata="allpostamats.marketStats"/>
-        <BarChartWithPanels />
+        <BarChartWithPanels :bardata="allpostamats.classStats"/>
       </div>
     </div>
     <div class="p-5 bg-white">

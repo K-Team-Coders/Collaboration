@@ -28,15 +28,18 @@ ChartJS.register(
 export default {
   name: "BarChart",
   components: { Bar },
+  props:{
+    bardata: Object
+  },
   data() {
     return {
       chartData: {
-        labels: ["Игорь", "Артем", "Жора", "Захар", "Кирилл"],
+        labels: ["Проблем нет", "С товаром", "С доставкой", "С постаматом", "Со сроками"],
         datasets: [
           {
             label: "Уровень тупости",
             backgroundColor: "#E5102A",
-            data: [40, 20, 12,0,100],
+            data: Array(this.bardata.good, this.bardata.article, this.bardata.delivery , this.bardata.post, this.bardata.times),
           },
         ],
       },
