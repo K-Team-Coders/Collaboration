@@ -1,21 +1,17 @@
 <template>
-  <div class="border-idealRed border-4 rounded-lg shadow-cards">
+  <div class="flex items-center justify-center border-idealRed border-4 rounded-lg shadow-cards">
     <BarChart :bardata="bardata"/>
     <PanelGroup />
   </div>
 </template>
 <script>
-import Panel from "./Panel.vue";
-import BarChart from "@/components/charts/BarChart.vue";
-import PanelGroup from "./PanelGroup.vue";
+import BarChart from '@/components/charts/BarChart.vue'
 export default {
   props:{
     bardata: Object,
   },
   components: {
-    Panel,
-    PanelGroup,
-    BarChart,
-  },
-};
+    BarChart
+  }
+}
 </script>
