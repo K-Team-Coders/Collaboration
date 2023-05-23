@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center p-2 ">
-    <Bar :chart-data="chartData" />
+  <div class="">
+    <Bar  :chart-data="chartData" />
   </div>
 </template>
 
@@ -34,7 +34,7 @@ export default {
         labels: ["Игорь", "Артем", "Жора", "Захар", "Кирилл"],
         datasets: [
           {
-            label: "Уровень тупости",
+            label: "Распределение проблем по отзывам",
             backgroundColor: "#E5102A",
             data: [40, 20, 12,0,100],
           },

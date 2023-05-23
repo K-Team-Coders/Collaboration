@@ -3,7 +3,7 @@
     <div class="grid grid-cols-3 gap-2 px-2 mb-2 w-full">
       <Panel
         label="Яндекс.Маркет"
-        classesCard="bg-[#F2C50D] border-[#333333] w-full h-full border-3 rounded-xl shadow-3xl"
+        classesCard="bg-[#F2C50D] border-[#333333] w-full h-full border-3 rounded-xl shadow-cards"
         classesHat="bg-[#F2C50D] rounded-t-lg h-[37px] w-full truncate border-b-2 border-black text-center"
         classesHatText="text-black text-xl p-1 font-semibold"
         icon=""
@@ -22,7 +22,7 @@
             #f91155 75%
           );
         "
-        classesCard="border-[#333333] w-full border-2 rounded-xl shadow-3xl"
+        classesCard="border-[#333333] w-full border-2 rounded-xl shadow-cards"
         classesHat=" rounded-t-lg h-[37px] border-b-2 truncate border-black text-center"
         classesHatText="text-white text-3xl -p-1 font-semibold"
         icon=""
@@ -34,7 +34,7 @@
       />
       <Panel
         label="Undefinded"
-        classesCard="bg-[#E5102A] border-[#333333] w-full border-3 rounded-xl shadow-3xl"
+        classesCard="bg-[#E5102A] border-[#333333] w-full border-3 rounded-xl shadow-cards"
         classesHat="rounded-t-lg h-[37px] border-b-2 truncate border-black text-center"
         classesHatText="text-[#FFFFFF] text-xl p-1 font-semibold"
         icon=""

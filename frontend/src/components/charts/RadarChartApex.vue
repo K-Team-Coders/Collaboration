@@ -39,7 +39,7 @@ export default {
     return {
       chartOptions: {
         title: {
-          text: "Проблемы по партнерам",
+          text: "Проблема партнеров по отзывам",
         },
         stroke: {
           width: -70,
