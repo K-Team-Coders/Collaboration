@@ -50,7 +50,7 @@
         <br />
       </div>
 
-      <p class="text-lg font-bold tracking-wide text-[#E2E7EE]">Рейтинг</p>
+      <p class="text-lg font-bold tracking-wide text-[#E2E7EE] mt-1">Рейтинг</p>
       <div id="v-model-multiple-checkboxes" class="font-semibold">
         <div class="flex items-center">
           <input

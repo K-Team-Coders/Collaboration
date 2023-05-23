@@ -1,10 +1,8 @@
 <template>
-  <li class="">
-    <a :class="classes">
-      <BaseIcon :name="icon" :class="iconClasses" />
-      <span>{{ label }}</span>
-    </a>
-  </li>
+  <a :class="classes">
+    <BaseIcon :name="icon" :class="iconClasses" />
+    <span>{{ label }}</span>
+  </a>
 </template>
 
 <script>
@@ -29,7 +27,7 @@ export default {
         "text-[#E2E7EE]",
         "hover:text-[#E2E7EE]",
         "font-semibold",
-        "font-Montserrat"
+        "font-Montserrat",
       ];
       return this.isActive
         ? [
