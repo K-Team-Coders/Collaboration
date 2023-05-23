@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="">
     <apexchart
       height="250"
       width="600"
@@ -60,4 +60,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.apexcharts-toolbar {
+  position: relative;
+}
+</style>

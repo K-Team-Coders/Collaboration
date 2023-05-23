@@ -13,6 +13,12 @@ const routes = [
     
     component: () => import('../components/DataMark.vue')
   },
+  {
+    path: '/reviewmobile',
+    name: 'reviewmobile',
+    
+    component: () => import('../components/mobile/MainPageMobile.vue')
+  }
 
 ]
 

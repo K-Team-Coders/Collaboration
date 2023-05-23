@@ -6,7 +6,11 @@
       style="border-radius: 6px"
       :headers="headers"
       :items="items"
+      
     />
+  </div>
+  <div>
+    
   </div>
 </template>
 
@@ -27,7 +31,7 @@ export default {
       ],
       items: [
         {
-          adress: "г.Москва, ул. Королева, д.62",
+          adress: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, libero. Enim fugiat possimus officia dolor quod. In officia dolor pariatur ducimus facere adipisci. Velit tempore, quos eaque aliquam debitis vero?",
           review: "14",
           rating: "4.9 / 5.0",
           problem: "Сломан",
