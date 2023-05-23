@@ -6,6 +6,7 @@
       :object-manager-clusterize="true"
       :settings="settings"
       :zoom="5"
+      :cluster-options="clusterOptions"
     >
       <ymap-marker
         v-for="item in postamat_list"
@@ -37,7 +38,22 @@ export default {
     return {
       coords: [55.753215, 36.622504],
       settings: settings,
+      clusterOptions: {
+      1: {
+        clusterDisableClickZoom: true,
+        clusterOpenBalloonOnClick: true,
+        clusterBalloonLayout: [
+        
+        '<ul class=list>',
+          '{% for geoObject in properties.geoObjects %}',
+          '<li><a href=# class="list_item">{{ geoObject.properties.balloonContentHeader|raw }}</a></li>',
+          '{% endfor %}',
+          '</ul>',
+        ].join(''),
+      },
+    },
     };
+    
   },
   props: {
     postamat_list: Array,
@@ -48,6 +64,9 @@ export default {
       <table class="w-full text-sm text-center text-black">
           <thead class="text-xs text-white bg-idealRed">
             <tr class="">
+              <th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">
+                Номер заказа
+              </th>
               <th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">
                 Адрес постамата
               </th>
@@ -72,6 +91,9 @@ export default {
             <tr
               class="bg-slate-50 p-1 border-l border-black hover:bg-gray-200"
             > 
+            <td class=" text-xs p-2 border-1 text-gray-900 text-center">
+                 ${item.article}
+            </td>
               <td class=" text-xs p-2 border-1 text-gray-900 text-center">
                  ${item.adress}
               </td>
