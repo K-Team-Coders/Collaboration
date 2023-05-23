@@ -2,7 +2,7 @@
   <div class="ml-64 pt-20">
     <div class="px-5 py-4 h-full bg-white">
       <div class="grid grid-cols-3 gap-3 mb-4">
-        <Panel  label="Всего постаматов" icon="box" :views="allpostamats.totalStats.postamats" />
+        <Panel label="Всего постаматов" icon="box" :views="allpostamats.totalStats.postamats" />
         <Panel label="Всего отзывов" icon="chat" :views="allpostamats.totalStats.reviews" />
         <Panel label="Всего партнеров" icon="parther" :views="allpostamats.totalStats.partners" />
       </div>
@@ -10,8 +10,9 @@
     </div>
     <div class="px-5 py-3 shadow-innerMax h-full">
       <div class="grid grid-cols-2 gap-3">
-        <RadarChartWithPanels :radardata="allpostamats.marketStats"/>
-        <BarChartWithPanels :bardata="allpostamats.classStats"/>
+        <RadarChartWithPanels :radardata="allpostamats.marketStats" />
+        <BarChartWithPanels :bardata="allpostamats.classStats" />
+        
       </div>
     </div>
     <div class="p-5 bg-white">
@@ -37,6 +38,7 @@ import ProgressBar from "./ProgressBar.vue";
 export default {
   components: {
     BarChart,
+    
     Button,
     BarChartWithPanels,
     Panel,
@@ -61,6 +63,6 @@ export default {
   props: {
     allpostamats: Object,
   },
-  
+
 };
 </script>

@@ -1,6 +1,13 @@
 <template>
   <div class="">
     <Bar  :chart-data="chartData" />
+    <div class="flex items-center justify-center"> 
+      <p
+          class="flex items-center justify-center text-black font-semibold text-4xl"
+        >  {{ bardata.post }} проблем с постаматом
+      </p>
+        
+    </div>
   </div>
 </template>
 
