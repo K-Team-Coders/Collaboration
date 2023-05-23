@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
+  <div class="h-full w-full">
+    <div class="border-idealRed border-4 h-full rounded-lg shadow-cards">
       <RadarChartApex />
       <PanelGroup />
     </div>

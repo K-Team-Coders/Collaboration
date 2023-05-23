@@ -8,14 +8,14 @@
       </div>
       <Map :postamat_list="allpostamats.data"> </Map>
     </div>
-    <div class="px-5 py-3 shadow-innerMax">
+    <div class="px-5 py-3 shadow-innerMax h-full">
       <div class="grid grid-cols-2 gap-3">
-        <RadarChartWithPanels />
+        <RadarChartWithPanels :radardata="allpostamats.marketStats"/>
         <BarChartWithPanels />
       </div>
     </div>
     <div class="p-5 bg-white">
-      <Table :postamats_list="allpostamats.data" />
+      <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
@@ -33,6 +33,7 @@ import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
 import RadarChartWithPanels from "./RadarChartWithPanels.vue";
 import BarChartWithPanels from "./BarChartWithPanels.vue";
+import ProgressBar from "./ProgressBar.vue";
 export default {
   components: {
     BarChart,
@@ -44,6 +45,7 @@ export default {
     DownloadButton,
     RadarChartWithPanels,
     Table,
+    ProgressBar,
   },
   data() {
     return {};

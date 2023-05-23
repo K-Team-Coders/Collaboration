@@ -1,15 +1,12 @@
 <template>
-  <div class="w-full mr-3 mt-2 text-xs overflow-x-auto">
+  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards">
     <Vue3EasyDataTable
       table-class-name="customize-table"
-      class="shadow-cards"
       style="border-radius: 6px"
       :headers="headers"
-      :items="items"
-      
+      :items="postamats_list"
     />
   </div>
-
 </template>
 
 <script>
@@ -23,160 +20,16 @@ export default {
     return {
       headers: [
         { text: "Адрес постамата", value: "adress", sortable: true },
-        { text: "Количество отзывов", value: "review", sortable: true },
-        { text: "Рейтинг", value: "rating", sortable: true },
+        { text: "Количество отзывов", value: "textnumbers", sortable: true },
+        { text: "Средний рейтинг", value: "stars", sortable: true },
         { text: "Категория проблемы", value: "problem", sortable: true },
       ],
       items: [
-        {
-          adress: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum, libero. Enim fugiat possimus officia dolor quod. In officia dolor pariatur ducimus facere adipisci. Velit tempore, quos eaque aliquam debitis vero?",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "г.Москва, ул. Королева, д.62",
-          review: "14",
-          rating: "4.9 / 5.0",
-          problem: "Сломан",
-        },
-
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
-        {
-          adress: "Stephen Curry",
-          review: "GSW",
-          rating: 30,
-          problem: "G",
-        },
       ],
     };
   },
   computed: {
-    postamat_unique_list() {
-      let adress_list = [];
-      this.postamats_list.forEach((element) =>
-        adress_list.push(element.adress)
-      );
-      let unique_postamat_list = Array.from(new Set(adress_list));
-      return unique_postamat_list;
-    },
-    postamat_table_info_count() {
-      let table_info_count = [];
-      let adress = "";
-      let review = 0;
-      let rating = 0;
-      let problem = 1;
-      this.postamat_unique_list.forEach((element) => {
-        this.postamat_list.forEach((element2) => {
-          if ((element = element2.adress)) {
-            review += 1;
-            rating += 1;
-          }
-        });
-        table_info_count.push({
-          element,
-          review,
-          rating,
-          problem,
-        });
-        review = 0;
-        rating = 0;
-      });
-
-      return table_info_count;
-    },
+    
   },
   props: {
     postamats_list: Array,
@@ -225,5 +78,18 @@ export default {
   --easy-table-scrollbar-corner-color: #2d3a4f;
 
   --easy-table-loading-mask-background-color: #4f2d2d;
+}
+.vue3-easy-data-table__body td.direction-left[data-v-19cc4b1b] {
+  text-align: center;
+}
+.vue3-easy-data-table__header tr[data-v-19cc4b1b] {
+  text-align: center;
+}
+.vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
+  text-align: center;
+  padding-left: 30px;
+}
+.vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
+  display: block;
 }
 </style>

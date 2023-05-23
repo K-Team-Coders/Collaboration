@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-idealRed hover:bg-red-700 text-white font-bold w-64 h-10">
+  <button class="bg-idealRed hover:shadow-innerMax text-white font-bold w-64 h-10">
     <p class="mr-2">
       {{ label }}
     </p>
