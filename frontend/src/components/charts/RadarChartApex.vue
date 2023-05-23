@@ -4,7 +4,7 @@
       height="400"
       width="570"
       :options="chartOptions"
-      :series="series"
+      :series="items"
       type="radar"
     ></apexchart>
   </div>
@@ -16,6 +16,25 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
+  
+  computed: {
+        items(){
+          let series = {}
+          let series_radar = []
+          this.radardata.forEach(element => {
+            series = {}
+            series.name = element.market, 
+            series.data = Array(element.good, element.article, element.delivery, element.post, element.times),
+            series_radar.push(series) });
+            
+            console.log(series_radar)
+            return series_radar
+        }
+        
+      },
+      props:{
+    radardata: Array
+  },
   data() {
     return {
       chartOptions: {
@@ -26,10 +45,10 @@ export default {
           width: -70,
         },
         fill: {
-          opacity: 0.2,
+          opacity: 0.4,
         },
         markers: {
-          size: 0,
+          size: 4,
         },
         xaxis: {
           categories: [
@@ -41,20 +60,7 @@ export default {
           ],
         },
       },
-      series: [
-        {
-          name: "Я.Маркет",
-          data: [678, 345, 100, 150, 30],
-        },
-        {
-          name: "OZON",
-          data: [778, 445, 600, 250, 50],
-        },
-        {
-          name: "Undefind",
-          data: [378, 145, 200, 750, 10],
-        },
-      ],
+      
     };
   },
 };

@@ -114,7 +114,12 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
+  methods: {},
+    // ...mapActions([
+    //   "SEND_FILTER_DATA"
+    // ]),
   data() {
     return {
       filter: {
@@ -127,5 +132,5 @@ export default {
       },
     };
   },
-};
+}
 </script>

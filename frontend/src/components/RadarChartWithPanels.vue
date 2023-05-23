@@ -1,7 +1,7 @@
 <template>
   <div class="h-full w-full">
     <div class="border-idealRed border-4 h-full rounded-lg shadow-cards">
-      <RadarChartApex />
+      <RadarChartApex :radardata="radardata"/>
       <PanelGroup />
     </div>
   </div>
@@ -15,5 +15,8 @@ export default {
     PanelGroup,
     RadarChartApex,
   },
+  props:{
+    radardata: Array,
+  }
 };
 </script>
