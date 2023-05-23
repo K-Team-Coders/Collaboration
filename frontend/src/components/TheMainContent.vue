@@ -21,13 +21,13 @@
       <Map :postamat_list="allpostamats.data"> </Map>
     </div>
     <div class="px-5 py-3 shadow-innerMax h-full">
-      <div class="grid grid-cols-2 gap-1 h-1/2">
-        <div class="w-full">
+      <div class="flex grid-cols-2 gap-1 justify-center">
+        <div class="w-auto">
           <RadarChartWithPanels :radardata="allpostamats.marketStats" />
         </div>
-        <div class="flex flex-col gap-1">
-          <BarChartWithPanels class=""/>
-          <BarChartWithPanels />
+        <div class="flex flex-col gap-1 w-auto">
+          <BarChartWithPanels :bardata="allpostamats.classStats" />
+          <BarChartWithPanels :bardata="allpostamats.classStats" />
         </div>
       </div>
     </div>
