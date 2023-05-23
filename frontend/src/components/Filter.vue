@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p class="text-lg font-bold tracking-wide ml-4 mt-3 text-[#E2E7EE]">Проблема</p>
-    <div id="v-model-multiple-checkboxes" class="ml-4 text-[#E2E7EE] text-[14px]">
+    <p class="text-lg font-bold tracking-wide ml-4 text-[#E2E7EE] mt-1">Проблема</p>
+    <div id="v-model-multiple-checkboxes" class="ml-4 font-semibold text-[#E2E7EE] text-[14px]">
       <div class="">
         <input
           type="checkbox"
@@ -50,8 +50,8 @@
         <br />
       </div>
 
-      <p class="text-lg font-bold tracking-wide text-[#E2E7EE] mt-2">Рейтинг</p>
-      <div id="v-model-multiple-checkboxes">
+      <p class="text-lg font-bold tracking-wide text-[#E2E7EE]">Рейтинг</p>
+      <div id="v-model-multiple-checkboxes" class="font-semibold">
         <div class="flex items-center">
           <input
             class=""

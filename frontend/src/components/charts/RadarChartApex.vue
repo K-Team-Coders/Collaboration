@@ -1,8 +1,8 @@
 <template>
   <div class="">
     <apexchart
-      height="250"
-      width="600"
+      height="400"
+      width="570"
       :options="chartOptions"
       :series="series"
       type="radar"
@@ -61,7 +61,4 @@ export default {
 </script>
 
 <style>
-.apexcharts-toolbar {
-  position: relative;
-}
 </style>
