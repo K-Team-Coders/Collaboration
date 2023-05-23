@@ -1,9 +1,9 @@
 <template>
   <li class="">
-    <p href="#" :class="classes">
+    <a :class="classes">
       <BaseIcon :name="icon" :class="iconClasses" />
       <span>{{ label }}</span>
-    </p>
+    </a>
   </li>
 </template>
 
@@ -24,9 +24,12 @@ export default {
         "flex",
         "items-center",
         "px-6",
-        "py-2",
+        "py-3",
         "text-sm",
         "text-[#E2E7EE]",
+        "hover:text-[#E2E7EE]",
+        "font-semibold",
+        "font-Montserrat"
       ];
       return this.isActive
         ? [
