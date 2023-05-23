@@ -1,16 +1,22 @@
 <template>
-  <yandex-map :coords="coords"  :use-object-manager="true"
-      :object-manager-clusterize="true" :settings="settings" :zoom="5">
-    <ymap-marker
-      v-for="item in postamat_list"
-      :key="item.id"
-      :coords="[item.latitude, item.longitude]"
-      :markerId="item.id"
-      :cluster-name="1"
-      :balloon-template="balloonTemplate(item)"
-     
-    />
-  </yandex-map>
+  <div class="border-idealRed border-[6px] rounded-lg shadow-cards">
+    <yandex-map
+      :coords="coords"
+      :use-object-manager="true"
+      :object-manager-clusterize="true"
+      :settings="settings"
+      :zoom="5"
+    >
+      <ymap-marker
+        v-for="item in postamat_list"
+        :key="item.id"
+        :coords="[item.latitude, item.longitude]"
+        :markerId="item.id"
+        :cluster-name="1"
+        :balloon-template="balloonTemplate(item)"
+      />
+    </yandex-map>
+  </div>
 </template>
 
 <script>
@@ -91,6 +97,5 @@ export default {
 .ymap-container {
   width: 100%;
   height: 76vh;
-  
 }
 </style>

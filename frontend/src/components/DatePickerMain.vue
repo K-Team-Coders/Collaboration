@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-6 mt-1">
+  <div class="ml-3.5 mt-1">
     <Datepicker
       range
       class="Datepicker"

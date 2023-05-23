@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="fixed w-full z-30">
+  <div class="bg-[#E2E7EE]">
+    <div class="fixed w-full z-30 shadow-cards">
       <TheHeader />
     </div>
     <TheSidebar/>

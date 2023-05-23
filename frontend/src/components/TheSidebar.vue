@@ -6,14 +6,16 @@
         <SidebarNavItem label="Карта" icon="dashboard" />
         <SidebarNavItem label="Статистика" icon="x" is-active />
         <SidebarNavItem label="Кластерный анализ" icon="microphone" />
-        <SidebarNavItem label="Классификационный анализ" icon="box" />
+        <SidebarNavItem label="Классифик. анализ" icon="box" />
       </div>
       <Filter />
-      <div class="ml-6 mt-2">
-        <p class="text-[#E2E7EE] font-bold">Выберите дату:</p>
+      <div class="ml-4 mt-2">
+        <p class="text-[#E2E7EE] font-bold text-lg">Выберите дату</p>
       </div>
-      <DatePickerMain />
-      <div class="ml-6 mt-3">
+      <div class="">
+        <DatePickerMain />
+      </div>
+      <div class="absolute left-0 bottom-0">
         <Button label="Применить" />
       </div>
     </div>

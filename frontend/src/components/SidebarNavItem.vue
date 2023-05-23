@@ -36,7 +36,7 @@ export default {
             "bg-idealRed",
             "shadow-3xl",
           ]
-        : [...classes, "hover:bg-idealRed", "hover:shadow-inner"];
+        : [...classes, "hover:shadow-innerMax"];
     },
     iconClasses() {
       return this.isActive

@@ -2,7 +2,7 @@
   <div
     :class="
       $attrs.classesCard ||
-      'bg-idealRed w-auto mr-3 xl:h-[140px] shadow-cards rounded-lg'
+      'bg-idealRed xl:h-[140px] shadow-cards rounded-lg'
     "
   >
     <div

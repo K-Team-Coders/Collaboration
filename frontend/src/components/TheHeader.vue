@@ -1,23 +1,20 @@
 <template>
   <header :class="classesHeader">
-    <div class="">
+    <div>
+      <HeaderTimeAndDate />
     </div>
   </header>
 </template>
 
 <script>
-import LogoMain from "./LogoMain.vue";
+import HeaderTimeAndDate from './HeaderTimeAndDate.vue';
 export default {
   components: {
-    LogoMain,
+    HeaderTimeAndDate
   },
   data() {
     return {
-      classesHeader: [
-        "bg-[#2F3342]",
-        "bg-opacity-100",
-        "h-[70px]"
-      ],
+      classesHeader: ["bg-[#2F3342]", "bg-opacity-100", "h-[70px]"],
     };
   },
 };
