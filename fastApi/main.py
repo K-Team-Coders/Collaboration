@@ -54,11 +54,26 @@ cur = 0
 old_stats = 0
 
 CLASSIFICATOR_CLASSES = {
-    '0' : 'Все хорошо',
-    '1' : 'Проблема с товаром',
-    '2' : 'Проблема с доставкой (курьером)',
-    '3' : 'Проблема с постаматом',
-    '4' : 'Проблема со сроками'
+    '0' : 'good',
+    '1' : 'article',
+    '2' : 'delivery',
+    '3' : 'post',
+    '4' : 'times'
+}
+
+MOUNTH_NAMES = {
+    '1' : 'january',
+    '2' : 'february',
+    '3' : 'march',
+    '4' : 'april',
+    '5' : 'may',
+    '6' : 'june',
+    '7' : 'july',
+    '8' : 'august',
+    '9' : 'september',
+    '10' : 'october',
+    '11' : 'november',
+    '12' : 'december'
 }
 
 # Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
@@ -116,6 +131,10 @@ def SomeArticleFromYourSources():
 # Функция-поддержка для вывода обозначений классов 
 def Number2Class(code):
     return CLASSIFICATOR_CLASSES[f'{str(code)}']
+
+# Функция-поддержка для вывода обозначений классов 
+def Number2Month(code):
+    return MOUNTH_NAMES[f'{str(code)}']
 
 # Статистика адресов во входном запросе
 def getAdressStats(result):
@@ -182,7 +201,7 @@ def getClassesStats(result):
 # Статистика по месяцам
 def getTimeStats(result):
     stats = {}
-    stats.update(collections.Counter([str(datetime.fromisoformat(x['reviewdate']).month) for x in result]))
+    stats.update(collections.Counter([Number2Month(str(datetime.fromisoformat(x['reviewdate']).month)) for x in result]))
     logger.debug(stats)
     return stats
 
