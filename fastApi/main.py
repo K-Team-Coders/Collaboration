@@ -52,6 +52,14 @@ elif GEOCODER == 'DEFAULT':
 conn = 0
 cur = 0
 old_stats = 0
+
+CLASSIFICATOR_CLASSES = {
+    '0' : 'Все хорошо',
+    '1' : 'Проблема с товаром',
+    '2' : 'Проблема с доставкой (курьером)',
+    '3' : 'Проблема с постаматом',
+    '4' : 'Проблема со сроками'
+}
 # Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
 try:  
     # Получение конфига 
@@ -104,6 +112,11 @@ def String2Cluster(usertext, word2vec, minibatch):
 def SomeArticleFromYourSources():
     return randrange(0, 9999999, 1)
 
+# Функция-поддержка для вывода обозначений классов 
+def Number2Class(code):
+    return CLASSIFICATOR_CLASSES[f'{str(code)}']
+
+# Статистика адресов во входном запросе
 def getAdressStats(result):
     stats = []
     adresses = collections.Counter([x['adress'] for x in result])
@@ -113,11 +126,54 @@ def getAdressStats(result):
             'adress': adress,
             'stars': np.mean([float(subresult['mark']) for subresult in result if subresult['adress'] == adress]),
             'textnumbers': len([subresult['usertext'] for subresult in result if subresult['adress'] == adress]),
-            # 'problem': collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress])[0]
+            'problem': Number2Class(collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress]).most_common(1)[0][0])
         }
         stats.append(substats)
+    logger.debug(stats)
     return stats
 
+# Статистика для макретплейсов
+def getMarketStats(result):
+    stats = []
+    markets = collections.Counter([x['seller'] for x in result])
+    unique_markets = list(set(markets.elements()))
+    for adress in unique_markets:
+        substats = {
+            'market': adress,
+        }
+        substats.update(collections.Counter([Number2Class(x['classnumber']) for x in result]))
+        stats.append(substats)
+    logger.debug(stats)
+    return stats
+
+# Статистика для макретплейсов
+def getTotalStats(result):
+    posts = collections.Counter([x['adress'] for x in result])
+    markets = collections.Counter([x['seller'] for x in result])
+    unique_posts = len(list(set(posts.elements())))
+    unique_markets = len(list(set(markets.elements())))
+    total_reviews = len(result)
+    stats = {
+        'postamats': unique_posts,
+        'partners': unique_markets,
+        'reviews': total_reviews
+    }
+    logger.debug(stats)
+    return stats
+
+# Статистика по классам
+def getClassesStats(result):
+    stats = {}
+    stats.update(collections.Counter([Number2Class(x['classnumber']) for x in result]))
+    logger.debug(stats)
+    return stats
+
+# Статистика по месяцам
+def getTimeStats(result):
+    stats = {}
+    stats.update(collections.Counter([str(datetime.fromisoformat(x['reviewdate']).month) for x in result]))
+    logger.debug(stats)
+    return stats
 
 # Бэк
 app = FastAPI()
@@ -189,10 +245,18 @@ def adminPage():
             })
     
     adressStats = getAdressStats(result)
+    marketStats = getMarketStats(result)
+    totalStats = getTotalStats(result)
+    classStats = getClassesStats(result)
+    timeStats = getTimeStats(result)
 
     total_data = {
         "data": result,
-        'adressStats': adressStats
+        'adressStats': adressStats,
+        'marketStats': marketStats,
+        'totalStats': totalStats,
+        'classStats': classStats,
+        'timeStats': timeStats
     }
 
     return JSONResponse(status_code=200, content=total_data)
