@@ -21,7 +21,7 @@ module.exports = {
       boxShadow: {
         '3xl': '0px 4px 7px 4px rgba(0, 0, 0, 0.3)',
         'cards': '4px 4px 4px 0px rgba(0, 0, 0, 0.5)',
-        'innerMax':'inset 0 4px 7px 1px rgb(0, 0, 0, 0.55);',
+        'innerMax':'inset 0 1px 7px 1px rgb(0, 0, 0, 0.55);',
         'innerWhite':'inset 0px 0px 2px 3px rgb(255, 255, 255, 0.55);',
       }
     },

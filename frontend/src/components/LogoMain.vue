@@ -1,5 +1,5 @@
 <template>
-  <a href="" class="flex flex-col items-center justify-center pt-2">
+  <a href="" class="flex flex-col items-center justify-center pt-3">
     <div class="w-40">
       <svg viewBox="0 0 100 49" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_56_4)">
