@@ -1,8 +1,8 @@
 <template>
   <div class="">
     <apexchart
-      height="400"
-      width="570"
+      height="580"
+      width="770"
       :options="chartOptions"
       :series="items"
       type="radar"
