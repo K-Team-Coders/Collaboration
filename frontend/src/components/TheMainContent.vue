@@ -10,6 +10,7 @@
         <Panel label="Всего партнеров" icon="parther" views="100" />
       </div>
       <div class="grid grid-cols-2 gap-3">
+        <RadarChartWithPanels />
         <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
           <BarChart />
           <div class="grid grid-cols-3 px-3 pb-2 ml-4 justify-center">
@@ -86,6 +87,7 @@ import DownloadButton from "@/components/DownloadButton.vue";
 import Filter from "@/components/Filter.vue";
 import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
+import RadarChartWithPanels from "./RadarChartWithPanels.vue";
 export default {
   components: {
     BarChart,
@@ -94,6 +96,7 @@ export default {
     Filter,
     Map,
     DownloadButton,
+    RadarChartWithPanels,
     Table,
   },
   data() {

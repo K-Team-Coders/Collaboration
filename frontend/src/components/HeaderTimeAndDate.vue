@@ -1,6 +1,6 @@
 <template>
   <div class="absolute right-10 top-5 text-white">
-    {{ localeDate }}
+    {{ localeDate }} {{ localTime }}
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 
   computed: {
     localeDate() {
-      return new Date(this.date).toLocaleDateString();
+      return new Date(this.date).toLocaleTimeString();
     },
   },
 
