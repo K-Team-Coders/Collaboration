@@ -1,14 +1,14 @@
 <template>
   <div class="ml-64 pt-20">
-    <div class="p-5 h-full bg-white">
-      <Map :postamat_list="allpostamats"> </Map>
-    </div>
-    <div class="p-5">
-      <div class="grid grid-cols-3 gap-3">
+    <div class="px-5 py-4 h-full bg-white">
+      <div class="grid grid-cols-3 gap-3 mb-4">
         <Panel label="Всего постаматов" icon="box" :views="postamat_count" />
         <Panel label="Всего отзывов" icon="chat" :views="allpostamats.length" />
         <Panel label="Всего партнеров" icon="parther" views="100" />
       </div>
+      <Map :postamat_list="allpostamats"> </Map>
+    </div>
+    <div class="p-5">
       <div class="grid grid-cols-2 gap-3">
         <RadarChartWithPanels />
         <div class="border-idealRed border-4 rounded-lg mt-4 shadow-cards">
