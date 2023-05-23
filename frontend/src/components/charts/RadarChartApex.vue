@@ -22,11 +22,13 @@ export default {
           let series = {}
           let series_radar = []
           this.radardata.forEach(element => {
+            series = {}
             series.name = element.market, 
-            series.data = Array(element.good, element.article, element.delivery, element.post, element.times) });
+            series.data = Array(element.good, element.article, element.delivery, element.post, element.times),
+            series_radar.push(series) });
             
-            console.log(series)
-            return series
+            console.log(series_radar)
+            return series_radar
         }
         
       },
@@ -43,10 +45,10 @@ export default {
           width: -70,
         },
         fill: {
-          opacity: 0.2,
+          opacity: 0.4,
         },
         markers: {
-          size: 0,
+          size: 4,
         },
         xaxis: {
           categories: [
