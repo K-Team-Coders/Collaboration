@@ -61,6 +61,14 @@ CLASSIFICATOR_CLASSES = {
     '4' : 'times'
 }
 
+CLASSIFICATOR_RUS_CLASSES = {
+    '0' : 'Все хорошо',
+    '1' : 'Проблема с товаром',
+    '2' : 'Проблема с доставкой',
+    '3' : 'Проблема с постаматом (ПВЗ)',
+    '4' : 'Проблема со сроками'
+}
+
 MOUNTH_NAMES = {
     '1' : 'january',
     '2' : 'february',
@@ -133,6 +141,10 @@ def Number2Class(code):
     return CLASSIFICATOR_CLASSES[f'{str(code)}']
 
 # Функция-поддержка для вывода обозначений классов 
+def Number2RusClass(code):
+    return CLASSIFICATOR_RUS_CLASSES[f'{str(code)}']
+
+# Функция-поддержка для вывода обозначений классов 
 def Number2Month(code):
     return MOUNTH_NAMES[f'{str(code)}']
 
@@ -146,7 +158,7 @@ def getAdressStats(result):
             'adress': adress,
             'stars': np.mean([float(subresult['mark']) for subresult in result if subresult['adress'] == adress]),
             'textnumbers': len([subresult['usertext'] for subresult in result if subresult['adress'] == adress]),
-            'problem': Number2Class(collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress]).most_common(1)[0][0])
+            'problem': Number2RusClass(collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress]).most_common(1)[0][0])
         }
         stats.append(substats)
     logger.debug(stats)
