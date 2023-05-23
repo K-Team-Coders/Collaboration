@@ -38,4 +38,10 @@ urllib3==2.0.2
 uvicorn==0.21.1
 win32-setctime==1.1.0
 spacy
+selenium
+bs4
+selenium-stealth
+lxml
+sqlalchemy
+
 
