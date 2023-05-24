@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards">
+  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards text-justify">
     <Vue3EasyDataTable
       table-class-name="customize-table"
       style="border-radius: 6px"
@@ -79,13 +79,13 @@ export default {
   --easy-table-loading-mask-background-color: #4f2d2d;
 }
 .vue3-easy-data-table__body td.direction-left[data-v-19cc4b1b] {
-  text-align: center;
+  text-align: justify;
 }
 .vue3-easy-data-table__header tr[data-v-19cc4b1b] {
-  text-align: center;
+  text-align: justify;
 }
 .vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
-  text-align: center;
+  text-align: justify;
   padding-left: 30px;
 }
 .vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
