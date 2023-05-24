@@ -4,7 +4,6 @@
       <TheHeader />
     </div>
     <TheSidebar/>
-    
     <TheMainContent v-if="allpostamats != null" :allpostamats="allpostamats"/>
   </div>
 </template>

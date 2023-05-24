@@ -6,8 +6,8 @@
         <SidebarNavItem
           v-for="(navItem, index) in navItems"
           :key="index"
-          :is-active="activeIndex === index"
-          @click="activeIndex = index"
+          :is-active.sync="activeIndex === index"
+          @update:isActive="(value) => activeIndex = value ? index : -1"
           :label="navItem.label"
           :icon="navItem.icon"
         />
