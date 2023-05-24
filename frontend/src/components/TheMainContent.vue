@@ -1,6 +1,6 @@
 <template>
   <div class="ml-64 pt-20">
-    <div class="px-5 py-4 h-full bg-white">
+    <div class="px-5 py-4 h-full bg-white" >
       <div class="grid grid-cols-3 gap-3 mb-4">
         <Panel
           label="Всего постаматов"
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div class="px-5 py-3 shadow-innerMax h-full">
+    <div class="px-5 py-3 shadow-innerMax h-full" >
       <div class="flex grid-cols-2 gap-1 justify-center">
         <div class="w-full">
           <RadarChartWithPanels :radardata="allpostamats.marketStats" />
@@ -37,13 +37,13 @@
         </div>
       </div>
     </div>
-    <div class="p-5 bg-white">
+    <div class="px-[100px] py-[30px] bg-white" >
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
     </div>
-    <div class="p-5 bg-white">
+    <div class="px-[100px] py-[30px] shadow-inner" >
       <Table2 :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
@@ -95,6 +95,8 @@ export default {
   },
   props: {
     allpostamats: Object,
+    activeIndex: Number,
+    allpostamats: Object, 
   },
 };
 </script>

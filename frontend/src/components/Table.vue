@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards">
+  <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards text-center">
     <Vue3EasyDataTable
       table-class-name="customize-table"
       style="border-radius: 6px"

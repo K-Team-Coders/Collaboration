@@ -1,5 +1,5 @@
 <template>
-  <a :class="classes">
+  <a :class="classes" @click="$emit('update:isActive', true)">
     <BaseIcon :name="icon" :class="iconClasses" />
     <span>{{ label }}</span>
   </a>
