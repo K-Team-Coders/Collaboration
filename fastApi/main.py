@@ -69,7 +69,7 @@ CLASSIFICATOR_RUS_CLASSES = {
     '4' : 'Проблема со сроками'
 }
 
-MOUNTH_NAMES = {
+MONTH_NAMES = {
     '1' : 'january',
     '2' : 'february',
     '3' : 'march',
@@ -133,8 +133,10 @@ def String2Cluster(usertext, word2vec, minibatch):
     return result
 
 # Заглушка чистой воды, если пользователь обращается не по приложению обратной связи
+# ЗАГЛУШКА под номера заказов! ---------------
 def SomeArticleFromYourSources():
     return randrange(0, 9999999, 1)
+# Конец заглушки -----------------------------
 
 # Функция-поддержка для вывода обозначений классов 
 def Number2Class(code):
@@ -146,7 +148,7 @@ def Number2RusClass(code):
 
 # Функция-поддержка для вывода обозначений классов 
 def Number2Month(code):
-    return MOUNTH_NAMES[f'{str(code)}']
+    return MONTH_NAMES[f'{str(code)}']
 
 # Статистика адресов во входном запросе
 def getAdressStats(result):
@@ -212,8 +214,18 @@ def getClassesStats(result):
 
 # Статистика по месяцам
 def getTimeStats(result):
-    stats = {}
-    stats.update(collections.Counter([Number2Month(str(datetime.fromisoformat(x['reviewdate']).month)) for x in result]))
+    stats = []
+    data = collections.Counter([int(datetime.fromisoformat(x['reviewdate']).timestamp()) for x in result])
+    keys = list(data.keys())
+    values = list(data.values())
+    
+    for index in range(len(keys)):
+        substats = []
+        substats.append(keys[index])
+        substats.append(values[index])
+
+        stats.append(substats)
+    
     logger.debug(stats)
     return stats
 
@@ -254,9 +266,21 @@ class ReviewFromDatasetFormer(ReviewFromAnySource):
     classnumber: int
     id_: int
 
+class AdminFilter(BaseModel):
+    stars: Union[str, list, None] = None 
+
 # Сбор инфы по карте - адреса, отзывы, их количество и т.д
 @app.get("/getAdminPageData/")
 def adminPage():
+
+    # if item.stars == None:
+        # cur.execute(f"SELECT * FROM xdataset")
+    # elif type(item.stars) == type([1,2,3]):
+    #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
+    # else:
+    #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
+           
+
     cur.execute(f"SELECT * FROM xdataset")
     data = cur.fetchall()
     result = []
@@ -356,17 +380,17 @@ def intellegenceTelegramReviewProceduring(item: ReviewFromTelegramBot):
         logger.error(f'Datetime error! \n {e}')
 
     # Если данные верны - оправляем на БД
-    if item.usertext:
-        # Контроль
-        logger.success('User text -- ' + item.usertext)
-        logger.success('Mark -- ' + str(item.mark))
-        logger.success('Adress -- ' + str(item.adress))
-        logger.success('Review date -- ' + str(reviewdate))
-        logger.success('Telegram User Name -- ' + str(item.username))
-        logger.success('Telegram User Chat ID (for bot) -- ' + str(item.chatid))
-        logger.success('Telegram Class number -- ' + str(item.classnumber))
-        logger.success('Article (Optional) -- ' + str(article))
-        logger.success('Seller (Optional) -- ' + str(item.seller))
+    # if item.usertext:
+    #     # Контроль
+    #     logger.success('User text -- ' + item.usertext)
+    #     logger.success('Mark -- ' + str(item.mark))
+    #     logger.success('Adress -- ' + str(item.adress))
+    #     logger.success('Review date -- ' + str(reviewdate))
+    #     logger.success('Telegram User Name -- ' + str(item.username))
+    #     logger.success('Telegram User Chat ID (for bot) -- ' + str(item.chatid))
+    #     logger.success('Telegram Class number -- ' + str(item.classnumber))
+    #     logger.success('Article (Optional) -- ' + str(article))
+    #     logger.success('Seller (Optional) -- ' + str(item.seller))
 
         # В РАЗРАБОТКУ
         # cur.execute("""

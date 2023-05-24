@@ -32,36 +32,42 @@
         </div>
         <div class="flex flex-col gap-1 w-full">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
-          <AreaChartApex :data_chart="allpostamats.timeStats"/>
+          <AreaChartApex :data="allpostamats.timeStats" />
           <BarChartWithPanels :bardata="allpostamats.classStats" />
-          
         </div>
       </div>
     </div>
     <div class="p-5 bg-white">
       <Table :postamats_list="allpostamats.adressStats" />
-      <div class="flex justify-start">
+      <div class="flex justify-start mt-2">
+        <DownloadButton label="Импорт в .xls" icon="document" />
+      </div>
+    </div>
+    <div class="p-5 bg-white">
+      <Table2 :postamats_list="allpostamats.adressStats" />
+      <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
     </div>
   </div>
 </template>
 <script>
-import Panel from '@/components/Panel.vue'
-
-import Map from '@/components/Map.vue'
-import Table from '@/components/Table.vue'
-import DownloadButton from '@/components/DownloadButton.vue'
-import AreaChartApex from '@/components/charts/AreaChartApex.vue'
-import Filter from '@/components/Filter.vue'
-import Button from '@/components/Button.vue'
-import BarChart from '@/components/charts/BarChart.vue'
-import RadarChartWithPanels from './RadarChartWithPanels.vue'
-import BarChartWithPanels from './BarChartWithPanels.vue'
-import ProgressBar from './ProgressBar.vue'
+import Panel from "@/components/Panel.vue";
+import Table2 from "./Table2.vue";
+import Map from "@/components/Map.vue";
+import Table from "@/components/Table.vue";
+import DownloadButton from "@/components/DownloadButton.vue";
+import AreaChartApex from "@/components/charts/AreaChartApex.vue";
+import Filter from "@/components/Filter.vue";
+import Button from "@/components/Button.vue";
+import BarChart from "@/components/charts/BarChart.vue";
+import RadarChartWithPanels from "./RadarChartWithPanels.vue";
+import BarChartWithPanels from "./BarChartWithPanels.vue";
+import ProgressBar from "./ProgressBar.vue";
 
 export default {
   components: {
+    Table2,
     BarChart,
     AreaChartApex,
     Button,
@@ -72,24 +78,23 @@ export default {
     DownloadButton,
     RadarChartWithPanels,
     Table,
-    ProgressBar
+    ProgressBar,
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
-    postamat_count () {
-      let adress_list = []
-      this.allpostamats.data.forEach(element =>
+    postamat_count() {
+      let adress_list = [];
+      this.allpostamats.data.forEach((element) =>
         adress_list.push(element.adress)
-      )
-      let unique_postamat_list = Array.from(new Set(adress_list))
-      return unique_postamat_list.length
-    }
+      );
+      let unique_postamat_list = Array.from(new Set(adress_list));
+      return unique_postamat_list.length;
+    },
   },
   props: {
     allpostamats: Object,
   },
-
 };
 </script>
