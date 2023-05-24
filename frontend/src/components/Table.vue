@@ -86,7 +86,7 @@ export default {
 }
 .vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
   text-align: center;
-  padding-left: 30px;
+  padding-left: 40px;
 }
 .vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
   display: block;

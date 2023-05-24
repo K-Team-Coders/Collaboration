@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#E2E7EE]">
+  <div class="bg-white">
     <div class="fixed w-full z-30 shadow-cards">
       <TheHeader />
     </div>

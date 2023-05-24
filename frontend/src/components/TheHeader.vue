@@ -2,15 +2,18 @@
   <header :class="classesHeader">
     <div>
       <HeaderTimeAndDate />
+      <ButtonRoute />
     </div>
   </header>
 </template>
 
 <script>
-import HeaderTimeAndDate from './HeaderTimeAndDate.vue';
+import HeaderTimeAndDate from "./HeaderTimeAndDate.vue";
+import ButtonRoute from "./ButtonRoute.vue";
 export default {
   components: {
-    HeaderTimeAndDate
+    HeaderTimeAndDate,
+    ButtonRoute,
   },
   data() {
     return {

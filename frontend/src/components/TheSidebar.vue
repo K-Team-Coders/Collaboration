@@ -17,7 +17,7 @@
           :icon="navItem.icon"
         />
       </div>
-      <div class="ml-4">
+      <div class="ml-4 mt-1.5">
         <p class="text-[#E2E7EE] font-bold text-lg">Выберите дату</p>
       </div>
       <div class="mt-2">
@@ -37,8 +37,6 @@ import Button from "./Button.vue";
 import LogoMain from "./LogoMain.vue";
 import SidebarNavItem from "./SidebarNavItem.vue";
 import DatePickerMain from "./DatePickerMain.vue";
-import SidebarSection from "./SidebarSection.vue";
-import { provide } from "vue";
 export default {
   components: {
     Filter,
@@ -46,12 +44,11 @@ export default {
     LogoMain,
     SidebarNavItem,
     DatePickerMain,
-    SidebarSection,
   },
 
   computed: {
     classes() {
-      return ["w-64", "fixed", "top-0", "bg-[#2F3342]", "z-50", "h-screen"];
+      return ["w-64", "fixed", "top-0", "bg-[#2F3342]", "z-50", "h-screen","font-TT_Firs_Neue_Regular"];
     },
   },
   data() {
@@ -59,14 +56,11 @@ export default {
       activeIndex: 0,
       navItems: [
         { label: "Карта", icon: "map" },
-        { label: "Кластерный анализ", icon: "dashboard" },
+        { label: "Статистика", icon: "dashboard" },
         { label: "Таблица", icon: "table" },
-        { label: "Клас. анализ", icon: "box" },
+        { label: "Классификация", icon: "box" },
       ],
     };
-  },
-  created() {
-    provide("activeIndex", this.activeIndex);
   },
 };
 </script>

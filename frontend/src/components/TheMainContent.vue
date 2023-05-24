@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-64 pt-[70px]">
+  <div class="ml-64 pt-[70px] font-Montserrat">
     <div class="px-5 py-4 h-full bg-white" v-show="$attrs.activeindex === 0">
       <div class="grid grid-cols-3 gap-3 mb-4">
         <Panel
@@ -29,24 +29,31 @@
       class="px-5 py-3 shadow-innerMax h-full"
       v-show="$attrs.activeindex === 1"
     >
-      <div class="flex grid-cols-2 gap-1 justify-center">
-        <div class="w-full">
-          <RadarChartWithPanels :radardata="allpostamats.marketStats" />
-        </div>
-        <div class="flex flex-col gap-1 w-full">
+      <div class="flex flex-col mt-3">
+        <div class="flex flex-row justify-center gap-2">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
           <AreaChartApex :data_chart="allpostamats.timeStats" />
-          <BarChartWithPanels :bardata="allpostamats.classStats" />
+        </div>
+        <div class="w-full mt-3 flex justify-center">
+          <div class="w-2/3 ml-2">
+            <RadarChartWithPanels :radardata="allpostamats.marketStats" />
+          </div>
         </div>
       </div>
     </div>
-    <div class="px-[100px] py-[30px] bg-white" v-show="$attrs.activeindex === 2">
+    <div
+      class="px-[100px] py-[30px] bg-white"
+      v-show="$attrs.activeindex === 2"
+    >
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
     </div>
-    <div class="px-[100px] py-[30px] shadow-inner" v-show="$attrs.activeindex === 3">
+    <div
+      class="px-[100px] py-[30px] shadow-inner"
+      v-show="$attrs.activeindex === 3"
+    >
       <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />

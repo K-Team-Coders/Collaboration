@@ -79,16 +79,16 @@ export default {
 }
 
 .vue3-easy-data-table__body td.direction-left[data-v-19cc4b1b] {
-  text-align: justify;
+  text-align: center;
 }
 
 .vue3-easy-data-table__header tr[data-v-19cc4b1b] {
-  text-align: justify;
+  text-align: center;
 }
 
 .vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
-  text-align: justify;
-  padding-left: 30px;
+  text-align: center;
+  padding-left: 40px;
 }
 
 .vue3-easy-data-table__header th .header[data-v-19cc4b1b] {

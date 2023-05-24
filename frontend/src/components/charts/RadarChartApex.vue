@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <apexchart
-      height="580"
+      height="500"
       width="770"
       :options="chartOptions"
       :series="items"
@@ -16,24 +16,30 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
-  
+
   computed: {
-        items(){
-          let series = {}
-          let series_radar = []
-          this.radardata.forEach(element => {
-            series = {}
-            series.name = element.market, 
-            series.data = Array(element.good, element.article, element.delivery, element.post, element.times),
-            series_radar.push(series) });
-            
-            console.log(series_radar)
-            return series_radar
-        }
-        
-      },
-      props:{
-    radardata: Array
+    items() {
+      let series = {};
+      let series_radar = [];
+      this.radardata.forEach((element) => {
+        series = {};
+        (series.name = element.market),
+          (series.data = Array(
+            element.good,
+            element.article,
+            element.delivery,
+            element.post,
+            element.times
+          )),
+          series_radar.push(series);
+      });
+
+      console.log(series_radar);
+      return series_radar;
+    },
+  },
+  props: {
+    radardata: Array,
   },
   data() {
     return {
@@ -60,11 +66,9 @@ export default {
           ],
         },
       },
-      
     };
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>
