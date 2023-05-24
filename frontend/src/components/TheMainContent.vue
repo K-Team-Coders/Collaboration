@@ -32,7 +32,9 @@
         </div>
         <div class="flex flex-col gap-1 w-full">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
+          <AreaChartApex :data="allpostamats.timeStats"/>
           <BarChartWithPanels :bardata="allpostamats.classStats" />
+          
         </div>
       </div>
     </div>
@@ -50,16 +52,18 @@ import Panel from '@/components/Panel.vue'
 import Map from '@/components/Map.vue'
 import Table from '@/components/Table.vue'
 import DownloadButton from '@/components/DownloadButton.vue'
+import AreaChartApex from '@/components/charts/AreaChartApex.vue'
 import Filter from '@/components/Filter.vue'
 import Button from '@/components/Button.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import RadarChartWithPanels from './RadarChartWithPanels.vue'
 import BarChartWithPanels from './BarChartWithPanels.vue'
 import ProgressBar from './ProgressBar.vue'
+
 export default {
   components: {
     BarChart,
-    
+    AreaChartApex,
     Button,
     BarChartWithPanels,
     Panel,

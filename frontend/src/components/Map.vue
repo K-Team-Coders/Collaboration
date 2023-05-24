@@ -7,6 +7,7 @@
       :settings="settings"
       :zoom="5"
       :cluster-options="clusterOptions"
+    
     >
       <ymap-marker
         v-for="item in postamat_list"
@@ -39,18 +40,33 @@ export default {
       coords: [55.753215, 36.622504],
       settings: settings,
       clusterOptions: {
+        clusterOptions: {
       1: {
         clusterDisableClickZoom: true,
         clusterOpenBalloonOnClick: true,
         clusterBalloonLayout: [
-        
-        '<ul class=list>',
-          '{% for geoObject in properties.geoObjects %}',
-          '<li><a href=# class="list_item">{{ geoObject.properties.balloonContentHeader|raw }}</a></li>',
-          '{% endfor %}',
-          '</ul>',
+          '<table class="w-full text-sm text-center text-black">',
+            '<thead class="text-xs text-white bg-idealRed">',
+              '<tr class="">',
+                '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
+                  'Номер заказа',
+                  '</th>',
+                  '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
+                    'Адрес постамата',
+                    '</th>',
+                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
+                    'Отзыв',
+                    '</th>',
+                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
+                    'Рейтинг',
+                    '</th>',
+                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
+                    'Категоря',
+                    '</th>',
+         ,
         ].join(''),
       },
+    },
     },
     };
     
