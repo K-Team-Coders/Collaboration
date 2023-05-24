@@ -44,7 +44,7 @@
  import VueApexCharts from "vue3-apexcharts";
 export default {
   props:{
-data_chart: Object
+data_chart: Array
   },
   components: {
           apexchart: VueApexCharts,
@@ -54,7 +54,7 @@ data_chart: Object
           
           series: [{
             data: [
-              this.data
+              this.data_chart
             ]
           }],
           chartOptions: {
