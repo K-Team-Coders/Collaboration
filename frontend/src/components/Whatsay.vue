@@ -4,7 +4,7 @@
       <section class="pt-60 ml-20 text-[#E2E7EE]">
         <div class="flex justify-start">
           <div class="w-2/5">
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
               <p class="text-5xl font-TT_Firs_Neue_Bold uppercase">
                 Вот что я скажу!
               </p>
@@ -13,34 +13,47 @@
               </p>
               <div class="border-b-[3px] border-[#E2E7EE]"></div>
             </div>
-            <div class="pt-4 w-full">
+            <div class="flex flex-col pt-3 w-full">
               <input
                 type="text"
-                placeholder="Пожалуйста, введите уникальный код, указанный на Вашем чеке"
+                v-model="isActive"
+                placeholder="Пожалуйста, введите уникальный код"
                 useautocomplete="off"
-                class="border-[#E2E7EE] border-[1.5px] w-full max-w-[500px] px-4 text-[14px] overflow-x-hidden text-center py-3 rounded-l-lg focus:outline-none"
+                class="border-[#E2E7EE] border-[1.5px] w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
               />
               <p class="py-2.5 tracking-tighter font-medium">
-                Где я могу найти код?
+                Где я могу найти номер заказа?
               </p>
-              <div class="flex items-center">
-                <input type="checkbox" class="w-3 h-3" />
-                <label class="text-sm ml-3 w-[700px] font-medium leading-5"
-                  >Настоящим Вы подтверждаете, что Вам исполнилось 18 лет и Вы
-                  являетесь полностью дееспособным лицом.
-                </label>
-              </div>
-              <div class="flex items-center mt-1">
-                <input type="checkbox" class="w-3 h-3 mt-[2px]" />
-                <label class="text-sm ml-3 w-[700px] font-medium leading-5"
-                  >Я согласен на обработку моих персональных данных</label
-                >
+              <transition
+                enter-active-class="duration-300"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="duration-300"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <input
+                  v-show="isActive.length > 0"
+                  v-model="usertext"
+                  type="text"
+                  placeholder="Оставьте отзыв"
+                  useautocomplete="off"
+                  class="border-[#E2E7EE] border-[1.5px] mb-2.5 w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
+                />
+              </transition>
+
+              <div class="text-white">
+                <Radiobutton
+                  v-for="label in items"
+                  :key="label"
+                  :label="label.massage"
+                />
               </div>
             </div>
             <button
-              class="bg-[#696969] w-full rounded-lg py-3 text-xl tracking-tighter text-uppercase mt-3"
+              class="bg-idealRed w-full rounded-lg py-3 text-xl font-TT_Firs_Neue_Bold text-uppercase mt-3"
             >
-              Начать опрос
+              Отправить отзыв
             </button>
           </div>
         </div>
@@ -48,9 +61,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import Radiobutton from "./Radiobutton.vue";
+export default {
+  components: {
+    Radiobutton,
+  },
+  data() {
+    return {
+      isActive: "",
+      usertext: "",
+      items: [
+        { massage: "Проблем нет" },
+        { massage: "Проблем с товаром" },
+        { massage: "Проблем с доставкой" },
+        { massage: "Проблем нет" },
+        { massage: "Проблем нет" },
+      ],
+    };
+  },
+};
+</script>
 <style>
 .external-svg {
-  background: url(../img/yandexqq.svg) no-repeat center center fixed;
+  background: url(../image/yandexqq.svg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
