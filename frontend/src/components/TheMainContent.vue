@@ -1,6 +1,6 @@
 <template>
   <div class="ml-64 pt-[70px]">
-    <div class="px-5 py-4 h-full bg-white" v-if="$attrs.activeindex === 0">
+    <div class="px-5 py-4 h-full bg-white" v-show="$attrs.activeindex === 0">
       <div class="grid grid-cols-3 gap-3 mb-4">
         <Panel
           label="Всего постаматов"
@@ -27,7 +27,7 @@
     </div>
     <div
       class="px-5 py-3 shadow-innerMax h-full"
-      v-if="$attrs.activeindex === 1"
+      v-show="$attrs.activeindex === 1"
     >
       <div class="flex grid-cols-2 gap-1 justify-center">
         <div class="w-full">
@@ -40,13 +40,13 @@
         </div>
       </div>
     </div>
-    <div class="px-[100px] py-[30px] bg-white" v-if="$attrs.activeindex === 2">
+    <div class="px-[100px] py-[30px] bg-white" v-show="$attrs.activeindex === 2">
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
     </div>
-    <div class="px-[100px] py-[30px] shadow-inner" v-if="$attrs.activeindex === 3">
+    <div class="px-[100px] py-[30px] shadow-inner" v-show="$attrs.activeindex === 3">
       <Table2 :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
