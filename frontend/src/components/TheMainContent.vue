@@ -47,7 +47,7 @@
       </div>
     </div>
     <div class="px-[100px] py-[30px] shadow-inner" v-show="$attrs.activeindex === 3">
-      <Table2 :postamats_list="allpostamats.adressStats" />
+      <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
