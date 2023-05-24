@@ -48,13 +48,13 @@ export default {
           text: "Проблема партнеров по отзывам",
         },
         stroke: {
-          width: -70,
+          width: 0,
         },
         fill: {
-          opacity: 0.4,
+          opacity: 0.5,
         },
         markers: {
-          size: 4,
+          size: 3,
         },
         xaxis: {
           categories: [

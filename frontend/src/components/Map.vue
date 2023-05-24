@@ -28,8 +28,10 @@ const settings = {
 export default {
   components: { yandexMap, ymapMarker },
   computed: {},
+  
   data() {
     return {
+      
       coords: [55.753215, 36.622504],
       settings: settings,
       clusterOptions: {
@@ -38,7 +40,7 @@ export default {
             clusterDisableClickZoom: false,
             clusterOpenBalloonOnClick: true,
             clusterBalloonLayout: [
-              '<h2 class=ballon_header>{{ properties.balloonContentHeader }}</h2>' +
+              '<h2 class=ballon_header>{{ properties.balloonContentHeader |raw}}</h2>' +
               '<div class=ballon_body>{{ properties.balloonContentBody }}</div>' +
               '<div class=ballon_footer>{{ properties.balloonContentFooter }}</div>',
             ]
@@ -51,9 +53,7 @@ export default {
   props: {
     postamat_list: Array,
   },
-  methods: {
-
-  },
+  
 };
 </script>
 

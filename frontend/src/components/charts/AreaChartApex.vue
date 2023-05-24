@@ -58,13 +58,28 @@
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
+
 export default {
+  computed:{
+    series_data(){
+      let datas = []
+      this.data_chart.forEach(element => {
+        datas.push(element)
+        console.log(datas)
+      })
+      return datas;
+    }
+  },
   components: {
     apexchart: VueApexCharts,
   },
   data() {
     return {
-      series: this.data_chart,
+      series: [{
+            data: 
+            Object.values(this.data_chart)
+      
+          }],
       chartOptions: {
         chart: {
           id: "area-datetime",
@@ -179,7 +194,7 @@ export default {
     data_chart: Object,
   },
   mounted() {
-    console.log(this.data_chart);
+    console.log((toRaw(Object.values(this.data_chart))));
   },
 };
 </script>
