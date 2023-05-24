@@ -1,7 +1,11 @@
 <template>
   <div class="w-full mr-3 mt-2 text-xs font-Montserrat overflow-x-auto shadow-cards">
-    <Vue3EasyDataTable table-class-name="customize-table" style="border-radius: 6px" :headers="headers"
-      :items="postamats_list" />
+    <Vue3EasyDataTable
+      table-class-name="customize-table"
+      style="border-radius: 6px"
+      :headers="headers"
+      :items="postamats_list"
+    />
   </div>
 </template>
 <script>
@@ -27,7 +31,7 @@ export default {
     };
   },
   computed: {
-
+    
   },
   props: {
     postamats_list: Array,
@@ -77,20 +81,16 @@ export default {
 
   --easy-table-loading-mask-background-color: #4f2d2d;
 }
-
 .vue3-easy-data-table__body td.direction-left[data-v-19cc4b1b] {
   text-align: center;
 }
-
 .vue3-easy-data-table__header tr[data-v-19cc4b1b] {
   text-align: center;
 }
-
 .vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
   text-align: center;
   padding-left: 40px;
 }
-
 .vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
   display: block;
 }
