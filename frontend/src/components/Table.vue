@@ -21,7 +21,7 @@ export default {
         { text: "Адрес постамата", value: "adress", sortable: true },
         { text: "Количество отзывов", value: "textnumbers", sortable: true },
         { text: "Средний рейтинг", value: "stars", sortable: true },
-        { text: "Категория проблемы", value: "problem", sortable: true },
+        { text: "Популярная проблема", value: "problem", sortable: true },
       ],
       items: [
       ],
