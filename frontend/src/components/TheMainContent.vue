@@ -32,7 +32,7 @@
         </div>
         <div class="flex flex-col gap-1 w-full">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
-          <AreaChartApex :data="allpostamats.timeStats" />
+          <AreaChartApex :data_chart="allpostamats.timeStats" />
           <BarChartWithPanels :bardata="allpostamats.classStats" />
         </div>
       </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="px-[100px] py-[30px] shadow-inner" >
-      <Table2 :postamats_list="allpostamats.adressStats" />
+      <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
