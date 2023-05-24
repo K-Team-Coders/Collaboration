@@ -1,7 +1,7 @@
 <template>
     <div>
  <header class="head">
-        <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
+        <img class="head_logo" src="../mobile/image/logo.svg" alt="логотип">
     </header>
     
     <div class="full-stars">
@@ -56,6 +56,43 @@
                 <input name="fst" id="fst-5" value="5" type="radio" />
             </div>
         </div>
+        <div class="checkbox_main">
+                <ul>
+                    <li>
+                        <input class="inputcheck" id="checkbox7" type="checkbox" style="display: none;" />
+                        <label class="checkbox" for="checkbox7">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Товар не соответствует описанию</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input class="inputcheck" id="checkbox8" type="checkbox" style="display: none;" />
+                        <label class="checkbox" for="checkbox8">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>Пришел другой товар</span>
+                        </label>
+                    </li>
+                    <li>
+                        <input class="inputcheck" id="checkbox9" type="checkbox" style="display: none;" />
+                        <label class="checkbox" for="checkbox9">
+                            <span>
+                                <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </svg>
+                            </span>
+                            <span>...</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
         <div class="input">
             <textarea class="input_comment" type="text" placeholder="Комментарий"></textarea>
             <a href="#">
