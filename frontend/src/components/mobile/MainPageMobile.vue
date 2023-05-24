@@ -3,6 +3,8 @@
 
         <PostamatMobileAllGood v-show="button_good"></PostamatMobileAllGood>
         <ButtonPostamat v-show="button_postamat"></ButtonPostamat>
+        <ButtonDelivery v-show="button_delivery"></ButtonDelivery>
+        <ButtonArticle v-show="button_article"></ButtonArticle>
         <div v-show="button_postamat == false">
             <div v-show="button_good == false">
                 <div v-show="button_delivery == false">
@@ -40,11 +42,16 @@
 
 <script>
 import PostamatMobileAllGood from "../mobile/PostamatMobileAllGood.vue";
-import ButtonPostamat from "../mobile/ButtonPostamat.vue"
+import ButtonPostamat from "../mobile/ButtonPostamat.vue";
+import ButtonDelivery from "../mobile/ButtonDelivery.vue";
+import ButtonArticle from "../mobile/ButtonArticle.vue";
+
 export default {
     components: {
         PostamatMobileAllGood,
         ButtonPostamat,
+        ButtonDelivery,
+        ButtonArticle,
     },
     data() {
         return {
@@ -95,6 +102,11 @@ span {
     margin: 20px 0;
 }
 
+.main {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .main_box {
     display: flex;
     flex-direction: column;
@@ -127,5 +139,217 @@ span {
     margin-bottom: 16px;
     background: #E2E7EE;
     color: #ff1935;
+}
+
+p {
+    font-family: TTFirsNeue-Regular;
+}
+
+.full-stars {
+    box-sizing: border-box;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: start;
+}
+
+.full-stars .rating-group {
+    display: inline-flex;
+}
+
+.full-stars input {
+    position: absolute;
+    left: -9999px;
+}
+
+.full-stars label {
+    margin: 0;
+    cursor: pointer;
+}
+
+.full-stars label svg {
+    margin: 2px;
+    height: 40px;
+    width: 40px;
+    fill: #ff1935;
+    transition: fill 0.3s;
+}
+
+.full-stars input:checked~label svg {
+    fill: #FFC5C5;
+}
+
+.full-stars .rating-group:hover label svg {
+    fill: #ff1935;
+}
+
+.full-stars .rating-group input:hover~label svg {
+    fill: #FFC5C5;
+}
+
+.input {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+
+}
+
+.input_comment {
+    box-sizing: border-box;
+    display: block;
+    min-width: 100%;
+    max-width: 400px;
+    height: calc(10rem + 2px);
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 20px;
+    font-family: TTFirsNeue-Regular;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input_comment::placeholder {
+    color: #212529;
+    opacity: 0.4;
+}
+
+.input_comment:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.input_comment:disabled,
+.input_comment[readonly] {
+    background-color: #f5f5f5;
+    opacity: 1;
+}
+
+.input_button {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+}
+
+ul li {
+    list-style-type: none;
+    padding: 5px;
+}
+
+.checkbox_main {
+    box-sizing: border-box;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: start;
+}
+
+.checkbox {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.checkbox span {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: TTFirsNeue-Regular;
+    color: black;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+}
+
+.checkbox span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #ff1935;
+    transition: all 0.2s ease;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+}
+
+.checkbox span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+}
+
+.checkbox span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #ff1935;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+}
+
+.checkbox span:last-child {
+    padding-left: 8px;
+}
+
+.checkbox:hover span:first-child {
+    border-color: #ff1935;
+}
+
+.inputcheck:checked+.checkbox span:first-child {
+    background: #ff1935;
+    border-color: #ff1935;
+    animation: wave 0.4s ease;
+}
+
+.inputcheck:checked+.checkbox span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.inputcheck:checked+.checkbox span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+@keyframes wave {
+    50% {
+        transform: scale(0.9);
+    }
 }
 </style>

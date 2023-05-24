@@ -1,10 +1,10 @@
 <template>
     <div>
- <header class="head">
-        <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
-    </header>
-    
-    <div class="full-stars">
+        <header class="head">
+            <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
+        </header>
+
+        <div class="full-stars">
             <p>Как вам постамат?</p>
             <div class="rating-group">
                 <!-- по умолчанию 0 -->

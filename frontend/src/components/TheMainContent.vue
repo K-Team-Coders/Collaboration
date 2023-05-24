@@ -35,7 +35,7 @@
         </div>
         <div class="flex flex-col gap-1 w-full">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
-          <AreaChartApex :data="allpostamats.timeStats" />
+          <AreaChartApex :data_chart="allpostamats.timeStats" />
           <BarChartWithPanels :bardata="allpostamats.classStats" />
         </div>
       </div>
