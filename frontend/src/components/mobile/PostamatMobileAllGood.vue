@@ -1,7 +1,7 @@
 <template>
     <div>
  <header class="head">
-        <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
+        <img class="head_logo" src="../mobile/image/logo.svg" alt="логотип">
     </header>
     
     <div class="full-stars">

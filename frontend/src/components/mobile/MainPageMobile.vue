@@ -10,7 +10,7 @@
                 <div v-show="button_delivery == false">
                     <div v-show="button_article == false">
                         <header class="head">
-                            <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
+                            <img class="head_logo" src="../mobile/image/logo.svg" alt="логотип">
                         </header>
                         <main class="main">
                             <div class="main_box">
@@ -242,7 +242,6 @@ p {
 
 ul li {
     list-style-type: none;
-    padding: 5px;
 }
 
 .checkbox_main {
