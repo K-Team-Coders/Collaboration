@@ -42,7 +42,7 @@
                 />
               </transition>
 
-              <div>
+              <div class="text-white">
                 <Radiobutton
                   v-for="label in items"
                   :key="label"
