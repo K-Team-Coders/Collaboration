@@ -7,7 +7,12 @@
           v-for="(navItem, index) in navItems"
           :key="index"
           :is-active.sync="activeIndex === index"
-          @update:isActive="(value) => activeIndex = value ? index : -1"
+          @update:isActive="
+            (value) => {
+              activeIndex = value ? index : -1;
+              $emit('updateActiveIndex', activeIndex);
+            }
+          "
           :label="navItem.label"
           :icon="navItem.icon"
         />
@@ -33,6 +38,7 @@ import LogoMain from "./LogoMain.vue";
 import SidebarNavItem from "./SidebarNavItem.vue";
 import DatePickerMain from "./DatePickerMain.vue";
 import SidebarSection from "./SidebarSection.vue";
+import { provide } from "vue";
 export default {
   components: {
     Filter,
@@ -58,6 +64,9 @@ export default {
         { label: "Клас. анализ", icon: "box" },
       ],
     };
+  },
+  created() {
+    provide("activeIndex", this.activeIndex);
   },
 };
 </script>

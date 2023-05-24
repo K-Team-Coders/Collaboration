@@ -43,20 +43,13 @@
 <script>
  import VueApexCharts from "vue3-apexcharts";
 export default {
-  props:{
-data_chart: Array
-  },
   components: {
           apexchart: VueApexCharts,
         },
   data(){
     return{
           
-          series: [{
-            data: [
-              this.data_chart
-            ]
-          }],
+          series: this.data_chart,
           chartOptions: {
             chart: {
               id: 'area-datetime',
@@ -161,6 +154,12 @@ data_chart: Array
               default:
             }
           }
+        },
+        props:{
+data_chart: Object
+  },
+        mounted(){
+          console.log(this.data_chart)
         }
 }
 </script>

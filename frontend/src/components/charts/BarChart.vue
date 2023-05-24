@@ -1,12 +1,13 @@
 <template>
   <div class="w-[363px] p-2">
-    <Bar  :chart-data="chartData" />
-    <div class="flex items-center justify-center"> 
+    <Bar :chart-data="chartData" />
+    <div class="flex items-center justify-center">
       <p
-          class="flex items-center justify-center text-black font-semibold text-4xl"
-        >  {{ bardata.post }} проблем с постаматом
+        class="flex items-center justify-center text-black font-semibold text-lg"
+      >
+        {{ bardata.post }} <br/>
+        <span class="text-sm"> проблем с постаматом </span>
       </p>
-        
     </div>
   </div>
 </template>
@@ -35,18 +36,30 @@ ChartJS.register(
 export default {
   name: "BarChart",
   components: { Bar },
-  props:{
-    bardata: Object
+  props: {
+    bardata: Object,
   },
   data() {
     return {
       chartData: {
-        labels: ["Проблем нет", "С товаром", "С доставкой", "С постаматом", "Со сроками"],
+        labels: [
+          "Проблем нет",
+          "С товаром",
+          "С доставкой",
+          "С постаматом",
+          "Со сроками",
+        ],
         datasets: [
           {
             label: "Распределение проблем по отзывам",
             backgroundColor: "#E5102A",
-            data: Array(this.bardata.good, this.bardata.article, this.bardata.delivery , this.bardata.post, this.bardata.times),
+            data: Array(
+              this.bardata.good,
+              this.bardata.article,
+              this.bardata.delivery,
+              this.bardata.post,
+              this.bardata.times
+            ),
           },
         ],
       },
