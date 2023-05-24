@@ -1,31 +1,35 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    
-    component: () => import('../views/MainPage.vue')
+    path: "/",
+    name: "home",
+
+    component: () => import("../views/MainPage.vue"),
   },
   {
-    path: '/datamarking',
-    name: 'datamarking',
-    
-    component: () => import('../components/DataMark.vue')
+    path: "/datamarking",
+    name: "datamarking",
+
+    component: () => import("../components/DataMark.vue"),
   },
   {
-    path: '/reviewmobile',
-    name: 'reviewmobile',
-    
-    component: () => import('../components/mobile/MainPageMobile.vue')
-  }
+    path: "/reviewmobile",
+    name: "reviewmobile",
 
-]
+    component: () => import("../components/mobile/MainPageMobile.vue"),
+  },
+  {
+    path: "/whatsay",
+    name: 'whatsay',
 
+    component:() => import ('../components/Whatsay.vue')
+  },
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
