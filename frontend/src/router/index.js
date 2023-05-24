@@ -25,6 +25,7 @@ const routes = [
 
     component:() => import ('../components/Whatsay.vue')
   },
+
 ];
 
 const router = createRouter({

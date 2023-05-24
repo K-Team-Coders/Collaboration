@@ -1,10 +1,10 @@
 <template>
     <div>
- <header class="head">
-        <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
-    </header>
-    
-    <div class="full-stars">
+        <header class="head">
+            <img class="head_logo" src="../mobile/image/logo.png" alt="логотип">
+        </header>
+
+        <div class="full-stars">
             <p>Как вам постамат?</p>
             <div class="rating-group">
                 <!-- по умолчанию 0 -->
@@ -72,102 +72,102 @@ export default {
 </script>
 
 <style>
-        p {
-            font-family: TTFirsNeue-Regular;
-        }
+p {
+    font-family: TTFirsNeue-Regular;
+}
 
-        .full-stars {
-            box-sizing: border-box;
-            width: 90%;
-            max-width: 400px;
-            margin: 0 auto;
-            margin-bottom: 10px;
-            text-align: start;
-        }
+.full-stars {
+    box-sizing: border-box;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: start;
+}
 
-        .full-stars .rating-group {
-            display: inline-flex;
-        }
+.full-stars .rating-group {
+    display: inline-flex;
+}
 
-        .full-stars input {
-            position: absolute;
-            left: -9999px;
-        }
+.full-stars input {
+    position: absolute;
+    left: -9999px;
+}
 
-        .full-stars label {
-            margin: 0;
-            cursor: pointer;
-        }
+.full-stars label {
+    margin: 0;
+    cursor: pointer;
+}
 
-        .full-stars label svg {
-            margin: 2px;
-            height: 40px;
-            width: 40px;
-            fill: #ff1935;
-            transition: fill 0.3s;
-        }
+.full-stars label svg {
+    margin: 2px;
+    height: 40px;
+    width: 40px;
+    fill: #ff1935;
+    transition: fill 0.3s;
+}
 
-        .full-stars input:checked~label svg {
-            fill: #FFC5C5;
-        }
+.full-stars input:checked~label svg {
+    fill: #FFC5C5;
+}
 
-        .full-stars .rating-group:hover label svg {
-            fill: #ff1935;
-        }
+.full-stars .rating-group:hover label svg {
+    fill: #ff1935;
+}
 
-        .full-stars .rating-group input:hover~label svg {
-            fill: #FFC5C5;
-        }
+.full-stars .rating-group input:hover~label svg {
+    fill: #FFC5C5;
+}
 
-        .input {
-            width: 90%;
-            max-width: 400px;
-            margin: 0 auto;
-            
-        }
+.input {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
 
-        .input_comment {
-            box-sizing: border-box;
-            display: block;
-            min-width: 100%;
-            max-width: 400px;
-            height: calc(10rem + 2px);
-            padding: 0.375rem 0.75rem;
-            margin-bottom: 20px;
-            font-family: TTFirsNeue-Regular;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #212529;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #bdbdbd;
-            border-radius: 0.25rem;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
+}
 
-        .input_comment::placeholder {
-            color: #212529;
-            opacity: 0.4;
-        }
+.input_comment {
+    box-sizing: border-box;
+    display: block;
+    min-width: 100%;
+    max-width: 400px;
+    height: calc(10rem + 2px);
+    padding: 0.375rem 0.75rem;
+    margin-bottom: 20px;
+    font-family: TTFirsNeue-Regular;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
-        .input_comment:focus {
-            color: #212529;
-            background-color: #fff;
-            border-color: #bdbdbd;
-            outline: 0;
-            box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
-        }
+.input_comment::placeholder {
+    color: #212529;
+    opacity: 0.4;
+}
 
-        .input_comment:disabled,
-        .input_comment[readonly] {
-            background-color: #f5f5f5;
-            opacity: 1;
-        }
+.input_comment:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
 
-        .input_button {
-            box-sizing: border-box;
-            width: 100%;
-            max-width: 400px;
-        }
+.input_comment:disabled,
+.input_comment[readonly] {
+    background-color: #f5f5f5;
+    opacity: 1;
+}
+
+.input_button {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+}
 </style>
