@@ -46,12 +46,11 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="p-4" v-show="isActive.length > 6">
-                  <RadiobuttonRating
-                    :name="'rating'"
-                    :ratings="ratings"
-                    :selected-value="selectedRating"
-                  />
+                <div
+                  class="py-2 flex justify-start"
+                  v-show="isActive.length > 6"
+                >
+                  <Rating v-model="checkedRating" />
                 </div>
               </transition>
               <transition
@@ -87,56 +86,49 @@
 </template>
 
 <script>
-import RadiobuttonProblem from "./RadiobuttonProblem.vue";
-import RadiobuttonRating from "./RadiobuttonRating.vue";
+import RadiobuttonProblem from './RadiobuttonProblem.vue'
+import Rating from './Rating.vue'
 
 export default {
   components: {
     RadiobuttonProblem,
-    RadiobuttonRating,
+    Rating
   },
-  data() {
+  data () {
     return {
-      isActive: "",
-      usertext: "",
+      isActive: '',
+      usertext: '',
       checkedProblems: null,
       checkedRating: null,
       problems: [
-        { massage: "Проблем нет" },
-        { massage: "Проблем с товаром" },
-        { massage: "Проблем с доставкой" },
-        { massage: "Проблема с постаматом" },
-        { massage: "Проблема со сроками" },
+        { massage: 'Проблем нет' },
+        { massage: 'Проблем с товаром' },
+        { massage: 'Проблем с доставкой' },
+        { massage: 'Проблема с постаматом' },
+        { massage: 'Проблема со сроками' }
       ],
-      ratings: [
-        { value: 1 },
-        { value: 2 },
-        { value: 3 },
-        { value: 4 },
-        { value: 5 },
-      ],
-      selectedRating: 0,
-    };
+    }
   },
   methods: {
-    async sendData() {
+    async sendData () {
       const data = {
         isActive: this.isActive,
         usertext: this.usertext,
         checkedProblems: this.checkedProblems,
-      };
-      await axios.post("http://localhost:8000/data", data);
+        checkedRating: this.checkedRating
+      }
+      await axios.post('http://localhost:8000/', data)
     },
-    chooseProblem(index) {
-      this.checkedProblems = index;
-      return this.checkedProblems;
+    chooseProblem (index) {
+      this.checkedProblems = index
+      return this.checkedProblems
     },
-    chooseRating(index) {
-      this.checkedRating = index;
-      return this.checkedRating;
-    },
-  },
-};
+    chooseRating (index) {
+      this.checkedRating = index
+      return this.checkedRating
+    }
+  }
+}
 </script>
 <style>
 .external-svg {
