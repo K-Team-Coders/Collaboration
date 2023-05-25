@@ -16,7 +16,7 @@
             <div class="flex flex-col pt-3 w-full">
               <input
                 type="text"
-                v-model="isActive"
+                v-model="orderNumber"
                 placeholder="Пожалуйста, введите номер заказа"
                 useautocomplete="off"
                 class="border-[#E2E7EE] border-[1.5px] w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
@@ -30,7 +30,7 @@
                 leave-to-class="opacity-0"
               >
                 <input
-                  v-show="isActive.length > 6"
+                  v-show="orderNumber.length > 6"
                   v-model="usertext"
                   type="text"
                   placeholder="Оставьте отзыв"
@@ -48,7 +48,7 @@
               >
                 <div
                   class="py-2 flex justify-start"
-                  v-show="isActive.length > 6"
+                  v-show="orderNumber.length > 6"
                 >
                   <Rating v-model="checkedRating" />
                 </div>
@@ -61,7 +61,7 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="text-white mt-2" v-show="isActive.length > 6">
+                <div class="text-white mt-2" v-show="orderNumber.length > 6">
                   <RadiobuttonProblem
                     v-for="(problem, index) in problems"
                     :key="index"
@@ -96,7 +96,7 @@ export default {
   },
   data () {
     return {
-      isActive: '',
+      orderNumber: '',
       usertext: '',
       checkedProblems: null,
       checkedRating: null,
@@ -112,7 +112,7 @@ export default {
   methods: {
     async sendData () {
       const data = {
-        isActive: this.isActive,
+        orderNumber: this.orderNumber,
         usertext: this.usertext,
         checkedProblems: this.checkedProblems,
         checkedRating: this.checkedRating
