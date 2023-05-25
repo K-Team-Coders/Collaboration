@@ -29,10 +29,11 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <input
+                <textarea
                   v-show="orderNumber.length > 6"
                   v-model="usertext"
                   type="text"
+                  wrap="soft"
                   placeholder="Оставьте отзыв"
                   useautocomplete="off"
                   class="border-[#E2E7EE] border-[1.5px] mb-2.5 w-auto px-4 text-xl py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax h-28 text-black mt-2"
