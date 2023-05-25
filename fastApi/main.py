@@ -289,7 +289,7 @@ def adminPage():
     # else:
     #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
            
-    cur.execute(f"SELECT * FROM xdataset")
+    cur.execute(f"SELECT * FROM reviews")
     data = cur.fetchall()
     result = []
     for index, subdata in enumerate(data):
@@ -300,8 +300,8 @@ def adminPage():
         clusternumber = subdata[4]
         article = subdata[5]
         seller = subdata[6]
-        latitude = subdata[7]
-        longitude = subdata[8]
+        latitude = subdata[8]
+        longitude = subdata[7]
         classnumber = subdata[9]
 
         result.append({
@@ -348,12 +348,26 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     else:
         return Response(status_code=422)
     
-    # Если запрос не битый - то класс и кластер указываем
-    if item.usertext:
-        clusternumber = int(String2Cluster(item.usertext, word2vec, minibatchkmeans)[0])
-        classnumber = int(String2Classs(item.usertext, w2v_model, sk_model)[0])
+    # Если с формы не поступает класс, то размечаем его
+    if item.classnumber != -999:
+        classnumber = item.classnumber
     else:
-        return Response(status_code=422)
+        # Если запрос не битый - то класс и кластер указываем
+        if item.usertext:
+            classnumber = int(String2Classs(item.usertext, w2v_model, sk_model)[0])
+        else:
+            return Response(status_code=422)
+    
+    # Если с формы не прилетает номер кластера, то предсказываем его
+    if item.clusternumber != -999:
+        clusternumber = item.clusternumber
+    else:
+        # Если запрос не битый - то класс и кластер указываем
+        if item.usertext:
+            clusternumber = int(String2Cluster(item.usertext, word2vec, minibatchkmeans)[0])
+        else:
+            return Response(status_code=422)
+
     
     # ЗАГЛУШКА!!! --------------------------------
     article = SomeArticleFromYourSources()
@@ -366,7 +380,7 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
         logger.error(f'Datetime error! \n {e}')
 
     # Если данные верны - оправляем на БД
-    if coordsChecker and item.usertext and clusternumber != 999:
+    if coordsChecker and item.usertext:
         # Контроль
         if DEBUG:
             logger.success('User text -- ' + item.usertext)
