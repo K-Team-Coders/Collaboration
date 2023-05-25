@@ -51,7 +51,7 @@
     >
       <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
-        <DownloadButton label="Импорт в .csv" icon="document" />
+        <DownloadButton @click="downloadFileTable2()" label="Импорт в .csv" icon="document" />
       </div>
     </div>
   </div>
@@ -86,23 +86,23 @@ export default {
  
   methods:{
     downloadFileTable1(){
-   axios.get("http://26.200.185.61:8080/getAdminPageStatsFile/").then((res) => {
+   axios.get("http://26.200.185.61:8080/getAdminPageAdressStatsFile/").then((res) => {
       const url = URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", "Отчет распределения наиболее популярных проблем по адресам.csv");
       link.click();
    });
+  },
+  downloadFileTable2(){
+   axios.get("http://26.200.185.61:8080/getAdminPageClassesStatsFile/").then((res) => {
+      const url = URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "Отчет по классификации отзывов.csv");
+      link.click();
+   });
   }},
-  // downloadFileTable2(){
-  //  axios.get("http://26.200.185.61:8080/getAdminPageStatsFile/").then((res) => {
-  //     const url = URL.createObjectURL(new Blob([res.data]));
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.setAttribute("download", "Отчет распределения наиболее популярных проблем по адресам.csv");
-  //     link.click();
-  //  });
-  // }},
   computed: {
     postamat_count () {
       let adress_list = []
