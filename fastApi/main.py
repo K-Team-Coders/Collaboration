@@ -62,7 +62,7 @@ elif GEOCODER == 'DEFAULT':
 conn = 0
 cur = 0
 old_stats = 0
-
+DEBUG = True
 # Костыльные словари для пользователей \ операторов
 CLASSIFICATOR_CLASSES = {
     '0' : 'good',
@@ -172,7 +172,8 @@ def getAdressStats(result):
             'problem': Number2RusClass(collections.Counter([int(subresult['classnumber']) for subresult in result if subresult['adress'] == adress]).most_common(1)[0][0])
         }
         stats.append(substats)
-    logger.debug(stats)
+    if DEBUG:
+        logger.debug(stats)
     return stats
 
 # Статистика для макретплейсов
@@ -196,7 +197,8 @@ def getMarketStats(result):
     substats.update(datapatch)
     stats.append(substats)
     # КОНЕЦ ЗАГЛУШКИ ---------------------------------------
-    logger.debug(stats)
+    if DEBUG:
+        logger.debug(stats)
     return stats
 
 # Статистика для бейджей вверху страницы для общего понимания сколько запросов в базе
@@ -211,14 +213,16 @@ def getTotalStats(result):
         'partners': unique_markets,
         'reviews': total_reviews
     }
-    logger.debug(stats)
+    if DEBUG:
+        logger.debug(stats)
     return stats
 
 # Статистика по классам
 def getClassesStats(result):
     stats = {}
     stats.update(collections.Counter([Number2Class(x['classnumber']) for x in result]))
-    logger.debug(stats)
+    if DEBUG:
+        logger.debug(stats)
     return stats
 
 # Статистика по месяцам
@@ -234,8 +238,8 @@ def getTimeStats(result):
         substats.append(values[index])
 
         stats.append(substats)
-    
-    logger.debug(stats)
+    if DEBUG:
+        logger.debug(stats)
     return stats
 
 # Бэк на FastAPI
@@ -364,16 +368,17 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     # Если данные верны - оправляем на БД
     if coordsChecker and item.usertext and clusternumber != 999:
         # Контроль
-        logger.success('User text -- ' + item.usertext)
-        logger.success('Mark -- ' + str(item.mark))
-        logger.success('Adress -- ' + str(item.adress))
-        logger.success('Review date -- ' + str(reviewdate))
-        logger.success('Cluster number (Optional) -- ' + str(clusternumber))
-        logger.success('Class number (Optional) -- ' + str(classnumber))
-        logger.success('Article (Optianal) -- ' + str(article))
-        logger.success('Seller (Optional) -- ' + str(item.seller))
-        logger.success('Longitude (Optional) -- ' + str(longitude))
-        logger.success('Latitude (Optional) -- ' + str(latitude))
+        if DEBUG:
+            logger.success('User text -- ' + item.usertext)
+            logger.success('Mark -- ' + str(item.mark))
+            logger.success('Adress -- ' + str(item.adress))
+            logger.success('Review date -- ' + str(reviewdate))
+            logger.success('Cluster number (Optional) -- ' + str(clusternumber))
+            logger.success('Class number (Optional) -- ' + str(classnumber))
+            logger.success('Article (Optianal) -- ' + str(article))
+            logger.success('Seller (Optional) -- ' + str(item.seller))
+            logger.success('Longitude (Optional) -- ' + str(longitude))
+            logger.success('Latitude (Optional) -- ' + str(latitude))
 
         cur.execute("""
         INSERT INTO reviews 
@@ -451,8 +456,8 @@ def getDatasetFormerElement():
     except psycopg2.ProgrammingError as e:
         logger.error(e)
         results = old_stats
-
-    logger.debug("Dataset balance -- " + str(results))
+    if DEBUG:
+        logger.debug("Dataset balance -- " + str(results))
     
     jsoned = {
         "usertext": usertext, 
@@ -477,17 +482,18 @@ def addDatasetFormerElement(item: ReviewFromDatasetFormer):
     # Если данные верны - оправляем на БД
     if item.usertext:
         # Контроль
-        logger.success('User text -- ' + item.usertext)
-        logger.success('ID -- ' + str(item.id_))
-        logger.success('Mark -- ' + str(item.mark))
-        logger.success('Adress -- ' + str(item.adress))
-        logger.success('Review date -- ' + str(item.reviewdate))
-        logger.success('Cluster number (Optional) -- ' + str(item.clusternumber))
-        logger.success('Article (Optianal) -- ' + str(item.article))
-        logger.success('Seller (Optional) -- ' + str(item.seller))
-        logger.success('Longitude (Optional) -- ' + str(item.longitude))
-        logger.success('Latitude (Optional) -- ' + str(item.latitude))    
-        logger.success('Marked class -- ' + str(item.classnumber))    
+        if DEBUG:
+            logger.success('User text -- ' + item.usertext)
+            logger.success('ID -- ' + str(item.id_))
+            logger.success('Mark -- ' + str(item.mark))
+            logger.success('Adress -- ' + str(item.adress))
+            logger.success('Review date -- ' + str(item.reviewdate))
+            logger.success('Cluster number (Optional) -- ' + str(item.clusternumber))
+            logger.success('Article (Optianal) -- ' + str(item.article))
+            logger.success('Seller (Optional) -- ' + str(item.seller))
+            logger.success('Longitude (Optional) -- ' + str(item.longitude))
+            logger.success('Latitude (Optional) -- ' + str(item.latitude))    
+            logger.success('Marked class -- ' + str(item.classnumber))    
 
     try:
         cur.execute("""
