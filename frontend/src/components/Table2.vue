@@ -18,10 +18,13 @@ export default {
   data() {
     return {
       headers: [
+        { text: "Номер заказа", value: "article", sortable: true },
+        { text: "Дата заказа", value: "reviewdate", sortable: true },
         { text: "Адрес постамата", value: "adress", sortable: true },
-        { text: "Количество отзывов", value: "textnumbers", sortable: true },
-        { text: "Средний рейтинг", value: "stars", sortable: true },
-        { text: "Категория проблемы", value: "problem", sortable: true },
+        { text: "Отзыв", value: "usertext", sortable: true },
+        { text: "Рейтинг", value: "mark", sortable: true },
+        { text: "Маркет-плейс", value: "seller", sortable: true },
+        { text: "Категория проблемы", value: "classnumber", sortable: true },
       ],
       items: [
       ],
@@ -86,7 +89,7 @@ export default {
 }
 .vue3-easy-data-table__header th.sortable[data-v-19cc4b1b] {
   text-align: center;
-  padding-left: 30px;
+  padding-left: 40px;
 }
 .vue3-easy-data-table__header th .header[data-v-19cc4b1b] {
   display: block;

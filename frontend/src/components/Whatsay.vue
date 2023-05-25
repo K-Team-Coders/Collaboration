@@ -17,13 +17,10 @@
               <input
                 type="text"
                 v-model="isActive"
-                placeholder="Пожалуйста, введите уникальный код"
+                placeholder="Пожалуйста, введите номер заказа"
                 useautocomplete="off"
                 class="border-[#E2E7EE] border-[1.5px] w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
               />
-              <p class="py-2.5 tracking-tighter font-medium">
-                Где я могу найти номер заказа?
-              </p>
               <transition
                 enter-active-class="duration-300"
                 enter-from-class="opacity-0"
@@ -33,25 +30,52 @@
                 leave-to-class="opacity-0"
               >
                 <input
-                  v-show="isActive.length > 0"
+                  v-show="isActive.length > 6"
                   v-model="usertext"
                   type="text"
                   placeholder="Оставьте отзыв"
                   useautocomplete="off"
-                  class="border-[#E2E7EE] border-[1.5px] mb-2.5 w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
+                  class="border-[#E2E7EE] border-[1.5px] mb-2.5 w-auto px-4 text-xl py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax h-28 text-black mt-2"
                 />
               </transition>
-
-              <div class="text-white">
-                <Radiobutton
-                  v-for="label in items"
-                  :key="label"
-                  :label="label.massage"
-                />
-              </div>
+              <transition
+                enter-active-class="duration-00"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="duration-500"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <div class="p-4" v-show="isActive.length > 6">
+                  <RadiobuttonRating
+                    :name="'rating'"
+                    :ratings="ratings"
+                    :selected-value="selectedRating"
+                  />
+                </div>
+              </transition>
+              <transition
+                enter-active-class="duration-00"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="duration-500"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <div class="text-white mt-2" v-show="isActive.length > 6">
+                  <RadiobuttonProblem
+                    v-for="(problem, index) in problems"
+                    :key="index"
+                    :label="problem.massage"
+                    @click="chooseProblem(index)"
+                    v-model="checkedProblems"
+                  />
+                </div>
+              </transition>
             </div>
             <button
               class="bg-idealRed w-full rounded-lg py-3 text-xl font-TT_Firs_Neue_Bold text-uppercase mt-3"
+              @click="sendData"
             >
               Отправить отзыв
             </button>
@@ -63,23 +87,54 @@
 </template>
 
 <script>
-import Radiobutton from "./Radiobutton.vue";
+import RadiobuttonProblem from "./RadiobuttonProblem.vue";
+import RadiobuttonRating from "./RadiobuttonRating.vue";
+
 export default {
   components: {
-    Radiobutton,
+    RadiobuttonProblem,
+    RadiobuttonRating,
   },
   data() {
     return {
       isActive: "",
       usertext: "",
-      items: [
+      checkedProblems: null,
+      checkedRating: null,
+      problems: [
         { massage: "Проблем нет" },
         { massage: "Проблем с товаром" },
         { massage: "Проблем с доставкой" },
-        { massage: "Проблем нет" },
-        { massage: "Проблем нет" },
+        { massage: "Проблема с постаматом" },
+        { massage: "Проблема со сроками" },
       ],
+      ratings: [
+        { value: 1 },
+        { value: 2 },
+        { value: 3 },
+        { value: 4 },
+        { value: 5 },
+      ],
+      selectedRating: 0,
     };
+  },
+  methods: {
+    async sendData() {
+      const data = {
+        isActive: this.isActive,
+        usertext: this.usertext,
+        checkedProblems: this.checkedProblems,
+      };
+      await axios.post("http://localhost:8000/data", data);
+    },
+    chooseProblem(index) {
+      this.checkedProblems = index;
+      return this.checkedProblems;
+    },
+    chooseRating(index) {
+      this.checkedRating = index;
+      return this.checkedRating;
+    },
   },
 };
 </script>

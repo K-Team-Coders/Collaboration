@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <apexchart
-      height="580"
+      height="500"
       width="770"
       :options="chartOptions"
       :series="items"
@@ -16,24 +16,30 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
-  
+
   computed: {
-        items(){
-          let series = {}
-          let series_radar = []
-          this.radardata.forEach(element => {
-            series = {}
-            series.name = element.market, 
-            series.data = Array(element.good, element.article, element.delivery, element.post, element.times),
-            series_radar.push(series) });
-            
-            console.log(series_radar)
-            return series_radar
-        }
-        
-      },
-      props:{
-    radardata: Array
+    items() {
+      let series = {};
+      let series_radar = [];
+      this.radardata.forEach((element) => {
+        series = {};
+        (series.name = element.market),
+          (series.data = Array(
+            element.good,
+            element.article,
+            element.delivery,
+            element.post,
+            element.times
+          )),
+          series_radar.push(series);
+      });
+
+      console.log(series_radar);
+      return series_radar;
+    },
+  },
+  props: {
+    radardata: Array,
   },
   data() {
     return {
@@ -42,13 +48,13 @@ export default {
           text: "Проблема партнеров по отзывам",
         },
         stroke: {
-          width: -70,
+          width: 0,
         },
         fill: {
-          opacity: 0.4,
+          opacity: 0.5,
         },
         markers: {
-          size: 4,
+          size: 3,
         },
         xaxis: {
           categories: [
@@ -60,11 +66,9 @@ export default {
           ],
         },
       },
-      
     };
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

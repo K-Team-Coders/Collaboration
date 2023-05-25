@@ -1,22 +1,15 @@
 <template>
   <div class="border-idealRed border-[6px] rounded-lg shadow-cards">
-    <yandex-map
-      :coords="coords"
-      :use-object-manager="true"
-      :object-manager-clusterize="true"
-      :settings="settings"
-      :zoom="5"
-      :cluster-options="clusterOptions"
-    
-    >
-      <ymap-marker
-        v-for="item in postamat_list"
-        :key="item.id"
-        :coords="[item.latitude, item.longitude]"
-        :markerId="item.id"
-        :cluster-name="1"
-        :balloon-template="balloonTemplate(item)"
-      />
+    <yandex-map :coords="coords" :use-object-manager="true" :object-manager-clusterize="true" :settings="settings"
+      :zoom="5" :cluster-options="clusterOptions">
+      <ymap-marker v-for="item in postamat_list" :key="item.id" :coords="[item.latitude, item.longitude]"
+        :markerId="item.id" :cluster-name="1"
+        :balloon="{
+          header: `<h1> Заказ № ${item.article} </h1>` +
+            `<h3> от ${item.reviewdate} </h3>` +
+            `<span class='description'> ${item.adress} </span>`,
+          body: `<b>Отзыв:</b>` + `<p> ${item.usertext} </p>` + `<b>Предсказанный класс:</b>` + `<p> ${item.classnumber} </p>` + `<b>Рейтинг:</b>` + `<p> ${item.mark} </p>`, footer: `Маркет-плейс:<br/>${item.seller}`
+        }" />
     </yandex-map>
   </div>
 </template>
@@ -35,99 +28,32 @@ const settings = {
 export default {
   components: { yandexMap, ymapMarker },
   computed: {},
+  
   data() {
     return {
+      
       coords: [55.753215, 36.622504],
       settings: settings,
       clusterOptions: {
         clusterOptions: {
-      1: {
-        clusterDisableClickZoom: true,
-        clusterOpenBalloonOnClick: true,
-        clusterBalloonLayout: [
-          '<table class="w-full text-sm text-center text-black">',
-            '<thead class="text-xs text-white bg-idealRed">',
-              '<tr class="">',
-                '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
-                  'Номер заказа',
-                  '</th>',
-                  '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
-                    'Адрес постамата',
-                    '</th>',
-                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
-                    'Отзыв',
-                    '</th>',
-                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
-                    'Рейтинг',
-                    '</th>',
-                    '<th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">',
-                    'Категоря',
-                    '</th>',
-         ,
-        ].join(''),
+          1: {
+            clusterDisableClickZoom: false,
+            clusterOpenBalloonOnClick: true,
+            clusterBalloonLayout: [
+              '<h2 class=ballon_header>{{ properties.balloonContentHeader |raw}}</h2>' +
+              '<div class=ballon_body>{{ properties.balloonContentBody }}</div>' +
+              '<div class=ballon_footer>{{ properties.balloonContentFooter }}</div>',
+            ]
+          },
+        },
       },
-    },
-    },
     };
-    
+
   },
   props: {
     postamat_list: Array,
   },
-  methods: {
-    balloonTemplate(item) {
-      return `
-      <table class="w-full text-sm text-center text-black">
-          <thead class="text-xs text-white bg-idealRed">
-            <tr class="">
-              <th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">
-                Номер заказа
-              </th>
-              <th class="px-2 py-2 border-black border-r-[0.5px]  hover:bg-[#E5102A]"">
-                Адрес постамата
-              </th>
-              <th
-                class="px-6 py-2 border-black border-r-[0.5px] hover:bg-[#E5102A]"
-              >
-                Отзыв
-              </th>
-              <th
-                class="px-1 py-2  hover:bg-[#E5102A]"
-              >
-                Рейтинг
-              </th>
-              <th
-                class="px-1 py-2  hover:bg-[#E5102A]"
-              >
-                Категория
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="bg-slate-50 p-1 border-l border-black hover:bg-gray-200"
-            > 
-            <td class=" text-xs p-2 border-1 text-gray-900 text-center">
-                 ${item.article}
-            </td>
-              <td class=" text-xs p-2 border-1 text-gray-900 text-center">
-                 ${item.adress}
-              </td>
-              <td class=" text-xs border-1  p-1 text-gray-900 text-center">
-                 ${item.usertext}
-              </td>
-              <td class="text-xs p-1 border-1 text-gray-900 text-center">
-                 ${item.mark}
-              </td>
-              <td class="text-xs p-1 border-1 text-gray-900 text-center">
-                 ${item.classnumber}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-    },
-  },
+  
 };
 </script>
 
@@ -135,5 +61,32 @@ export default {
 .ymap-container {
   width: 100%;
   height: 76vh;
+}
+
+.ballon_header {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #708090;
+}
+
+.ballon_body {
+  font-size: 14px;
+  text-align: center;
+}
+
+.ballon_footer {
+  font-size: 12px;
+  text-align: right;
+  border-top: 1px solid #7D7D7D;
+  color: #7D7D7D;
+  margin-top: 10px;
+}
+
+.description {
+  display: block;
+  color: #999;
+  font-size: 10px;
+  line-height: 17px;
 }
 </style>

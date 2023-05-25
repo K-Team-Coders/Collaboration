@@ -1,6 +1,6 @@
 <template>
-  <div class="ml-64 pt-20">
-    <div class="px-5 py-4 h-full bg-white" >
+  <div class="ml-64 pt-[70px] font-Montserrat">
+    <div class="px-5 py-4 h-full bg-white" v-show="$attrs.activeindex === 0">
       <div class="grid grid-cols-3 gap-3 mb-4">
         <Panel
           label="Всего постаматов"
@@ -25,26 +25,36 @@
         </div>
       </div>
     </div>
-    <div class="px-5 py-3 shadow-innerMax h-full" >
-      <div class="flex grid-cols-2 gap-1 justify-center">
-        <div class="w-full">
-          <RadarChartWithPanels :radardata="allpostamats.marketStats" />
+    <div
+      class="px-5 py-3 shadow-innerMax h-full"
+      v-show="$attrs.activeindex === 1"
+    >
+      <div class="flex flex-col mt-3">
+        <div class="flex flex-row justify-center gap-2">
+          <BarChartWithPanels :bardata="allpostamats.classStats" />
+          <!-- <AreaChartApex :data_chart="allpostamats.timeStats" /> -->
         </div>
-        <div class="flex flex-col gap-1 w-full">
-          <BarChartWithPanels :bardata="allpostamats.classStats" />
-          <AreaChartApex :data="allpostamats.timeStats" />
-          <BarChartWithPanels :bardata="allpostamats.classStats" />
+        <div class="w-full mt-3 flex justify-center">
+          <div class="w-2/3 ml-2">
+            <RadarChartWithPanels :radardata="allpostamats.marketStats" />
+          </div>
         </div>
       </div>
     </div>
-    <div class="px-[100px] py-[30px] bg-white" >
+    <div
+      class="px-[100px] py-[30px] bg-white"
+      v-show="$attrs.activeindex === 2"
+    >
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
     </div>
-    <div class="px-[100px] py-[30px] shadow-inner" >
-      <Table2 :postamats_list="allpostamats.adressStats" />
+    <div
+      class="px-[100px] py-[30px] shadow-inner"
+      v-show="$attrs.activeindex === 3"
+    >
+      <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
         <DownloadButton label="Импорт в .xls" icon="document" />
       </div>
@@ -57,19 +67,18 @@ import Table2 from "./Table2.vue";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
-import AreaChartApex from "@/components/charts/AreaChartApex.vue";
+// import AreaChartApex from "@/components/charts/AreaChartApex.vue";
 import Filter from "@/components/Filter.vue";
 import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
 import RadarChartWithPanels from "./RadarChartWithPanels.vue";
 import BarChartWithPanels from "./BarChartWithPanels.vue";
 import ProgressBar from "./ProgressBar.vue";
-
 export default {
   components: {
     Table2,
     BarChart,
-    AreaChartApex,
+    // AreaChartApex,
     Button,
     BarChartWithPanels,
     Panel,
@@ -79,9 +88,6 @@ export default {
     RadarChartWithPanels,
     Table,
     ProgressBar,
-  },
-  data() {
-    return {};
   },
   computed: {
     postamat_count() {
@@ -95,8 +101,6 @@ export default {
   },
   props: {
     allpostamats: Object,
-    activeIndex: Number,
-    allpostamats: Object, 
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center border-idealRed border-4 rounded-lg shadow-cards">
+  <div class="flex items-center justify-center border-idealRed border-4 rounded-lg shadow-cards w-full">
     <BarChart :bardata="bardata"/>
     <PanelGroup />
   </div>
