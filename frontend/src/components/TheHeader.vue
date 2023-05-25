@@ -3,6 +3,7 @@
     <div>
       <HeaderTimeAndDate />
       <ButtonRoute />
+      <HeaderReview />
     </div>
   </header>
 </template>
@@ -10,10 +11,12 @@
 <script>
 import HeaderTimeAndDate from "./HeaderTimeAndDate.vue";
 import ButtonRoute from "./ButtonRoute.vue";
+import HeaderReview from "./HeaderReview.vue";
 export default {
   components: {
     HeaderTimeAndDate,
     ButtonRoute,
+    HeaderReview,
   },
   data() {
     return {
