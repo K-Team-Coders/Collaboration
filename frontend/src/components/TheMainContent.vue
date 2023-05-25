@@ -83,26 +83,6 @@ export default {
     RadarChartWithPanels,
     Table
   },
-  mounted () {
-    this.downloadFile()
-  },
-  methods: {
-    downloadFile () {
-      axios({
-        url: 'http://26.200.185.61:8080/getAdminPageStatsFile/', // File URL Goes Here
-        method: 'GET',
-        responseType: 'blob'
-      }).then(res => {
-        var FILE = window.URL.createObjectURL(new Blob([res.data]))
-
-        var docUrl = document.createElement('x')
-        docUrl.href = FILE
-        docUrl.setAttribute('download', 'Отчет.xlsx')
-        document.body.appendChild(docUrl)
-        docUrl.click()
-      })
-    }
-  },
  
   methods:{
     downloadFileTable1(){
@@ -113,7 +93,7 @@ export default {
       link.setAttribute("download", "Отчет распределения наиболее популярных проблем по адресам.csv");
       link.click();
    });
-  },
+  }},
   // downloadFileTable2(){
   //  axios.get("http://26.200.185.61:8080/getAdminPageStatsFile/").then((res) => {
   //     const url = URL.createObjectURL(new Blob([res.data]));
@@ -136,5 +116,5 @@ export default {
   props: {
     allpostamats: Object,
   },
-}}
+}
 </script>
