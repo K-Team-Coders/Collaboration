@@ -19,11 +19,6 @@
         />
       </div>
       <Map :postamat_list="allpostamats.data"> </Map>
-      <div class="flex">
-        <div class="w-full">
-          <ProgressBar />
-        </div>
-      </div>
     </div>
     <div
       class="px-5 py-3 shadow-innerMax h-full"
@@ -62,18 +57,17 @@
   </div>
 </template>
 <script>
-import Panel from "@/components/Panel.vue";
-import Table2 from "./Table2.vue";
-import Map from "@/components/Map.vue";
-import Table from "@/components/Table.vue";
-import DownloadButton from "@/components/DownloadButton.vue";
+import Panel from '@/components/Panel.vue'
+import Table2 from './Table2.vue'
+import Map from '@/components/Map.vue'
+import Table from '@/components/Table.vue'
+import DownloadButton from '@/components/DownloadButton.vue'
 // import AreaChartApex from "@/components/charts/AreaChartApex.vue";
-import Filter from "@/components/Filter.vue";
-import Button from "@/components/Button.vue";
-import BarChart from "@/components/charts/BarChart.vue";
-import RadarChartWithPanels from "./RadarChartWithPanels.vue";
-import BarChartWithPanels from "./BarChartWithPanels.vue";
-import ProgressBar from "./ProgressBar.vue";
+import Filter from '@/components/Filter.vue'
+import Button from '@/components/Button.vue'
+import BarChart from '@/components/charts/BarChart.vue'
+import RadarChartWithPanels from './RadarChartWithPanels.vue'
+import BarChartWithPanels from './BarChartWithPanels.vue'
 export default {
   components: {
     Table2,
@@ -86,21 +80,20 @@ export default {
     Map,
     DownloadButton,
     RadarChartWithPanels,
-    Table,
-    ProgressBar,
+    Table
   },
   computed: {
-    postamat_count() {
-      let adress_list = [];
-      this.allpostamats.data.forEach((element) =>
+    postamat_count () {
+      let adress_list = []
+      this.allpostamats.data.forEach(element =>
         adress_list.push(element.adress)
-      );
-      let unique_postamat_list = Array.from(new Set(adress_list));
-      return unique_postamat_list.length;
-    },
+      )
+      let unique_postamat_list = Array.from(new Set(adress_list))
+      return unique_postamat_list.length
+    }
   },
   props: {
-    allpostamats: Object,
-  },
-};
+    allpostamats: Object
+  }
+}
 </script>
