@@ -5,10 +5,11 @@
       <ymap-marker v-for="item in postamat_list" :key="item.id" :coords="[item.latitude, item.longitude]"
         :markerId="item.id" :cluster-name="1"
         :balloon="{
-          header: `<h1> Заказ № ${item.article} </h1>` +
-            `<h3> от ${item.reviewdate} </h3>` +
-            `<span class='description'> ${item.adress} </span>`,
-          body: `<b>Отзыв:</b>` + `<p> ${item.usertext} </p>` + `<b>Предсказанный класс:</b>` + `<p> ${item.classnumber} </p>` + `<b>Рейтинг:</b>` + `<p> ${item.mark} </p>`, footer: `Маркет-плейс:<br/>${item.seller}`
+          header: `Заказ № ${item.article}` +
+            `от ${item.reviewdate}` +
+            ` ${item.adress} `,
+          body: `Отзыв:` + `${item.usertext} `  , 
+          footer: `Предсказанный класс:` + `${item.classnumber} `  + `Маркет-плейс:${item.seller} `+ `Рейтинг:` + ` ${item.mark} `
         }" />
     </yandex-map>
   </div>
@@ -40,10 +41,13 @@ export default {
             clusterDisableClickZoom: false,
             clusterOpenBalloonOnClick: true,
             clusterBalloonLayout: [
-              '<h2 class=ballon_header>{{ properties.balloonContentHeader |raw}}</h2>' +
-              '<div class=ballon_body>{{ properties.balloonContentBody }}</div>' +
-              '<div class=ballon_footer>{{ properties.balloonContentFooter }}</div>',
-            ]
+            '<ul class=list>',
+          '{% for geoObject in properties.geoObjects %}',
+          '<li><a href=# class="list_item">{{ geoObject.properties.balloonContentHeader|raw }}</a></li>',
+          '{% endfor %}',
+          '</ul>',
+        ].join('')
+            
           },
         },
       },

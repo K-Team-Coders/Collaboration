@@ -21,6 +21,7 @@ export default {
   components: {
     BaseIcon,
   },
+  
   props: {
     label: {
       type: String,

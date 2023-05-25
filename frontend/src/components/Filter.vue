@@ -12,7 +12,7 @@
           type="checkbox"
           id="no problem"
           class=""
-          value="1"
+          value="0"
           v-model="filter.checkedProblems"
         />
         <label class="ml-2" for="no problem">Проблем нет</label><br />
@@ -21,7 +21,7 @@
         <input
           type="checkbox"
           id="product"
-          value="2"
+          value="1"
           v-model="filter.checkedProblems"
         />
         <label class="ml-2" for="product">Проблема с товаром</label><br />
@@ -30,7 +30,7 @@
         <input
           type="checkbox"
           id="deliver"
-          value="3"
+          value="2"
           v-model="filter.checkedProblems"
         />
         <label class="ml-2" for="deliver">Проблема с доставкой</label><br />
@@ -39,7 +39,7 @@
         <input
           type="checkbox"
           id="postamat"
-          value="4"
+          value="3"
           v-model="filter.checkedProblems"
         />
         <label class="ml-2" for="postamat">Проблема с постаматом</label><br />
@@ -48,7 +48,7 @@
         <input
           type="checkbox"
           id="date"
-          value="5"
+          value="4"
           v-model="filter.checkedProblems"
         />
         <label class="ml-2" for="date">Проблема со сроками</label>
@@ -112,6 +112,7 @@
           <label class="flex items-center ml-2" for="1"
             >1 <span class="text-[0.7rem] ml-0.5"></span></label
           ><br />
+          
         </div>
       </div>
     </div>
@@ -122,16 +123,17 @@
 </template>
 
 <script>
-import Button from './Button.vue'
+import { mapActions } from "vuex";
+import Button from "./Button.vue";
 export default {
-  methods: {},
-  components: {
+  components:{
     Button
   },
-  // ...mapActions([
-  //   "SEND_FILTER_DATA"
-  // ]),
-  data () {
+  methods: {
+    ...mapActions([
+      "SEND_FILTER_DATA"]),
+    },
+  data() {
     return {
       filter: {
         checkedProblems: [],
