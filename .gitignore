@@ -134,3 +134,4 @@ Session.session
 CREDENTIALS.env
 CREDENTIALS.env
 fastApi/report.xlsx
+fastApi/report.csv

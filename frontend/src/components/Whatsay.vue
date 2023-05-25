@@ -135,10 +135,6 @@ export default {
     chooseProblem (index) {
       this.checkedProblems = index
       return this.checkedProblems
-    },
-    chooseRating (index) {
-      this.checkedRating = index
-      return this.checkedRating
     }
   }
 }
