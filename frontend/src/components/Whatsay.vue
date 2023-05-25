@@ -62,7 +62,10 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="text-[#E2E7EE] mt-2 " v-show="orderNumber.length > 6">
+                <div
+                  class="text-[#E2E7EE] mt-2"
+                  v-show="orderNumber.length > 6"
+                >
                   <RadiobuttonProblem
                     v-for="(problem, index) in problems"
                     :key="index"
@@ -123,10 +126,6 @@ export default {
     chooseProblem (index) {
       this.checkedProblems = index
       return this.checkedProblems
-    },
-    chooseRating (index) {
-      this.checkedRating = index
-      return this.checkedRating
     }
   }
 }
