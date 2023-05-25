@@ -377,6 +377,7 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     try:
         reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' ').split('.')[0])
     except Exception as e:
+        logger.debug(item.reviewdate)
         logger.error(f'Datetime error! \n {e}')
 
     # Если данные верны - оправляем на БД
