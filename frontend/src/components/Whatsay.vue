@@ -62,7 +62,7 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="text-white mt-2" v-show="orderNumber.length > 6">
+                <div class="text-[#E2E7EE] mt-2 " v-show="orderNumber.length > 6">
                   <RadiobuttonProblem
                     v-for="(problem, index) in problems"
                     :key="index"
@@ -107,7 +107,7 @@ export default {
         { massage: 'Проблем с доставкой' },
         { massage: 'Проблема с постаматом' },
         { massage: 'Проблема со сроками' }
-      ],
+      ]
     }
   },
   methods: {
