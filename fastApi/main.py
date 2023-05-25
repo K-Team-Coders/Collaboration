@@ -2,6 +2,7 @@ import os
 import re
 import pickle
 import numpy as np
+import pandas as pd
 import collections
 from pathlib import Path
 from random import randrange
@@ -15,7 +16,7 @@ from geopy.geocoders import Nominatim, Yandex
 from typing import Union
 from pydantic import BaseModel
 from fastapi import FastAPI, Response
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 import gensim
@@ -520,3 +521,45 @@ def addDatasetFormerElement(item: ReviewFromDatasetFormer):
         return Response(status_code=304)
     
     return Response(status_code=201)
+
+@app.get('/getAdminPageStatsFile/')
+def adminPageStatsFile():
+    cur.execute(f"SELECT * FROM xdataset")
+    data = cur.fetchall()
+    result = []
+    for index, subdata in enumerate(data):
+        usertext = subdata[0]
+        mark = subdata[1]
+        adress = subdata[2]
+        reviewdate = subdata[3]
+        clusternumber = subdata[4]
+        article = subdata[5]
+        seller = subdata[6]
+        latitude = subdata[7]
+        longitude = subdata[8]
+        classnumber = subdata[9]
+
+        result.append({
+                "id": index,
+                "usertext": usertext,
+                "mark": mark,
+                "adress": adress,
+                "reviewdate": str(reviewdate),
+                "clusternumber": clusternumber,
+                "article": article,
+                "seller": seller,
+                "latitude": latitude,
+                "longitude": longitude,
+                "classnumber": classnumber
+            })
+
+    adressStats = getAdressStats(result)
+    df = pd.DataFrame(columns=['adress', 'stars', 'textnumbers', 'problem'])
+    for index_, dictionary in enumerate(adressStats):
+        extended = pd.DataFrame(dictionary, index=[index_])
+        df = pd.concat([df,extended], ignore_index=True)
+
+    path = "report.xlsx"
+    df.to_excel("report.xlsx")
+    FileResponse(path, status_code=201)
+    

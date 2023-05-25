@@ -1,7 +1,12 @@
 <template>
   <div>
-    <p class="text-lg font-bold tracking-wide ml-4 text-[#E2E7EE] mt-1">Проблема</p>
-    <div id="v-model-multiple-checkboxes" class="ml-4 font-semibold text-[#E2E7EE] text-[14px]">
+    <p class="text-lg font-bold tracking-wide ml-4 text-[#E2E7EE] mt-1">
+      Проблема
+    </p>
+    <div
+      id="v-model-multiple-checkboxes"
+      class="ml-4 font-semibold text-[#E2E7EE] text-[14px]"
+    >
       <div class="">
         <input
           type="checkbox"
@@ -111,6 +116,9 @@
         </div>
       </div>
     </div>
+    <div class="absolute left-0 bottom-0">
+      <Button label="Применить" />
+    </div>
   </div>
 </template>
 
@@ -132,10 +140,10 @@ export default {
         checkedRating: [],
         selectedDate: [
           new Date(),
-          new Date(new Date().getTime() + 9 * 24 * 60 * 60 * 1000),
-        ],
-      },
-    };
-  },
+          new Date(new Date().getTime() + 9 * 24 * 60 * 60 * 1000)
+        ]
+      }
+    }
+  }
 }
 </script>

@@ -6,7 +6,7 @@
         <SidebarNavItem
           v-for="(navItem, index) in navItems"
           :key="index"
-          :is-active.sync="activeIndex === index"
+          :is-active="activeIndex === index"
           @update:isActive="
             (value) => {
               activeIndex = value ? index : -1;
@@ -24,9 +24,7 @@
         <DatePickerMain />
       </div>
       <Filter />
-      <div class="absolute left-0 bottom-0">
-        <Button label="Применить" />
-      </div>
+
     </div>
   </aside>
 </template>

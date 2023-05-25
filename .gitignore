@@ -133,3 +133,4 @@ dmypy.json
 Session.session
 CREDENTIALS.env
 CREDENTIALS.env
+fastApi/report.xlsx

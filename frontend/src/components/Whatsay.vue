@@ -16,7 +16,7 @@
             <div class="flex flex-col pt-3 w-full">
               <input
                 type="text"
-                v-model="isActive"
+                v-model="orderNumber"
                 placeholder="Пожалуйста, введите номер заказа"
                 useautocomplete="off"
                 class="border-[#E2E7EE] border-[1.5px] w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
@@ -30,7 +30,7 @@
                 leave-to-class="opacity-0"
               >
                 <input
-                  v-show="isActive.length > 6"
+                  v-show="orderNumber.length > 6"
                   v-model="usertext"
                   type="text"
                   placeholder="Оставьте отзыв"
@@ -46,12 +46,11 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="p-4" v-show="isActive.length > 6">
-                  <RadiobuttonRating
-                    :name="'rating'"
-                    :ratings="ratings"
-                    :selected-value="selectedRating"
-                  />
+                <div
+                  class="py-2 flex justify-start"
+                  v-show="orderNumber.length > 6"
+                >
+                  <Rating v-model="checkedRating" />
                 </div>
               </transition>
               <transition
@@ -62,7 +61,7 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="text-white mt-2" v-show="isActive.length > 6">
+                <div class="text-white mt-2" v-show="orderNumber.length > 6">
                   <RadiobuttonProblem
                     v-for="(problem, index) in problems"
                     :key="index"
@@ -87,56 +86,49 @@
 </template>
 
 <script>
-import RadiobuttonProblem from "./RadiobuttonProblem.vue";
-import RadiobuttonRating from "./RadiobuttonRating.vue";
+import RadiobuttonProblem from './RadiobuttonProblem.vue'
+import Rating from './Rating.vue'
 
 export default {
   components: {
     RadiobuttonProblem,
-    RadiobuttonRating,
+    Rating
   },
-  data() {
+  data () {
     return {
-      isActive: "",
-      usertext: "",
+      orderNumber: '',
+      usertext: '',
       checkedProblems: null,
       checkedRating: null,
       problems: [
-        { massage: "Проблем нет" },
-        { massage: "Проблем с товаром" },
-        { massage: "Проблем с доставкой" },
-        { massage: "Проблема с постаматом" },
-        { massage: "Проблема со сроками" },
+        { massage: 'Проблем нет' },
+        { massage: 'Проблем с товаром' },
+        { massage: 'Проблем с доставкой' },
+        { massage: 'Проблема с постаматом' },
+        { massage: 'Проблема со сроками' }
       ],
-      ratings: [
-        { value: 1 },
-        { value: 2 },
-        { value: 3 },
-        { value: 4 },
-        { value: 5 },
-      ],
-      selectedRating: 0,
-    };
+    }
   },
   methods: {
-    async sendData() {
+    async sendData () {
       const data = {
-        isActive: this.isActive,
+        orderNumber: this.orderNumber,
         usertext: this.usertext,
         checkedProblems: this.checkedProblems,
-      };
-      await axios.post("http://localhost:8000/data", data);
+        checkedRating: this.checkedRating
+      }
+      await axios.post('http://localhost:8000/', data)
     },
-    chooseProblem(index) {
-      this.checkedProblems = index;
-      return this.checkedProblems;
+    chooseProblem (index) {
+      this.checkedProblems = index
+      return this.checkedProblems
     },
-    chooseRating(index) {
-      this.checkedRating = index;
-      return this.checkedRating;
-    },
-  },
-};
+    chooseRating (index) {
+      this.checkedRating = index
+      return this.checkedRating
+    }
+  }
+}
 </script>
 <style>
 .external-svg {
