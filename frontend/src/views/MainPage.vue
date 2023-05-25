@@ -38,6 +38,7 @@ export default {
   },
   async created() {
     this.GET_ALLPOSTAMATS();
+    setInterval(() => this.GET_ALLPOSTAMATS(), 300000)
   },
 };
 </script>

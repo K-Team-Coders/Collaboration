@@ -19,7 +19,7 @@ export default {
     return {
       headers: [
         { text: "Номер заказа", value: "article", sortable: true },
-        { text: "Дата заказа", value: "reviewdate", sortable: true },
+        { text: "Дата отзыва", value: "reviewdate", sortable: true },
         { text: "Адрес постамата", value: "adress", sortable: true },
         { text: "Отзыв", value: "usertext", sortable: true },
         { text: "Рейтинг", value: "mark", sortable: true },
