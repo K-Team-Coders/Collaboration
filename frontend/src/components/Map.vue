@@ -8,8 +8,8 @@
           header: `Заказ № ${item.article}` +
             `от ${item.reviewdate}` +
             ` ${item.adress} `,
-          body: `Отзыв:` + `${item.usertext} ` + `Предсказанный класс:` + `${item.classnumber} ` + `Рейтинг:` + ` ${item.mark} `, 
-          footer: `Маркет-плейс:${item.seller}`
+          body: `Отзыв:` + `${item.usertext} `  , 
+          footer: `Предсказанный класс:` + `${item.classnumber} `  + `Маркет-плейс:${item.seller} `+ `Рейтинг:` + ` ${item.mark} `
         }" />
     </yandex-map>
   </div>
