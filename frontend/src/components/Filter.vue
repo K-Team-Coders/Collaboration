@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-lg font-bold tracking-wide ml-4 text-[#E2E7EE] mt-1">
+    <p class="text-lg font-TT_Firs_Neue_Bold tracking-wide ml-4 text-[#E2E7EE] mt-1">
       Проблема
     </p>
     <div
@@ -55,7 +55,7 @@
         <br />
       </div>
 
-      <p class="text-lg font-bold tracking-wide text-[#E2E7EE] mt-1">Рейтинг</p>
+      <p class="text-lg font-TT_Firs_Neue_Bold tracking-wide text-[#E2E7EE] mt-1">Рейтинг</p>
       <div id="v-model-multiple-checkboxes" class="font-semibold">
         <div class="flex items-center">
           <input
