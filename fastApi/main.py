@@ -127,11 +127,10 @@ def String2Coords(adress):
     try:
         location = GEOCODER.geocode(adress, language='ru')
         data = location.latitude, location.longitude
-        return True, location.latitude, location.longitude
+        return location.latitude, location.longitude
     except Exception as e:
         logger.error(f'Wrong adress! \n {adress}')
         logger.error(e)
-        return False, 0.0, 0.0
     
 # Функция - предсказание класса (машинное обучение)
 def String2Classs(usertext, word2vec, minibatchclf):
@@ -343,8 +342,9 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     
     # Координаты, проверка на адекватность запроса
     if item.adress:
-        coordsChecker = False
-        coordsChecker, latitude, longitude = String2Coords(item.adress)
+        latitude, longitude = String2Coords(item.adress)
+        if not latitude and not longitude:
+            return Response(status_code=422)
     else:
         return Response(status_code=422)
     
@@ -379,33 +379,30 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     except Exception as e:
         logger.debug(item.reviewdate)
         logger.error(f'Datetime error! \n {e}')
-
-    # Если данные верны - оправляем на БД
-    if coordsChecker and item.usertext:
-        # Контроль
-        if DEBUG:
-            logger.success('User text -- ' + item.usertext)
-            logger.success('Mark -- ' + str(item.mark))
-            logger.success('Adress -- ' + str(item.adress))
-            logger.success('Review date -- ' + str(reviewdate))
-            logger.success('Cluster number (Optional) -- ' + str(clusternumber))
-            logger.success('Class number (Optional) -- ' + str(classnumber))
-            logger.success('Article (Optianal) -- ' + str(article))
-            logger.success('Seller (Optional) -- ' + str(item.seller))
-            logger.success('Longitude (Optional) -- ' + str(longitude))
-            logger.success('Latitude (Optional) -- ' + str(latitude))
-
-        cur.execute("""
-        INSERT INTO reviews 
-            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
-        VALUES 
-            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
-        (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude, classnumber))    
-        conn.commit()
-
-        return Response(status_code=201)
-    else:
         return Response(status_code=422)
+
+    # Контроль
+    if DEBUG:
+        logger.success('User text -- ' + item.usertext)
+        logger.success('Mark -- ' + str(item.mark))
+        logger.success('Adress -- ' + str(item.adress))
+        logger.success('Review date -- ' + str(reviewdate))
+        logger.success('Cluster number (Optional) -- ' + str(clusternumber))
+        logger.success('Class number (Optional) -- ' + str(classnumber))
+        logger.success('Article (Optianal) -- ' + str(article))
+        logger.success('Seller (Optional) -- ' + str(item.seller))
+        logger.success('Longitude (Optional) -- ' + str(longitude))
+        logger.success('Latitude (Optional) -- ' + str(latitude))
+
+    cur.execute("""
+    INSERT INTO reviews 
+        (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
+    VALUES 
+        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+    (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude, classnumber))    
+    conn.commit()
+
+    return Response(status_code=201)
 
 # API для датасета (получение случайной строчки из БД  + удаление из сырых данных)
 @app.get("/getFormDatasetElement/")
