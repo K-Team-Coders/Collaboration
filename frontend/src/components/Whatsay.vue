@@ -90,11 +90,16 @@
 import RadiobuttonProblem from './RadiobuttonProblem.vue'
 import Rating from './Rating.vue'
 import axios from 'axios'
+import moment from 'moment'
 export default {
   components: {
     RadiobuttonProblem,
     Rating
   },
+  mounted(){
+    this.get_date()
+  },
+  
   data () {
     return {
       data: {
@@ -104,8 +109,9 @@ export default {
       classnumber: 0,
       mark: 0,
       adress: "ул. Косинская, д. 26, к. 1, Москва",
-      reviewdate: "2022-02-07 21:59:11",
-      seller: "anonim"
+      reviewdate: 
+      this.get_date(),
+      seller: "Я.Маркет(веб)"
       },
     
       problems: [
@@ -118,15 +124,24 @@ export default {
     }
   },
   methods: {
+    get_date(){
+      let moment = require('moment');
+ 
+// получаем название месяца, день месяца, год, время
+let now = moment().format("YYYY-MM-DD HH:mm:ss");
+console.log(now);
+      return now
+    },
     async sendData () {
       const data = {
-        article: this.data.adress,
+        article: this.data.article,
+        adress: this.data.adress,
         usertext: this.data.usertext,
-        clusternumber: 0,
-        seller: this.seller,
-        reviewdate: "2022-02-07 21:59:11",
+        clusternumber: -999,
+        seller: this.data.seller,
+        reviewdate: this.data.reviewdate,
         classnumber: this.data.classnumber,
-        mark: parseFloat(this.data.mark),
+        mark: this.data.mark,
         latitude:0,
     longitude: 0,
       }
