@@ -47,7 +47,7 @@
     >
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
-        <DownloadButton @click="downloadFile()" label="Импорт в .xls" icon="document" />
+        <DownloadButton @click="downloadFileTable1()" label="Импорт в .csv" icon="document" />
       </div>
     </div>
     <div
@@ -56,7 +56,7 @@
     >
       <Table2 :postamats_list="allpostamats.data" />
       <div class="flex justify-start mt-2">
-        <DownloadButton label="Импорт в .xls" icon="document" />
+        <DownloadButton label="Импорт в .csv" icon="document" />
       </div>
     </div>
   </div>
@@ -90,25 +90,26 @@ export default {
     Table,
     ProgressBar,
   },
-  mounted() {
-          this.downloadFile();
-      },
+ 
   methods:{
-    downloadFile() {
-              axios({
-                    url: 'http://26.200.185.61:8080/getAdminPageStatsFile/', // File URL Goes Here
-                    method: 'GET',
-                    responseType: 'blob',
-                }).then((res) => {
-                     var FILE = window.URL.createObjectURL(new Blob([res.data]));
-                     
-                     var docUrl = document.createElement('x');
-                     docUrl.href = FILE;
-                     docUrl.setAttribute('download', 'Отчет.xlsx');
-                     document.body.appendChild(docUrl);
-                     docUrl.click();
-                });
-  }},
+    downloadFileTable1(){
+   axios.get("http://26.200.185.61:8080/getAdminPageStatsFile/").then((res) => {
+      const url = URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "Отчет распределения наиболее популярных проблем по адресам.csv");
+      link.click();
+   });
+  },
+  // downloadFileTable2(){
+  //  axios.get("http://26.200.185.61:8080/getAdminPageStatsFile/").then((res) => {
+  //     const url = URL.createObjectURL(new Blob([res.data]));
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", "Отчет распределения наиболее популярных проблем по адресам.csv");
+  //     link.click();
+  //  });
+  // }},
   computed: {
     postamat_count() {
       let adress_list = [];
@@ -122,5 +123,5 @@ export default {
   props: {
     allpostamats: Object,
   },
-}
+}}
 </script>
