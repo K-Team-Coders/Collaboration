@@ -21,14 +21,23 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import gensim
 from clasterisation.miniBatch import MiniBatch
+from classification.ml import MiniBatchClf
 
-# Загрузка предобученных моделей обработки текста.
-path = Path().cwd().joinpath('clasterisation')
+# Загрузка предобученных моделей обработки текста (кластеризация).
+cls_path = Path().cwd().joinpath('clasterisation')
 minibatchkmeans = 0
-word2vec = gensim.models.Word2Vec.load(str(path.joinpath('word2vec.model')))
-with open(str(path.joinpath('model.pkl')), 'rb') as f:
+word2vec = gensim.models.Word2Vec.load(str(cls_path.joinpath('word2vec.model')))
+with open(str(cls_path.joinpath('model.pkl')), 'rb') as f:
     minibatchkmeans = pickle.load(f)
-logger.success('Model loading succesful!')
+logger.success('Cluster Model loading succesful!')
+
+# Загрузка предобученных моделей обработки текста (классификация).
+clf_path = Path().cwd().joinpath('classification')
+sk_model = 0
+w2v_model = gensim.models.Word2Vec.load(str(clf_path.joinpath('word2vec.model')))
+with open(str(clf_path.joinpath('model_rf.pkl')), 'rb') as fid:
+    sk_model= pickle.load(fid)
+logger.success('Classifyer Model loading succesful!')
 
 # Внесение конфига для подключения к БД (не важно где она)
 load_dotenv('../DB.ENV', override=True)
@@ -54,6 +63,7 @@ conn = 0
 cur = 0
 old_stats = 0
 
+# Костыльные словари для пользователей \ операторов
 CLASSIFICATOR_CLASSES = {
     '0' : 'good',
     '1' : 'article',
@@ -61,7 +71,6 @@ CLASSIFICATOR_CLASSES = {
     '3' : 'post',
     '4' : 'times'
 }
-
 CLASSIFICATOR_RUS_CLASSES = {
     '0' : 'Все хорошо',
     '1' : 'Проблема с товаром',
@@ -69,7 +78,6 @@ CLASSIFICATOR_RUS_CLASSES = {
     '3' : 'Проблема с постаматом (ПВЗ)',
     '4' : 'Проблема со сроками'
 }
-
 MONTH_NAMES = {
     '1' : 'january',
     '2' : 'february',
@@ -111,6 +119,7 @@ except Exception as e:
     logger.error(f'{SOURCE} connect failed \n {e}!')
 
 # Функции-обертки
+# Реализация координат для адреса (в приоритете - использовать яндекс карты, т.к. иногда дефолтный геокодер путается)
 def String2Coords(adress):
     adress = re.sub(' к. [0-9999],', '', adress)
     adress = adress.replace('б-р. ', 'бульвар ')
@@ -124,14 +133,13 @@ def String2Coords(adress):
         logger.error(e)
         return False, 0.0, 0.0
     
-# Функция - предсказание 
-def String2Classs(usertext):
-    pass
+# Функция - предсказание класса (машинное обучение)
+def String2Classs(usertext, word2vec, minibatchclf):
+    return MiniBatchClf(usertext, word2vec, minibatchclf)
 
-# Функция - анализ кластера 
+# Функция - анализ кластера (машинное обучение)
 def String2Cluster(usertext, word2vec, minibatch):
-    result = MiniBatch(usertext, word2vec, minibatch)
-    return result
+    return MiniBatch(usertext, word2vec, minibatch)
 
 # Заглушка чистой воды, если пользователь обращается не по приложению обратной связи
 # ЗАГЛУШКА под номера заказов! ---------------
@@ -191,7 +199,7 @@ def getMarketStats(result):
     logger.debug(stats)
     return stats
 
-# Статистика для макретплейсов
+# Статистика для бейджей вверху страницы для общего понимания сколько запросов в базе
 def getTotalStats(result):
     posts = collections.Counter([x['adress'] for x in result])
     markets = collections.Counter([x['seller'] for x in result])
@@ -230,9 +238,10 @@ def getTimeStats(result):
     logger.debug(stats)
     return stats
 
-# Бэк
+# Бэк на FastAPI
 app = FastAPI()
 
+# Безопасность на Ваш выбор. Пока что - брешь в обороне
 origins = ["*"]
 
 app.add_middleware(
@@ -251,16 +260,11 @@ class ReviewFromAnySource(BaseModel):
     reviewdate: str
     adress: Union[str, None] = None
     clusternumber: Union[int, None] = None
+    classnumber: Union[int, None] = None
     article: Union[str, None] = None
     seller: Union[str, None] = None
     latitude: Union[float, None] = None
     longitude: Union[float, None] = None
-
-# Получение отзыва с телеграм-бота в котором пользователь укажет проблему и свои ПнД
-class ReviewFromTelegramBot(ReviewFromAnySource):
-    username: str
-    chatid: str
-    classnumber: int
 
 # Фича с разметкой данных для улучшения работы Bert
 class ReviewFromDatasetFormer(ReviewFromAnySource):
@@ -281,7 +285,6 @@ def adminPage():
     # else:
     #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
            
-
     cur.execute(f"SELECT * FROM xdataset")
     data = cur.fetchall()
     result = []
@@ -308,7 +311,8 @@ def adminPage():
                 "seller": seller,
                 "latitude": latitude,
                 "longitude": longitude,
-                "classnumber": classnumber
+                "classnumber": classnumber,
+                "namedclassnumber": Number2RusClass(classnumber)
             })
     
     adressStats = getAdressStats(result)
@@ -328,17 +332,30 @@ def adminPage():
 
     return JSONResponse(status_code=200, content=total_data)
 
-# API для добавления универсального отзыва с обработкой ГЕОЛОКАЦИИ + КЛАСТЕРИЗАЦИИ + ВАШ ИСТОЧНИК НОМЕРА ЗАКАЗА
+# API для добавления универсального отзыва с обработкой ГЕОЛОКАЦИИ + КЛАСТЕРИЗАЦИИ + КЛАССИФИКАЦИИ + ВАШ ИСТОЧНИК НОМЕРА ЗАКАЗА
 @app.post("/addReview/")
 def intellegenceReviewProceduring(item: ReviewFromAnySource):
-    # Логика обработки адресов, кластеров +чего-нибудь ещё
-    coordsChecker = False
-    coordsChecker, latitude, longitude = String2Coords(item.adress)
+    # Логика обработки адресов, кластеров и классов + на ваш выбор что хотите
     
+    # Координаты, проверка на адекватность запроса
+    if item.adress:
+        coordsChecker = False
+        coordsChecker, latitude, longitude = String2Coords(item.adress)
+    else:
+        return Response(status_code=422)
+    
+    # Если запрос не битый - то класс и кластер указываем
     if item.usertext:
         clusternumber = int(String2Cluster(item.usertext, word2vec, minibatchkmeans)[0])
+        classnumber = int(String2Classs(item.usertext, w2v_model, sk_model)[0])
+    else:
+        return Response(status_code=422)
+    
+    # ЗАГЛУШКА!!! --------------------------------
     article = SomeArticleFromYourSources()
+    # КОНЕЦ ЗАГЛУШКИ -----------------------------
 
+    # Проверка на адекватност передаваемой даты
     try:
         reviewdate = datetime.fromisoformat(item.reviewdate.replace('T', ' ').split('.')[0])
     except Exception as e:
@@ -352,6 +369,7 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
         logger.success('Adress -- ' + str(item.adress))
         logger.success('Review date -- ' + str(reviewdate))
         logger.success('Cluster number (Optional) -- ' + str(clusternumber))
+        logger.success('Class number (Optional) -- ' + str(classnumber))
         logger.success('Article (Optianal) -- ' + str(article))
         logger.success('Seller (Optional) -- ' + str(item.seller))
         logger.success('Longitude (Optional) -- ' + str(longitude))
@@ -359,54 +377,17 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
 
         cur.execute("""
         INSERT INTO reviews 
-            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude) 
+            (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude, classnumber) 
         VALUES 
-            (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
-        (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude))    
+            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+        (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude, classnumber))    
         conn.commit()
-        return Response(status_code=201)
-    else:
-        return Response(status_code=422)
-
-# API для добавления отзыва из Телеграм-бота
-@app.post("/addTelegramReview/")
-def intellegenceTelegramReviewProceduring(item: ReviewFromTelegramBot):
-
-    # Логика обработки адресов, кластеров +чего-нибудь ещё   
-    article = SomeArticleFromYourSources()
-
-    try:
-        reviewdate = datetime.fromtimestamp(item.reviewdate)
-    except Exception as e:
-        logger.error(f'Datetime error! \n {e}')
-
-    # Если данные верны - оправляем на БД
-    # if item.usertext:
-    #     # Контроль
-    #     logger.success('User text -- ' + item.usertext)
-    #     logger.success('Mark -- ' + str(item.mark))
-    #     logger.success('Adress -- ' + str(item.adress))
-    #     logger.success('Review date -- ' + str(reviewdate))
-    #     logger.success('Telegram User Name -- ' + str(item.username))
-    #     logger.success('Telegram User Chat ID (for bot) -- ' + str(item.chatid))
-    #     logger.success('Telegram Class number -- ' + str(item.classnumber))
-    #     logger.success('Article (Optional) -- ' + str(article))
-    #     logger.success('Seller (Optional) -- ' + str(item.seller))
-
-        # В РАЗРАБОТКУ
-        # cur.execute("""
-        # INSERT INTO reviews 
-        #     (usertext, mark, adress, reviewdate, clusternumber, article, seller, longitude, latitude) 
-        # VALUES 
-        #     (%s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
-        # (item.usertext, item.mark, item.adress, reviewdate, clusternumber, article, item.seller, longitude, latitude))    
-        # conn.commit()
 
         return Response(status_code=201)
     else:
         return Response(status_code=422)
 
-# API для датасета (получение случайной строчки из БД)
+# API для датасета (получение случайной строчки из БД  + удаление из сырых данных)
 @app.get("/getFormDatasetElement/")
 def getDatasetFormerElement():
     # Подсчитываем сколько строк в таблице
@@ -489,7 +470,7 @@ def getDatasetFormerElement():
 
     return JSONResponse(content=jsoned, status_code=200)
 
-# API для датасета (добавление в таблицу с выборкой + удаление из сырых данных)
+# API для датасета (добавление в таблицу с выборкой)
 @app.post("/addFormDatasetElement/")
 def addDatasetFormerElement(item: ReviewFromDatasetFormer):
     
@@ -522,8 +503,9 @@ def addDatasetFormerElement(item: ReviewFromDatasetFormer):
     
     return Response(status_code=201)
 
-@app.get('/getAdminPageStatsFile/')
-def adminPageStatsFile():
+# Отчет по постаматам и проблемам
+@app.get('/getAdminPageAdressStatsFile/')
+def adminPageAdressStatsFile():
     cur.execute(f"SELECT * FROM xdataset")
     data = cur.fetchall()
     result = []
@@ -559,7 +541,42 @@ def adminPageStatsFile():
         extended = pd.DataFrame(dictionary, index=[index_])
         df = pd.concat([df,extended], ignore_index=True)
 
-    path = "report.xlsx"
-    df.to_excel("report.xlsx")
-    FileResponse(path, status_code=201)
+    path = "report.csv"
+    df.to_csv(path)
+    return FileResponse(path=path, status_code=200, media_type='multipart/form-data')
     
+# Отчет по отзывам и проблемам
+@app.get('/getAdminPageClassesStatsFile/')
+def adminPageClassesStatsFile():
+    cur.execute(f"SELECT * FROM xdataset")
+    data = cur.fetchall()
+    result = []
+    for index, subdata in enumerate(data):
+        usertext = subdata[0]
+        mark = subdata[1]
+        adress = subdata[2]
+        reviewdate = subdata[3]
+        clusternumber = subdata[4]
+        article = subdata[5]
+        seller = subdata[6]
+        classnumber = subdata[9]
+
+        result.append({
+                "usertext": usertext,
+                "mark": mark,
+                "adress": adress,
+                "reviewdate": str(reviewdate),
+                "clusternumber": clusternumber,
+                "article": article,
+                "seller": seller,
+                "classnumber": Number2RusClass(classnumber)
+            })
+        
+    df = pd.DataFrame(columns=["usertext", "mark", "adress", "reviewdate", "clusternumber", "article", "seller", "classnumber"])
+    for index_, dictionary in enumerate(result):
+        extended = pd.DataFrame(dictionary, index=[index_])
+        df = pd.concat([df,extended], ignore_index=True)
+
+    path = "report.csv"
+    df.to_csv(path)
+    return FileResponse(path=path, status_code=200)
