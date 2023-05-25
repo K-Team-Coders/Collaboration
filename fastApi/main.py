@@ -342,8 +342,9 @@ def intellegenceReviewProceduring(item: ReviewFromAnySource):
     
     # Координаты, проверка на адекватность запроса
     if item.adress:
-        latitude, longitude = String2Coords(item.adress)
-        if not latitude and not longitude:
+        try: 
+            latitude, longitude = String2Coords(item.adress)
+        except:
             return Response(status_code=422)
     else:
         return Response(status_code=422)
