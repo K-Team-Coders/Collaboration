@@ -6,7 +6,7 @@
           <div class="w-2/5">
             <div class="flex flex-col gap-2">
               <p class="text-5xl font-TT_Firs_Neue_Bold uppercase">
-                Вот что я скажу!
+                Хочу помочь постамату!
               </p>
               <p class="font-medium text-lg">
                 Нам важно услышать Ваше мнение о нас.
@@ -16,7 +16,7 @@
             <div class="flex flex-col pt-3 w-full">
               <input
                 type="text"
-                v-model="orderNumber"
+                v-model="data.article"
                 placeholder="Пожалуйста, введите номер заказа"
                 useautocomplete="off"
                 class="border-[#E2E7EE] border-[1.5px] w-full px-4 text-xl overflow-x-hidden text-left py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax text-black"
@@ -30,8 +30,8 @@
                 leave-to-class="opacity-0"
               >
                 <textarea
-                  v-show="orderNumber.length > 6"
-                  v-model="usertext"
+                  v-show="data.article.length > 6"
+                  v-model="data.usertext"
                   type="text"
                   wrap="soft"
                   placeholder="Оставьте отзыв"
@@ -49,9 +49,9 @@
               >
                 <div
                   class="py-2 flex justify-start"
-                  v-show="orderNumber.length > 6"
+                  v-show="data.article.length > 6"
                 >
-                  <Rating v-model="checkedRating" />
+                  <Rating v-model="data.mark" />
                 </div>
               </transition>
               <transition
@@ -62,20 +62,20 @@
                 leave-from-class="opacity-100"
                 leave-to-class="opacity-0"
               >
-                <div class="text-[#E2E7EE] mt-2 " v-show="orderNumber.length > 6">
+                <div class="text-[#E2E7EE] mt-2 " v-show="data.article.length > 6">
                   <RadiobuttonProblem
                     v-for="(problem, index) in problems"
                     :key="index"
                     :label="problem.massage"
                     @click="chooseProblem(index)"
-                    v-model="checkedProblems"
+                    v-model="data.classnumber"
                   />
                 </div>
               </transition>
             </div>
             <button
               class="bg-idealRed w-full rounded-lg py-3 text-xl font-TT_Firs_Neue_Bold text-uppercase mt-3"
-              @click="sendData"
+              @click="sendData()"
             >
               Отправить отзыв
             </button>
@@ -89,7 +89,7 @@
 <script>
 import RadiobuttonProblem from './RadiobuttonProblem.vue'
 import Rating from './Rating.vue'
-
+import axios from 'axios'
 export default {
   components: {
     RadiobuttonProblem,
@@ -97,10 +97,17 @@ export default {
   },
   data () {
     return {
-      orderNumber: '',
+      data: {
+      id: 0,
+      article: '',
       usertext: '',
-      checkedProblems: null,
-      checkedRating: null,
+      classnumber: 0,
+      mark: 0,
+      adress: "ул. Косинская, д. 26, к. 1, Москва",
+      reviewdate: "2022-02-07 21:59:11",
+      seller: "anonim"
+      },
+    
       problems: [
         { massage: 'Проблем нет' },
         { massage: 'Проблем с товаром' },
@@ -113,12 +120,17 @@ export default {
   methods: {
     async sendData () {
       const data = {
-        orderNumber: this.orderNumber,
-        usertext: this.usertext,
-        checkedProblems: this.checkedProblems,
-        checkedRating: this.checkedRating
+        article: this.data.adress,
+        usertext: this.data.usertext,
+        clusternumber: 0,
+        seller: this.seller,
+        reviewdate: "2022-02-07 21:59:11",
+        classnumber: this.data.classnumber,
+        mark: parseFloat(this.data.mark),
+        latitude:0,
+    longitude: 0,
       }
-      await axios.post('http://localhost:8000/', data)
+      await axios.post('http://26.200.185.61:8080/addReview/', data)
     },
     chooseProblem (index) {
       this.checkedProblems = index

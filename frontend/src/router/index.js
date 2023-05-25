@@ -20,8 +20,8 @@ const routes = [
     component: () => import("../components/mobile/MainPageMobile.vue"),
   },
   {
-    path: "/whatsay",
-    name: 'whatsay',
+    path: "/wanttohelppostamat",
+    name: 'wanttohelppostamat',
 
     component:() => import ('../components/Whatsay.vue')
   },
