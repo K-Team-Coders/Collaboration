@@ -18,9 +18,6 @@ def removeEmoji(text):
 texts = pd.read_excel('Московский постамат_Дата-cет_Этап 1.xlsx', engine='openpyxl')
 addresses = pd.read_excel('Реестр домов_v11.xlsx', engine='openpyxl')
 
-logger.debug(texts.head(5))
-logger.debug(addresses.head(5))
-
 adress_index = 0
 for label, series in texts.iterrows():
     if adress_index > len(addresses) - 3:
@@ -40,9 +37,10 @@ for label, series in texts.iterrows():
                         "mark": mark,
                         "adress": adress,
                         "reviewdate": str(date),
-                        "clusternumber": 0,
+                        "clusternumber": str(-999),
+                        "classnumber": str(-999),
                         "article": 0,
-                        "seller": "anonim",
+                        "seller": "Anonimous Data",
                         "latitude": 0,
                         "longitude": 0
                     }
