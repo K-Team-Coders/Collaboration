@@ -24,7 +24,7 @@ export default {
         { text: "Отзыв", value: "usertext", sortable: true },
         { text: "Рейтинг", value: "mark", sortable: true },
         { text: "Маркет-плейс", value: "seller", sortable: true },
-        { text: "Категория проблемы", value: "classnumber", sortable: true },
+        { text: "Категория проблемы", value: "namedclassnumber", sortable: true },
       ],
       items: [
       ],

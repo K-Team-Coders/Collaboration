@@ -9,7 +9,7 @@
             `от ${item.reviewdate}` +
             ` ${item.adress} `,
           body: `Отзыв:` + `${item.usertext} `  , 
-          footer: `Предсказанный класс:` + `${item.classnumber} `  + `Маркет-плейс:${item.seller} `+ `Рейтинг:` + ` ${item.mark} `
+          footer: `Предсказанный класс:` + `${item.namedclassnumber} `  + `Маркет-плейс:${item.seller} `+ `Рейтинг:` + ` ${item.mark} `
         }" />
     </yandex-map>
   </div>

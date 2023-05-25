@@ -2,7 +2,7 @@
   <div class="">
     <apexchart
       height="500"
-      width="770"
+      
       :options="chartOptions"
       :series="items"
       type="radar"
@@ -54,7 +54,7 @@ export default {
           opacity: 0.5,
         },
         markers: {
-          size: 3,
+          size: 5,
         },
         xaxis: {
           categories: [
