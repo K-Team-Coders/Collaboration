@@ -255,61 +255,80 @@ def help(cmd_help):
                      reply_markup=mrkp)
     return ()
 
- #нажали на кнопку "проблемы с товаром"
+ #нажали на кнопку "проблемы с товаром" 1
 @bot.callback_query_handler(func=lambda call_help11: call_help11.data == "11")
 def answr2(call_help11):
+    mark = 1.0
     bot.send_message(call_help11.from_user.id, "Подробно опишите возникшую проблему")
     bot.answer_callback_query(callback_query_id=call_help11.id)
     @bot.message_handler(func=lambda send_admin11: True)
     def send_admin(send_admin11):
+        bot.send_message(send_admin11.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС - тренируйся
-        sendReview(mark, usertext=, classnumber=)
+        usertext_help = send_admin11.message.text
+        sendReview(mark, usertext=usertext_help, classnumber=1)
         return ()
     return ()
- #нажали на кнопку"Возникли проблемы с курьером"
+ #нажали на кнопку"Возникли проблемы с курьером" 2
 @bot.callback_query_handler(func=lambda call_help12: call_help12.data == "12")
 def answr2(call_help12):
+    mark = 1.0
     bot.send_message(call_help12.from_user.id, "Подробно опишите возникшую проблему")
     bot.answer_callback_query(callback_query_id=call_help12.id)
     @bot.message_handler(func=lambda send_admin12: True)
     def send_admin(send_admin12):
+        bot.send_message(send_admin12.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС!
+        usertext_help = send_admin12.message.text
+        sendReview(mark, usertext=usertext_help, classnumber=2)
         return ()
     return ()
 
- #нажали на кнопку"Проблемы с постаматом"
+ #нажали на кнопку"Проблемы с постаматом" 3
 @bot.callback_query_handler(func=lambda call_help13: call_help13.data == "13")
 def answr2(call_help13):
+    mark = 1.0
     bot.send_message(call_help13.from_user.id, "Подробно опишите возникшую проблему")
     bot.answer_callback_query(callback_query_id=call_help13.id)
     @bot.message_handler(func=lambda send_admin13: True)
     def send_admin(send_admin13):
+        bot.send_message(send_admin13.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС
+        usertext_help = send_admin13.message.text
+        sendReview(mark, usertext=usertext_help, classnumber=3)
         return ()
     return ()
 
- #нажали на кнопку"Долго не приходит посылка"
+ #нажали на кнопку"Долго не приходит посылка" 4
 @bot.callback_query_handler(func=lambda call_help14: call_help14.data == "14")
 def answr2(call_help14):
+    mark = 1.0
     bot.send_message(call_help14.from_user.id, "Подробно опишите возникшую проблему")
     bot.answer_callback_query(callback_query_id=call_help14.id)
     @bot.message_handler(func=lambda send_admin14: True)
     def send_admin(send_admin14):
+        bot.send_message(send_admin14.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС
+        usertext_help = send_admin14.message.text
+        sendReview(mark, usertext=usertext_help, classnumber=4)
         return ()
     return ()
 
- #нажали на кнопку"Другое"
+ #нажали на кнопку"ошибся все хорошо" 0
 @bot.callback_query_handler(func=lambda call_help15: call_help15.data == "15")
 def answr2(call_help15):
+    mark = 1.0
     bot.send_message(call_help15.from_user.id, "Подробно опишите возникшую проблему")
     bot.answer_callback_query(callback_query_id=call_help15.id)
     @bot.message_handler(func=lambda send_admin15: True)
     def send_admin(send_admin15):
+        bot.send_message(send_admin15.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС (здесь класс 0)
+        usertext_help = send_admin15.message.text
+        sendReview(mark, usertext=usertext_help, classnumber=0)
         return ()
 
     return ()
 
 
-bot.polling(none_stop=True)
+bot.polling(none_stop=True, interval=0)
