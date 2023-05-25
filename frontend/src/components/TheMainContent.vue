@@ -32,7 +32,7 @@
       <div class="flex flex-col mt-3">
         <div class="flex flex-row justify-center gap-2">
           <BarChartWithPanels :bardata="allpostamats.classStats" />
-          <AreaChartApex :data_chart="allpostamats.timeStats" />
+          <!-- <AreaChartApex :data_chart="allpostamats.timeStats" /> -->
         </div>
         <div class="w-full mt-3 flex justify-center">
           <div class="w-2/3 ml-2">
@@ -67,7 +67,7 @@ import Table2 from "./Table2.vue";
 import Map from "@/components/Map.vue";
 import Table from "@/components/Table.vue";
 import DownloadButton from "@/components/DownloadButton.vue";
-import AreaChartApex from "@/components/charts/AreaChartApex.vue";
+// import AreaChartApex from "@/components/charts/AreaChartApex.vue";
 import Filter from "@/components/Filter.vue";
 import Button from "@/components/Button.vue";
 import BarChart from "@/components/charts/BarChart.vue";
@@ -78,7 +78,7 @@ export default {
   components: {
     Table2,
     BarChart,
-    AreaChartApex,
+    // AreaChartApex,
     Button,
     BarChartWithPanels,
     Panel,
