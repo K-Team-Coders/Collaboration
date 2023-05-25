@@ -47,7 +47,7 @@
     >
       <Table :postamats_list="allpostamats.adressStats" />
       <div class="flex justify-start mt-2">
-        <DownloadButton label="Импорт в .xls" icon="document" />
+        <DownloadButton @click="downloadFile()" label="Импорт в .xls" icon="document" />
       </div>
     </div>
     <div
@@ -74,6 +74,7 @@ import BarChart from "@/components/charts/BarChart.vue";
 import RadarChartWithPanels from "./RadarChartWithPanels.vue";
 import BarChartWithPanels from "./BarChartWithPanels.vue";
 import ProgressBar from "./ProgressBar.vue";
+import axios from "axios";
 export default {
   components: {
     Table2,
@@ -89,6 +90,25 @@ export default {
     Table,
     ProgressBar,
   },
+  mounted() {
+          this.downloadFile();
+      },
+  methods:{
+    downloadFile() {
+              axios({
+                    url: 'http://26.200.185.61:8080/getAdminPageStatsFile/', // File URL Goes Here
+                    method: 'GET',
+                    responseType: 'blob',
+                }).then((res) => {
+                     var FILE = window.URL.createObjectURL(new Blob([res.data]));
+                     
+                     var docUrl = document.createElement('x');
+                     docUrl.href = FILE;
+                     docUrl.setAttribute('download', 'Отчет.xlsx');
+                     document.body.appendChild(docUrl);
+                     docUrl.click();
+                });
+  }},
   computed: {
     postamat_count() {
       let adress_list = [];
@@ -102,5 +122,5 @@ export default {
   props: {
     allpostamats: Object,
   },
-};
+}
 </script>

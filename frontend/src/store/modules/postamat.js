@@ -29,11 +29,11 @@ export default {
       context.commit("SET_ALLPOSTAMATS", postamats_list.data);
       console.log(typeof postamats_list.data.timeStats)
     },
-    // SEND_FILTER_DATA: async (context,filterdata) => {
-    //   await axios.post('http://26.200.185.61:8080/getAdminPageData/', filterdata).then(response => {
-    //     let postamats_list = response; 
-    //     context.commit("SET_ALLPOSTAMATS", postamats_list.data)});
+    SEND_FILTER_DATA: async (context,filterdata) => {
+      await axios.post('http://26.200.185.61:8080/getAdminPageData/', filterdata).then(response => {
+        let postamats_list = response; 
+        context.commit("SET_ALLPOSTAMATS", postamats_list.data)});
       
-    //   console.log(drone_list);
-    // },
+      console.log(filterdata);
+    },
 }}
