@@ -6,44 +6,47 @@
 </template>
 
 <script>
-import BaseIcon from "./BaseIcon.vue";
+import BaseIcon from './BaseIcon.vue'
 export default {
   components: {
-    BaseIcon,
+    BaseIcon
   },
   props: {
     label: String,
     icon: String,
-    isActive: Boolean,
+    isActive: Boolean
   },
   computed: {
-    classes() {
+    classes () {
       const classes = [
-        "flex",
-        "items-center",
-        "px-6",
-        "py-3",
-        "text-sm",
-        "text-[#E2E7EE]",
-        "hover:text-[#E2E7EE]",
-        "font-semibold",
-        "font-Montserrat",
-      ];
+        'flex',
+        'items-center',
+        'px-6',
+        'py-3',
+        'text-sm',
+        'text-[#E2E7EE]',
+        'hover:text-[#E2E7EE]',
+        'font-semibold',
+        'font-Montserrat',
+        'transition',
+        'duration-200',
+        'ease-in-out'
+      ]
       return this.isActive
         ? [
             ...classes,
-            "font-semibold",
-            "text-white",
-            "bg-idealRed",
-            "shadow-3xl",
+            'font-semibold',
+            'text-white',
+            'bg-idealRed',
+            'shadow-3xl'
           ]
-        : [...classes, "hover:shadow-innerMax"];
+        : [...classes, 'hover:shadow-innerMax']
     },
-    iconClasses() {
+    iconClasses () {
       return this.isActive
-        ? "w-6 h-6 mr-6 text-white"
-        : "w-6 h-6 mr-6 text-white";
-    },
-  },
-};
+        ? 'w-6 h-6 mr-6 text-white'
+        : 'w-6 h-6 mr-6 text-white'
+    }
+  }
+}
 </script>
