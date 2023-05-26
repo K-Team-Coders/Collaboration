@@ -3,4 +3,4 @@ services:
   bot:
     build: .
     environment:
-      - YOUR_TOKEN=YOUR_TOKEN_HERE
+      - YOUR_TOKEN="5821613520:AAFM7de1mQvJg1T6HiMskQe72JhS_icoBL8"
