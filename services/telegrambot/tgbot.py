@@ -260,14 +260,16 @@ def help(cmd_help):
 def answr2(call_help11):
     mark = 1.0
     bot.send_message(call_help11.from_user.id, "Подробно опишите возникшую проблему")
-    bot.answer_callback_query(callback_query_id=call_help11.id)
+
     @bot.message_handler(func=lambda send_admin11: True)
     def send_admin(send_admin11):
-        bot.send_message(send_admin11.chat.id, "Я передал Вашу жалобу")
+        bot.reply_to(send_admin11, "Я передал Вашу жалобу")
         # ТОЛМАС - тренируйся
-        usertext_help = send_admin11.message.text
-        sendReview(mark, usertext=usertext_help, classnumber=1)
-        return ()
+        text_help = send_admin11.text
+        logger.debug(text_help)
+        sendReview(mark, usertext=text_help, classnumber=1)
+        bot.answer_callback_query(callback_query_id=call_help11.id)
+        return()
     return ()
  #нажали на кнопку"Возникли проблемы с курьером" 2
 @bot.callback_query_handler(func=lambda call_help12: call_help12.data == "12")
@@ -279,8 +281,10 @@ def answr2(call_help12):
     def send_admin(send_admin12):
         bot.send_message(send_admin12.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС!
-        usertext_help = send_admin12.message.text
-        sendReview(mark, usertext=usertext_help, classnumber=2)
+        text_help = send_admin12.text
+        logger.debug(text_help)
+        sendReview(mark, usertext=text_help, classnumber=2)
+        bot.answer_callback_query(callback_query_id=call_help12.id)
         return ()
     return ()
 
@@ -289,13 +293,15 @@ def answr2(call_help12):
 def answr2(call_help13):
     mark = 1.0
     bot.send_message(call_help13.from_user.id, "Подробно опишите возникшую проблему")
-    bot.answer_callback_query(callback_query_id=call_help13.id)
+
     @bot.message_handler(func=lambda send_admin13: True)
     def send_admin(send_admin13):
         bot.send_message(send_admin13.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС
-        usertext_help = send_admin13.message.text
-        sendReview(mark, usertext=usertext_help, classnumber=3)
+        text_help = send_admin13.text
+        logger.debug(text_help)
+        sendReview(mark, usertext=text_help, classnumber=3)
+        bot.answer_callback_query(callback_query_id=call_help13.id)
         return ()
     return ()
 
@@ -304,13 +310,15 @@ def answr2(call_help13):
 def answr2(call_help14):
     mark = 1.0
     bot.send_message(call_help14.from_user.id, "Подробно опишите возникшую проблему")
-    bot.answer_callback_query(callback_query_id=call_help14.id)
+
     @bot.message_handler(func=lambda send_admin14: True)
     def send_admin(send_admin14):
         bot.send_message(send_admin14.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС
-        usertext_help = send_admin14.message.text
-        sendReview(mark, usertext=usertext_help, classnumber=4)
+        text_help = send_admin14.text
+        logger.debug(text_help)
+        sendReview(mark, usertext=text_help, classnumber=4)
+        bot.answer_callback_query(callback_query_id=call_help14.id)
         return ()
     return ()
 
@@ -324,8 +332,10 @@ def answr2(call_help15):
     def send_admin(send_admin15):
         bot.send_message(send_admin15.chat.id, "Я передал Вашу жалобу")
         # ТОЛМАС (здесь класс 0)
-        usertext_help = send_admin15.message.text
-        sendReview(mark, usertext=usertext_help, classnumber=0)
+        text_help = send_admin15.text
+        logger.debug(text_help)
+        sendReview(mark, usertext=text_help, classnumber=0)
+        bot.answer_callback_query(callback_query_id=call_help15.id)
         return ()
 
     return ()
