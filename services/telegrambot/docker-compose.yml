@@ -1,0 +1,6 @@
+version: '3'
+services:
+  bot:
+    build: .
+    environment:
+      - YOUR_TOKEN=YOUR_TOKEN_HERE

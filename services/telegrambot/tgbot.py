@@ -236,7 +236,7 @@ def answr555(call5):
         return ()
     return ()
 
-
+"""
 #реализация взаимодействия по команде help
 @bot.message_handler(commands=['help'])
 def help(cmd_help):
@@ -339,6 +339,6 @@ def answr2(call_help15):
         return ()
 
     return ()
-
+"""
 
 bot.polling(none_stop=True, interval=0)
