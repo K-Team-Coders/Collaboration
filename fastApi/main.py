@@ -95,8 +95,11 @@ MONTH_NAMES = {
 
 # Попытка подключения к БД в Докере, На удаленной машине, На локальном компе
 try:  
+    if SOURCE == 'Host':
     # Получение конфига 
-    IP=os.environ.get("HOST_IP")
+        IP=os.environ.get("HOST_IP")
+    elif SOURCE == 'Dokcer':
+        IP=os.environ.get("DOCKER_CONTAINER_DB_NAME")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
     USER=os.environ.get("POSTGRES_USER")
