@@ -8,9 +8,9 @@ services:
     build:
       context: ./frontend
     ports:
-      - 8081:8081
+      - 8080:8080
     expose:
-      - 8081
+      - 8080
 
   backend:
     restart: always
@@ -20,12 +20,12 @@ services:
     build: 
       context: ./fastApi
     ports:
-      - 8080:8080
+      - 8081:8081
     expose:
-      - 8080
+      - 8081
     depends_on:
       - db
-    command: ['uvicorn', 'main:app', '--host=127.0.0.1', '--port=8080']
+    command: ['uvicorn', 'main:app', '--host=127.0.0.1', '--port=8081']
 
   db:
     container_name: db
