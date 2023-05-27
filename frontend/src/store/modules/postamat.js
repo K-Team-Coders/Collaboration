@@ -25,12 +25,12 @@ export default {
   },
   actions: {
     GET_ALLPOSTAMATS: async (context, payload) => {
-      let postamats_list = await axios.get('http://localhost:8081/getAdminPageData/');
+      let postamats_list = await axios.get('http://127.0.0.1:8081/getAdminPageData/');
       context.commit("SET_ALLPOSTAMATS", postamats_list.data);
       console.log(postamats_list.data)
     },
     SEND_FILTER_DATA: async (context,filterdata) => {
-      await axios.post('http://localhost:8081/getAdminPageData/', filterdata).then(response => {
+      await axios.post('http://127.0.0.1:8081/getAdminPageData/', filterdata).then(response => {
         let postamats_list = response; 
         context.commit("SET_ALLPOSTAMATS", postamats_list.data)});
       
