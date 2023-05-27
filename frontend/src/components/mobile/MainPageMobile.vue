@@ -71,7 +71,6 @@ export default {
                 usertext: '',
 
             },
-            visible: false,
         }
     },
     methods: {
@@ -99,7 +98,7 @@ span {
 .head {
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 20px 0 20px 0;
 }
 
 .main {
@@ -350,5 +349,9 @@ ul li {
     50% {
         transform: scale(0.9);
     }
+}
+
+.thanks {
+    margin-top: 40%;
 }
 </style>
