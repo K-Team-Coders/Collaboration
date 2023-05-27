@@ -1,6 +1,0 @@
-version: '3'
-services:
-  bot:
-    build: .
-    environment:
-      - YOUR_TOKEN="5821613520:AAFM7de1mQvJg1T6HiMskQe72JhS_icoBL8"

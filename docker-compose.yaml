@@ -16,7 +16,7 @@ services:
     restart: always
     container_name: backend
     env_file:
-      - ./DB.env
+      - ./DB.ENV
     build: 
       context: ./fastApi
     ports:
@@ -41,6 +41,13 @@ services:
       - 5432:5432
     expose:
       - 5432
+
+  bot:
+    build: ./services/telegrambot
+    environment:
+      - YOUR_TOKEN="5821613520:AAFM7de1mQvJg1T6HiMskQe72JhS_icoBL8"
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
