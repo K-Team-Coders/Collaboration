@@ -37,7 +37,7 @@
                   placeholder="Оставьте отзыв"
                   useautocomplete="off"
                   class="border-[#E2E7EE] border-[1.5px] mb-2.5 w-auto px-4 text-xl py-1 rounded-lg focus:outline-none focus:border-idealRed focus:border-[1.5px] focus:shadow-innerMax h-28 text-black mt-2"
-                />
+                ></textarea>
               </transition>
               <transition
                 enter-active-class="duration-00"
@@ -90,7 +90,7 @@
 import RadiobuttonProblem from './RadiobuttonProblem.vue'
 import Rating from './Rating.vue'
 import axios from 'axios'
-import moment from 'moment'
+// import moment from 'moment'
 export default {
   components: {
     RadiobuttonProblem,
@@ -124,14 +124,14 @@ export default {
     }
   },
   methods: {
-    get_date(){
-      let moment = require('moment');
+//     get_date(){
+//       let moment = require('moment');
  
-// получаем название месяца, день месяца, год, время
-let now = moment().format("YYYY-MM-DD HH:mm:ss");
-console.log(now);
-      return now
-    },
+// // получаем название месяца, день месяца, год, время
+// let now = moment().format("YYYY-MM-DD HH:mm:ss");
+// console.log(now);
+//       return now
+//     },
     async sendData () {
       const data = {
         article: this.data.article,
