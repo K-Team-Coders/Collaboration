@@ -14,7 +14,7 @@ def sendReview(mark, usertext, classnumber):
     reviewdata = datetime.datetime.now()
     article = randrange(1, 999999, 1)
 
-    requests.post('http://26.200.185.61:8080/addReview/',
+    requests.post('http://178.170.196.251:8080/addReview/',
                     json = {
                         "usertext": usertext,
                         "mark": mark,
