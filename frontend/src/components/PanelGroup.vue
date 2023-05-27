@@ -11,7 +11,7 @@
         classesMainDiv="h-[75px] flex justify-center mt-3"
         classesIcon=""
         classesMainText="text-6xl overflow-x-hidden text-black font-semibold"
-        views="3120"
+        :views="data[0].post"
       />
       <Panel
         label="Ozon"
@@ -30,7 +30,7 @@
         classesMainDiv="h-[75px] flex justify-center mt-3"
         classesIcon=""
         classesMainText="text-6xl overflow-x-hidden font-semibold text-white"
-        views="430"
+        :views="data[2].post"
       />
       <Panel
         label="Undefinded"
@@ -42,16 +42,20 @@
         classesMainDiv="h-[75px] flex justify-center mt-3"
         classesIcon=""
         classesMainText="text-6xl overflow-x-hidden text-white font-semibold"
-        views="40"
+        :views="data[1].post"
       />
     </div>
   </div>
 </template>
 <script>
+
 import Panel from "./Panel.vue";
 export default {
   components: {
     Panel,
   },
+  props:{
+    data: Object
+  }
 };
 </script>
