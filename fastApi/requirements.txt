@@ -1,5 +1,4 @@
 anyio==3.6.2
-blis==0.7.9
 catalogue==2.0.8
 certifi==2023.5.7
 charset-normalizer==3.1.0
@@ -62,3 +61,4 @@ uvicorn==0.21.1
 wasabi==1.1.1
 win32-setctime==1.1.0
 XlsxWriter==3.1.1
+blis==0.7.9
