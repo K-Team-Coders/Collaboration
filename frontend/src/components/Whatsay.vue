@@ -145,7 +145,7 @@ export default {
         latitude:0,
     longitude: 0,
       }
-      await axios.post('http://0.0.0.0:8081/addReview/', data)
+      await axios.post('http://178.170.196.251:8081/addReview/', data)
     },
     chooseProblem (index) {
       this.checkedProblems = index

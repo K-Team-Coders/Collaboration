@@ -86,7 +86,7 @@ export default {
  
   methods:{
     downloadFileTable1(){
-   axios.get("http://26.200.185.61:8080/getAdminPageAdressStatsFile/").then((res) => {
+   axios.get("http://178.170.196.251:8080/getAdminPageAdressStatsFile/").then((res) => {
       const url = URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -95,7 +95,7 @@ export default {
    });
   },
   downloadFileTable2(){
-   axios.get("http://26.200.185.61:8080/getAdminPageClassesStatsFile/").then((res) => {
+   axios.get("http://178.170.196.251:8080/getAdminPageClassesStatsFile/").then((res) => {
       const url = URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
       link.href = url;

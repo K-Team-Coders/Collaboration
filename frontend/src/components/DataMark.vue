@@ -72,11 +72,11 @@ export default {
         this.get_review.classnumber = class_number
         let dataforloading = this.get_review
         axios.post(
-          'http://0.0.0.0:8081/addFormDatasetElement/',
+          'http://178.170.196.251:8081/addFormDatasetElement/',
           dataforloading
         )
         axios
-          .get('http://0.0.0.0:8081/getFormDatasetElement/')
+          .get('http://178.170.196.251:8081/getFormDatasetElement/')
           .then(response => {
             ;(this.get_review = response.data),
               (this.series[0].data = response.data.stats),
@@ -87,7 +87,7 @@ export default {
   },
   mounted () {
     axios
-      .get('http://0.0.0.0:8081/getFormDatasetElement/')
+      .get('http://178.170.196.251:8081/getFormDatasetElement/')
       .then(response => {
         ;(this.get_review = response.data),
           (this.series[0].data = response.data.stats),
