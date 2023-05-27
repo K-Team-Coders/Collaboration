@@ -104,7 +104,7 @@ try:
         logger.debug(SOURCE)
         IP=os.environ.get("DOCKER_CONTAINER_DB_NAME")
     PORT=os.environ.get("PORT")
-    DBNAME=os.environ.get("POSTGRES_DB")
+    DBNAME=os.environ.get("POSTGRES_DATABASE")
     USER=os.environ.get("POSTGRES_USER")
     PASSWORD=os.environ.get("POSTGRES_PASSWORD")
 
