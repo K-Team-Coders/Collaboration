@@ -97,9 +97,11 @@ MONTH_NAMES = {
 try:  
     IP = 0
     if SOURCE == 'Host':
+        logger.debug(SOURCE)
     # Получение конфига 
         IP=os.environ.get("HOST_IP")
     elif SOURCE == 'Docker':
+        logger.debug(SOURCE)
         IP=os.environ.get("DOCKER_CONTAINER_DB_NAME")
     PORT=os.environ.get("PORT")
     DBNAME=os.environ.get("POSTGRES_DB")
