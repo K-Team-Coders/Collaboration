@@ -32,9 +32,9 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=12345678
-      - POSTGRES_DB=post
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=artem
+      - POSTGRES_DB=postomats
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
