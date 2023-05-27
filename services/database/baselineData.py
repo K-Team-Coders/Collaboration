@@ -31,7 +31,7 @@ for label, series in texts.iterrows():
     mark = series[2]
     adress = addresses['Адрес'][adress_index]
     try:
-        requests.post('http://26.200.185.61:8080/addReview/', 
+        requests.post('http://178.170.196.251:8081/addReview/', 
                     json={
                         "usertext": removeEmoji(text),
                         "mark": mark,

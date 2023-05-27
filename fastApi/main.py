@@ -27,7 +27,7 @@ from classification.ml import MiniBatchClf
 cls_path = Path().cwd().joinpath('clasterisation')
 minibatchkmeans = 0
 word2vec = gensim.models.Word2Vec.load(str(cls_path.joinpath('word2vec.model')))
-with open(str(cls_path.joinpath('model.pkl')), 'rb') as f:
+with open(str(cls_path.joinpath('kmeans-clust.pkl')), 'rb') as f:
     minibatchkmeans = pickle.load(f)
 logger.success('Cluster Model loading succesful!')
 
@@ -35,7 +35,7 @@ logger.success('Cluster Model loading succesful!')
 clf_path = Path().cwd().joinpath('classification')
 sk_model = 0
 w2v_model = gensim.models.Word2Vec.load(str(clf_path.joinpath('word2vec.model')))
-with open(str(clf_path.joinpath('model_rf.pkl')), 'rb') as fid:
+with open(str(clf_path.joinpath('rf_model.pkl')), 'rb') as fid:
     sk_model= pickle.load(fid)
 logger.success('Classifyer Model loading succesful!')
 
