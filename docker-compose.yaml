@@ -29,25 +29,17 @@ services:
 
   db:
     container_name: db
-    image: postgres
+    build: ./services/database
     restart: always
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=artem
-      - POSTGRES_DB=postomats
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
     expose:
       - 5432
 
   bot:
+    container_name: tgbot
     build: ./services/telegrambot
     environment:
       - YOUR_TOKEN="5821613520:AAFM7de1mQvJg1T6HiMskQe72JhS_icoBL8"
     depends_on:
       - backend
-
-volumes:
-  pgdata:
