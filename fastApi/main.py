@@ -293,7 +293,7 @@ def adminPage():
     #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
     # else:
     #     cur.execute(f"SELECT * FROM xdataset WHERE mark IN (%s)", item.stars)
-           
+    logger.debug('Here')
     cur.execute(f"SELECT * FROM reviews")
     data = cur.fetchall()
     result = []
