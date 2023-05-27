@@ -1,6 +1,6 @@
 <template>
     <div class="full-stars">
-      <p>Как вам постамат?</p>
+      <p>Как Вам товар?</p>
       <div class="rating-group">
         <input name="fst" value="0" type="radio" disabled checked />
         <label for="rat-1">

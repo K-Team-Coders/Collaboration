@@ -92,7 +92,13 @@ h1 {
 
 span {
     color: #BFCADA;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+p {
+    font-family: TTFirsNeue-Regular;
+    font-size: 16px;
 }
 
 .head {
@@ -102,8 +108,12 @@ span {
 }
 
 .main {
+    position: fixed;
+    bottom: 30px;
+    width: 350px;
     max-width: 400px;
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .main_box {
@@ -117,7 +127,7 @@ span {
 }
 
 .button {
-    width: 365px;
+    width: 355px;
     height: 66px;
     padding: 10px;
     margin-bottom: 4px;
@@ -138,10 +148,6 @@ span {
     margin-bottom: 16px;
     background: #E2E7EE;
     color: #ff1935;
-}
-
-p {
-    font-family: TTFirsNeue-Regular;
 }
 
 .full-stars {
@@ -188,7 +194,7 @@ p {
 }
 
 .input {
-    width: 90%;
+    width: 350px;
     max-width: 400px;
     margin: 0 auto;
 
@@ -197,7 +203,7 @@ p {
 .input_comment {
     box-sizing: border-box;
     display: block;
-    min-width: 100%;
+    width: 100%;
     max-width: 400px;
     height: calc(10rem + 2px);
     padding: 0.375rem 0.75rem;
@@ -323,6 +329,7 @@ ul li {
 
 .checkbox span:last-child {
     padding-left: 8px;
+    padding-top: 3px;
 }
 
 .checkbox:hover span:first-child {
@@ -353,5 +360,19 @@ ul li {
 
 .thanks {
     margin-top: 40%;
+}
+
+@media screen and (max-height: 730px) { 
+    .button {
+        width: 340px;
+        height: 50px;
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 360px) { 
+    .button {
+        width: 330px;
+    }
 }
 </style>

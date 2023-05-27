@@ -52,7 +52,7 @@
                     <textarea id="postarea" class="input_comment" type="text" placeholder="Комментарий"
                         v-model="checkedText"></textarea>
                     <a>
-                        <button @click="button_frontend = true" class="button input_button" id="#">Отправить</button>
+                        <button @click="button_frontend = true && sendData()" class="button input_button" id="12">Отправить</button>
                     </a>
                 </div>
             </main>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import RatingPostamat from '../RatingPostamat.vue';
+import RatingPostamat from '../RatingPostamat.vue'
 import FrontEnd from './FrontEnd.vue';
 export default {
     components: {
@@ -70,20 +70,37 @@ export default {
     },
     data() {
         return {
+            button_frontend: false,
             checkedRating: null,
             checked: [],
-            checkedText: ''
+            checkedText: '',
+            reviewdate:
+                this.get_date(),
+            adress: "ул. Косинская, д. 26, к. 1, Москва",
         }
     },
     methods: {
+        get_date() {
+            let moment = require('moment');
+
+            // получаем название месяца, день месяца, год, время
+            let now = moment().format("YYYY-MM-DD HH:mm:ss");
+            console.log(now);
+            return now
+        },
+
         async sendData() {
             const data = {
-                checkedRating: this.checkedRating,
-                checked: this.checked,
-                checkedText: this.checkedText
+                mark: this.data.checkedRating,
+                usertext: {
+                    checked: this.data.checked,
+                    checkedText: this.data.checkedText
+                },
+                reviewdate: this.data.reviewdate,
+                adress: this.data.adress,
             }
-            await axios.post('http://localhost:8000/', data)
-        }
+            await axios.post('http://178.170.196.251:8081/addReview/', data)
+        },
     }
 }
 </script>
