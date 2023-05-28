@@ -90,7 +90,7 @@
 import RadiobuttonProblem from './RadiobuttonProblem.vue'
 import Rating from './Rating.vue'
 import axios from 'axios'
-// import moment from 'moment'
+import moment from 'moment'
 export default {
   components: {
     RadiobuttonProblem,
