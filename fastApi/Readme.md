@@ -36,8 +36,6 @@ pip install -r requirements.txt
 
 ### Начните развертывание.
 
-#### FastAPI
-
 В окне терминала cd перейдите в каталог **fastAPI** и запустите:
 
 `uvicorn main:app --host=ваш_хост --port=предпочитаемый_порт --reload`
