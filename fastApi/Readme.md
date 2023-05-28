@@ -16,8 +16,7 @@
 
 `git clone https://github.com/K-Team-Coders/Collaboration/tree/main`
 
-
-#### Подключение к БД
+### Подключение к БД
 
 Создайте файл *DB.env* в корне проекта, напишите в нем данные для подключения к БД PostgreSQL
 
