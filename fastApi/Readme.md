@@ -13,7 +13,8 @@
 ### Получите копию продукта
 Код проекта будет установлен в вашей локальной системе. Получить копию можно следующим способом:
 * спользуйте git clone для создания каталога, содержащего исходный код продукта:
-`https://github.com/K-Team-Coders/Collaboration/tree/main`
+
+`git clone https://github.com/K-Team-Coders/Collaboration/tree/main`
 
 
 #### Подключение к БД
