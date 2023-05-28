@@ -33,19 +33,3 @@
 ### Авторы
 
 Данный сервис был разработан командой ***BitLegion***.
-
-
-
-
-
-
-
-
-
-
-## Backend 
-### Сервис работает на быстром и эргономичном фреймворке FastAPI с использванием реляционной базы данных PostgresSQL инструкцию по установке и развертыванию которого вы можете найти [тут](https://github.com/K-Team-Coders/Collaboration/blob/main/fastApi/Readme.md)
-
-
-## Frontend
-### Фронтенд был написан с использованием фреймворка VueJS необходимые зависимости Вы можете найти [тут](https://github.com/K-Team-Coders/Collaboration/blob/main/frontend/README.md)
