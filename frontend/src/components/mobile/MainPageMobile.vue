@@ -1,6 +1,5 @@
 <template>
     <body>
-
         <PostamatMobileAllGood v-show="button_good"></PostamatMobileAllGood>
         <ButtonPostamat v-show="button_postamat"></ButtonPostamat>
         <ButtonDelivery v-show="button_delivery"></ButtonDelivery>
@@ -17,7 +16,6 @@
                                 <h1 class="py-2">Поделитесь своим<br> мнением и&nbsp;помогите нам<br> стать лучше!</h1>
                                 <img class="main_box--img" src="../mobile/image/1.svg" alt="иконка">
                                 <span>Возникали&nbsp;ли у&nbsp;вас проблемы<br> с&nbsp;получением заказа?</span>
-
                                 <a>
                                     <button @click="button_good = true" class="button good-button" id="0">Все
                                         отлично!</button>
