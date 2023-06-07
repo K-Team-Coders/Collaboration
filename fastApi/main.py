@@ -139,8 +139,8 @@ def String2Coords(adress):
         logger.error(e)
     
 # Функция - предсказание класса (машинное обучение)
-def String2Classs(usertext, word2vec, minibatchclf):
-    return MiniBatchClf(usertext, word2vec, minibatchclf)
+# def String2Classs(usertext, word2vec, minibatchclf):
+#     return MiniBatchClf(usertext, word2vec, minibatchclf)
 
 # Функция - анализ кластера (машинное обучение)
 def String2Cluster(usertext, word2vec, minibatch):
