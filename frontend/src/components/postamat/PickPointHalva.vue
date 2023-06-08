@@ -2,8 +2,8 @@
     <body>
         <div class="head">
             <img src="../postamat/image/group.svg" alt="Московские постаматы">
-            <img src="../postamat/image/dep.png"
-                alt="Департамент предпринимательства и инновационного развития города Москвы" width="323px" height="71px">
+            <img class="dep" src="../postamat/image/dep.png"
+                alt="Департамент предпринимательства и инновационного развития города Москвы">
             <img src="../postamat/image/agent.png" alt="Агенство инноваций города москвы" width="200" height="71">
         </div>
         <div class="main_box">
@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         fetchImage() {
-            const url = 'http://localhost:8080/img/YQR.0b9b6b6a.svg'; // Замените на фактический URL картинки на сервере
+            const url = 'http://178.170.196.251:8081/qr_code_postamat/qr-code.png'; // Замените на фактический URL qr на сервере
             axios
                 .get(url, { responseType: 'blob' })
                 .then(response => {
@@ -67,6 +67,11 @@ body {
     align-items: center;
     margin-top: 64px;
     margin-bottom: 48px;
+}
+
+.dep {
+    width: 323px;
+    height: 71px;
 }
 
 .main_box {
