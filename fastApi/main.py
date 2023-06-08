@@ -5,8 +5,10 @@ import numpy as np
 import pandas as pd
 import collections
 from pathlib import Path
-from random import randrange
+from random import randrange, random
 from datetime import datetime
+import random
+import qrcode.image.svg
 
 import psycopg2
 from gensim.models import word2vec
@@ -21,6 +23,8 @@ from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 import gensim
+import qrcode
+from io import BytesIO
 from clasterisation.miniBatch import MiniBatch
 from fastApi.classification.bert_prediction import predict
 
@@ -285,6 +289,8 @@ app.add_middleware(
 
 # Классы для работы с POST-запросами
 # Получение отзыва с универсальныго источника (generic для всех остальных)
+
+
 class ReviewFromAnySource(BaseModel):
     usertext: str
     mark: float
@@ -639,3 +645,33 @@ def adminPageClassesStatsFile():
     path = "report.csv"
     df.to_csv(path)
     return FileResponse(path=path, status_code=200)
+
+
+# Генерируем qr-code и отправляем ответ
+@app.get("/img/qr-code/")
+def generate_qr_code(id: int):
+
+    # Заппрос к базе с получением случайной строчки
+    cur.execute(f"SELECT * FROM xdataset")
+    data = cur.fetchall()
+    result = []
+    for index, subdata in enumerate(data):
+        mark = subdata[1]
+        adress = subdata[2]
+
+        result.append({
+            "mark": mark,
+            "adress": adress,
+        })
+
+    random_value = random.choice(list(result.values()))
+
+    # Generate the QR code image
+    qr_data = random_value
+    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+    qr.add_data(qr_data)
+    factory = qrcode.image.svg.SvgImage
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white", image_factory=factory)
+
+    return Response(content=img, media_type="image/svg")
