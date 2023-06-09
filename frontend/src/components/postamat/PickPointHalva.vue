@@ -56,7 +56,7 @@ export default {
 <style>
 body {
     width: 1280px;
-    min-height: 1024px;
+    min-height: 1080px;
     margin: 0 auto;
     background-color: #2F3342;
 }
