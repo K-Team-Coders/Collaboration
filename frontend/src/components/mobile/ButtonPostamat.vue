@@ -7,7 +7,8 @@
             </header>
 
             <main class="main">
-                <RatingPostamat v-model="checkedRating" />
+                <SelectMarket/>
+                <RatingPostamat v-model="checkedRating"/>
                 <div class="checkbox_main">
                     <ul>
                         <li>
@@ -63,10 +64,12 @@
 <script>
 import RatingPostamat from '../RatingPostamat.vue'
 import FrontEnd from './FrontEnd.vue';
+import SelectMarket from '../SelectMarket.vue';
 export default {
     components: {
         RatingPostamat,
-        FrontEnd
+        FrontEnd,
+        SelectMarket
     },
     data() {
         return {
