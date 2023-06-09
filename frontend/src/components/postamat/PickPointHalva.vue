@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         fetchImage() {
-            const url = 'http://178.170.196.251:8081/qr_code_postamat/qr-code.png'; // Замените на фактический URL qr на сервере
+            const url = 'http://178.170.196.251:8080/qr_code_postamat/qr-code.svg'; // Замените на фактический URL qr на сервере
             axios
                 .get(url, { responseType: 'blob' })
                 .then(response => {
